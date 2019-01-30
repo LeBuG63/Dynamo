@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">appTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="horizontaleAlert">Pour reprendre, veuillez retourner votre écran</string>
+</resources>
