@@ -6,9 +6,9 @@ public interface IAnimationManager {
     int getFrameWidth();
     int getFrameHeight();
     int getTotalFrames();
-    double getFrameDuration();
+    int getFrameDuration();
 
-    void start();
+    void start(int i);
     void end();
     void pause();
 
@@ -19,4 +19,5 @@ public interface IAnimationManager {
 
     Bitmap getNextFrame();
     Bitmap getPrevFrame();
+    Bitmap getFrame();
 }

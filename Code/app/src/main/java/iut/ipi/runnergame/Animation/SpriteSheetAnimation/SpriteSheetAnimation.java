@@ -1,35 +1,48 @@
 package iut.ipi.runnergame.Animation.SpriteSheetAnimation;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.animation.AnimationSet;
+import android.widget.ImageView;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import iut.ipi.runnergame.Animation.IAnimationManager;
 
 public class SpriteSheetAnimation implements IAnimationManager {
-    private List<List<Bitmap>> bitmapList = new ArrayList<>();
+    private HashMap<Integer, List<Bitmap>> bitmapList = new HashMap<>();
 
-    private final String animationPath;
-    private int frameWidth;
-    private int frameHeight;
-    private int totalFrames;
-    private double frameDuration;
+    private final int resourceId;
+    private final int frameWidth;
+    private final int frameHeight;
+    private final int totalFrames;
+    private final int frameDuration;
 
-    private int row;
-    private int col;
-    private int scale;
+    private final int row;
+    private final int col;
+    private final int scale;
+
+    private AnimatorSet animatorSet;
 
     private boolean isPlaying = false;
 
     private int actualFrame = 0;
+    private int actualRow = 0;
 
-    public SpriteSheetAnimation(String animationPath, int scale, int frameWidth, int frameHeight, int totalFrames, double frameDuration, int row, int col) throws IOException {
-        this.animationPath = animationPath;
+    private Timer timer;
+
+    public SpriteSheetAnimation(Context context, int resourceId, int scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
+        this.resourceId = resourceId;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
         this.totalFrames = totalFrames;
@@ -37,15 +50,19 @@ public class SpriteSheetAnimation implements IAnimationManager {
         this.row = row;
         this.col = col;
         this.scale = scale;
+
+        cutSpritesheet(openSpritesheet(context));
+
+        timer = new Timer();
     }
 
-    private Bitmap openSpritesheet(String path) throws IOException {
+    private Bitmap openSpritesheet(Context context) throws IOException {
         Bitmap spritesheet = null;
 
-        spritesheet = BitmapFactory.decodeFile(path);
+        spritesheet = BitmapFactory.decodeResource(context.getResources(), resourceId);
 
         if(spritesheet == null) {
-            throw new IOException("spritesheet not found: " + path);
+            throw new IOException("spritesheet not found: " + resourceId);
         }
 
         return spritesheet;
@@ -53,7 +70,7 @@ public class SpriteSheetAnimation implements IAnimationManager {
 
     public void cutSpritesheet(Bitmap spritesheet) {
         for(int y = 0; y < row; ++y){
-            bitmapList.add(new ArrayList<Bitmap>());
+            bitmapList.put(y, new ArrayList<Bitmap>());
 
             for (int x = 0; x < col; ++x) {
                 Bitmap frame = null;
@@ -67,13 +84,32 @@ public class SpriteSheetAnimation implements IAnimationManager {
     }
 
     @Override
-    public void start() {
+    public void start(int animationIndex) {
+        actualRow = animationIndex;
 
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                setNextFrameIndex();
+            }
+        }, 0, frameDuration);
+    }
+
+    public int getFrameIndex() {
+        return actualFrame;
+    }
+
+    public void setNextFrameIndex() {
+        if(actualFrame + 1 >= col) {
+            actualFrame = 0;
+        }
+
+        actualFrame++;
     }
 
     @Override
     public void end() {
-
+        timer.cancel();
     }
 
     @Override
@@ -98,12 +134,18 @@ public class SpriteSheetAnimation implements IAnimationManager {
 
     @Override
     public Bitmap getNextFrame() {
-        return null;
+        setNextFrameIndex();
+        return bitmapList.get(actualRow).get(getFrameIndex());
     }
 
     @Override
     public Bitmap getPrevFrame() {
         return null;
+    }
+
+    @Override
+    public Bitmap getFrame() {
+        return bitmapList.get(actualRow).get(getFrameIndex());
     }
 
     @Override
@@ -122,7 +164,7 @@ public class SpriteSheetAnimation implements IAnimationManager {
     }
 
     @Override
-    public double getFrameDuration() {
+    public int getFrameDuration() {
         return frameDuration;
     }
 }
