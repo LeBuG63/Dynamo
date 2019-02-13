@@ -1,16 +1,11 @@
 package iut.ipi.runnergame.Animation.SpriteSheetAnimation;
 
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.view.animation.AnimationSet;
-import android.widget.ImageView;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,6 +102,15 @@ public class SpriteSheetAnimation implements IAnimationManager {
         actualFrame++;
     }
 
+    public void setPrevFrameIndex() {
+        if(actualFrame - 1 < 0) {
+            actualFrame = col - 1;
+        }
+
+        actualFrame--;
+    }
+
+
     @Override
     public void end() {
         timer.cancel();
@@ -140,7 +144,8 @@ public class SpriteSheetAnimation implements IAnimationManager {
 
     @Override
     public Bitmap getPrevFrame() {
-        return null;
+        setPrevFrameIndex();
+        return bitmapList.get(actualRow).get(getFrameIndex());
     }
 
     @Override
