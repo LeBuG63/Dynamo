@@ -1,13 +1,13 @@
 package iut.ipi.runnergame.Entity.Collision;
 
-public class CollisionBox implements ICollision {
+public class BaseCollisionBox implements Collision {
 
     private int left;
     private int top;
     private int width;
     private int height;
 
-    public CollisionBox(int left, int top, int width, int height) {
+    public BaseCollisionBox(int left, int top, int width, int height) {
         this.left = left;
         this.top = top;
         this.width = width;
@@ -55,7 +55,7 @@ public class CollisionBox implements ICollision {
     }
 
     @Override
-    public boolean isInCollision(ICollision other) {
+    public boolean isInCollision(Collision other) {
         return !((other.getLeft() >= (this.getLeft() + this.getWidth()))
                 || ((other.getLeft() + other.getWidth()) <= this.getLeft())
                 || (other.getTop() >= (this.getTop() + this.getHeight()))

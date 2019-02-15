@@ -12,10 +12,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import iut.ipi.runnergame.Animation.IAnimationManager;
+import iut.ipi.runnergame.Animation.AnimationManager;
+import iut.ipi.runnergame.Util.BitmapResizer;
 
-public class SpriteSheetAnimation implements IAnimationManager {
-    private HashMap<Integer, List<Bitmap>> bitmapList = new HashMap<>();
+public class BaseSpriteSheetAnimation implements AnimationManager {
+    private HashMap<Integer, List<Bitmap>> bitmapMap = new HashMap<>();
+    private HashMap<Integer, Integer> durationMap = new HashMap<>();
 
     private final int resourceId;
     private final int frameWidth;
@@ -36,7 +38,7 @@ public class SpriteSheetAnimation implements IAnimationManager {
 
     private Timer timer;
 
-    public SpriteSheetAnimation(Context context, int resourceId, int scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
+    public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
         this.resourceId = resourceId;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
@@ -65,29 +67,42 @@ public class SpriteSheetAnimation implements IAnimationManager {
 
     public void cutSpritesheet(Bitmap spritesheet) {
         for(int y = 0; y < row; ++y){
-            bitmapList.put(y, new ArrayList<Bitmap>());
+            bitmapMap.put(y, new ArrayList<Bitmap>());
+            durationMap.put(y, frameDuration);
 
             for (int x = 0; x < col; ++x) {
                 Bitmap frame = null;
 
                 frame = Bitmap.createBitmap(spritesheet, getFrameWidth() * x, getFrameHeight() * y, getFrameWidth(), getFrameHeight());
-                frame = Bitmap.createScaledBitmap(frame, getFrameWidth() * scale, getFrameHeight() * scale, false);
+                frame = BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth() * scale, getFrameHeight() * scale);
 
-                bitmapList.get(y).add(frame);
+                bitmapMap.get(y).add(frame);
             }
         }
     }
 
     @Override
     public void start(int animationIndex) {
-        actualRow = animationIndex;
+        if(animationIndex != actualRow) {
+            actualRow = animationIndex;
+            actualFrame = 0;
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                setNextFrameIndex();
-            }
-        }, 0, frameDuration);
+            timer.cancel();
+            timer.purge();
+
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    setNextFrameIndex();
+                }
+            }, 0, durationMap.get(actualFrame));
+        }
+    }
+
+    @Override
+    public void setDurationFrame(int i, int duration) {
+        durationMap.put(i, duration);
     }
 
     public int getFrameIndex() {
@@ -139,18 +154,18 @@ public class SpriteSheetAnimation implements IAnimationManager {
     @Override
     public Bitmap getNextFrame() {
         setNextFrameIndex();
-        return bitmapList.get(actualRow).get(getFrameIndex());
+        return bitmapMap.get(actualRow).get(getFrameIndex());
     }
 
     @Override
     public Bitmap getPrevFrame() {
         setPrevFrameIndex();
-        return bitmapList.get(actualRow).get(getFrameIndex());
+        return bitmapMap.get(actualRow).get(getFrameIndex());
     }
 
     @Override
     public Bitmap getFrame() {
-        return bitmapList.get(actualRow).get(getFrameIndex());
+        return bitmapMap.get(actualRow).get(getFrameIndex());
     }
 
     @Override

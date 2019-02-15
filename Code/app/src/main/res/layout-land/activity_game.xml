@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/constraintlayout">
+    android:id="@+id/constraintlayout"
+    android:screenOrientation="landscape">
+
+    <view
+        class="iut.ipi.runnergame.Hud.Input.BaseCrossClickable"
+        id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cross"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="359dp" />
+
 </android.support.constraint.ConstraintLayout>

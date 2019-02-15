@@ -1,11 +1,14 @@
 package iut.ipi.runnergame.Activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.constraint.ConstraintLayout;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,11 +16,12 @@ import android.view.View;
 
 import java.io.IOException;
 
-import iut.ipi.runnergame.Animation.SpriteSheetAnimation.SpriteSheetAnimation;
-import iut.ipi.runnergame.Entity.AEntity;
+import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Entity.AbstractEntity;
+import iut.ipi.runnergame.Entity.Movable;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Hud.Cross.CrossClickable;
-import iut.ipi.runnergame.Hud.ICross;
+import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
+import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.R;
 
 public class GameActivity extends SurfaceView implements Runnable {
@@ -26,8 +30,8 @@ public class GameActivity extends SurfaceView implements Runnable {
     private SurfaceHolder   holder = null;
     private Canvas          canvas = null;
 
-    private AEntity player;
-    private ICross square;
+    private AbstractEntity player;
+    private Cross cross;
 
     private Point pointClicked = new Point();
 
@@ -37,9 +41,15 @@ public class GameActivity extends SurfaceView implements Runnable {
     public GameActivity(Context context) {
         super(context);
 
+        int heightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+        cross = new BaseCrossClickable(new Point(80,  heightPixels - 80*4), 80);
+
         try {
-            player = new Player(new Point(100, 100), null, new SpriteSheetAnimation(context, R.drawable.sprite_player_1, 8, 32, 32, 4, 1000, 1, 4));;
-            square = new CrossClickable(new Point(300, 600), 100);
+            player = new Player(new Point(100, 100), null, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, 4, 33, 33, 4, 1000, 3, 4));;
+
+            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 500);
+            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 500);
         }
         catch(IOException e) {
 
@@ -50,11 +60,15 @@ public class GameActivity extends SurfaceView implements Runnable {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    int x = (int) event.getX();
-                    int y = (int) event.getY();
+                getRootView().performClick();
 
-                    pointClicked = new Point(x, y);
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    pointClicked.x = (int) event.getX();
+                    pointClicked.y = (int) event.getY();
+                }
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    pointClicked.x = -1;
+                    pointClicked.y = -1;
                 }
                 return true;
             }
@@ -70,7 +84,25 @@ public class GameActivity extends SurfaceView implements Runnable {
     }
 
     public void update() {
-        square.updateArrowPressed(pointClicked);
+        cross.updateArrowPressed(pointClicked);
+
+        if(cross.getArrowTop().getIsClicked()) {
+            player.jump(Player.IMPULSE_JUMP);
+        }
+        else if(cross.getArrowLeft().getIsClicked()) {
+            player.moveLeft(Player.IMPULSE_MOVEMENT);
+            player.getAnimationManager().start(Player.ANIMATION_RUNNING_LEFT);
+        }
+        else if(cross.getArrowRight().getIsClicked()) {
+            player.moveRight(Player.IMPULSE_MOVEMENT);
+            player.getAnimationManager().start(Player.ANIMATION_RUNNING_RIGHT);
+        }
+        else {
+            player.getAnimationManager().start(Player.ANIMATION_IDLE);
+
+        }
+
+        player.updatePoisition();
     }
 
     public void draw() {
@@ -83,10 +115,10 @@ public class GameActivity extends SurfaceView implements Runnable {
             p.setColor(Color.GREEN);
             p2.setColor(Color.RED);
 
-            canvas.drawColor(Color.BLACK);
-            canvas.drawBitmap(player.getSprite(), 0, 0, new Paint());
+            canvas.drawColor(Color.DKGRAY);
+            canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, new Paint());
 
-            square.drawRectOnCanvas(canvas, p, p2);
+            cross.drawRectOnCanvas(canvas, p, p2);
 
             holder.unlockCanvasAndPost(canvas);
         }

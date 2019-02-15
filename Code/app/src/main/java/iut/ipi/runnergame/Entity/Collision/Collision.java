@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Entity.Collision;
 
-public interface ICollision {
+public interface Collision {
     void setLeft(int x);
     void setTop(int x);
 
@@ -13,5 +13,5 @@ public interface ICollision {
     void setWidth(int width);
     void setHeight(int height);
 
-    boolean isInCollision(ICollision other);
+    boolean isInCollision(Collision other);
 }
