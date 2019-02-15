@@ -43,7 +43,7 @@ public class GameActivity extends SurfaceView implements Runnable {
 
         int heightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-        cross = new BaseCrossClickable(new Point(80,  heightPixels - 80*4), 80);
+        cross = new BaseCrossClickable(R.drawable.sprite_player_1, new Point(80,  heightPixels - 80*4), 80);
 
         try {
             player = new Player(new Point(100, 100), null, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, 4, 33, 33, 4, 1000, 3, 4));;

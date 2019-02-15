@@ -13,23 +13,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import iut.ipi.runnergame.Animation.AnimationManager;
+import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.BitmapResizer;
 
 public class BaseSpriteSheetAnimation implements AnimationManager {
-    private HashMap<Integer, List<Bitmap>> bitmapMap = new HashMap<>();
     private HashMap<Integer, Integer> durationMap = new HashMap<>();
 
-    private final int resourceId;
-    private final int frameWidth;
-    private final int frameHeight;
     private final int totalFrames;
     private final int frameDuration;
 
     private final int row;
     private final int col;
     private final int scale;
-
-    private AnimatorSet animatorSet;
 
     private boolean isPlaying = false;
 
@@ -38,48 +33,23 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
 
     private Timer timer;
 
+    private Spritesheet spritesheet;
+
     public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
-        this.resourceId = resourceId;
-        this.frameWidth = frameWidth;
-        this.frameHeight = frameHeight;
         this.totalFrames = totalFrames;
         this.frameDuration = frameDuration;
         this.row = row;
         this.col = col;
         this.scale = scale;
 
-        cutSpritesheet(openSpritesheet(context));
-
+        spritesheet = new Spritesheet(context, resourceId, row, col, frameWidth, frameHeight, scale);
         timer = new Timer();
-    }
 
-    private Bitmap openSpritesheet(Context context) throws IOException {
-        Bitmap spritesheet = null;
-
-        spritesheet = BitmapFactory.decodeResource(context.getResources(), resourceId);
-
-        if(spritesheet == null) {
-            throw new IOException("spritesheet not found: " + resourceId);
-        }
-
-        return spritesheet;
-    }
-
-    public void cutSpritesheet(Bitmap spritesheet) {
-        for(int y = 0; y < row; ++y){
-            bitmapMap.put(y, new ArrayList<Bitmap>());
-            durationMap.put(y, frameDuration);
-
-            for (int x = 0; x < col; ++x) {
-                Bitmap frame = null;
-
-                frame = Bitmap.createBitmap(spritesheet, getFrameWidth() * x, getFrameHeight() * y, getFrameWidth(), getFrameHeight());
-                frame = BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth() * scale, getFrameHeight() * scale);
-
-                bitmapMap.get(y).add(frame);
-            }
+        for(int i = 0; i < row; ++i) {
+            durationMap.put(i, frameDuration);
         }
     }
+
 
     @Override
     public void start(int animationIndex) {
@@ -154,28 +124,18 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
     @Override
     public Bitmap getNextFrame() {
         setNextFrameIndex();
-        return bitmapMap.get(actualRow).get(getFrameIndex());
+        return spritesheet.getSprites().get(actualRow).get(getFrameIndex());
     }
 
     @Override
     public Bitmap getPrevFrame() {
         setPrevFrameIndex();
-        return bitmapMap.get(actualRow).get(getFrameIndex());
+        return spritesheet.getSprites().get(actualRow).get(getFrameIndex());
     }
 
     @Override
     public Bitmap getFrame() {
-        return bitmapMap.get(actualRow).get(getFrameIndex());
-    }
-
-    @Override
-    public int getFrameWidth() {
-        return frameWidth;
-    }
-
-    @Override
-    public int getFrameHeight() {
-        return frameHeight;
+        return spritesheet.getSprites().get(actualRow).get(getFrameIndex());
     }
 
     @Override

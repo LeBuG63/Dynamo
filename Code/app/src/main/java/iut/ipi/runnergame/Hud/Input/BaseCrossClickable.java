@@ -1,5 +1,6 @@
 package iut.ipi.runnergame.Hud.Input;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -16,9 +17,10 @@ public class BaseCrossClickable implements Cross {
     public static final int TOP = 2;
     public static final int BOTTOM = 3;
 
+    private List<Bitmap> arrowImage = new ArrayList<>();
     private List<ArrowClickable> arrow = new ArrayList<>();
 
-    public BaseCrossClickable(Point center, int size) {
+    public BaseCrossClickable(int ressource, Point center, int size) {
         int centerX = center.x;
         int centerY = center.y;
 
@@ -26,6 +28,8 @@ public class BaseCrossClickable implements Cross {
         arrow.add(new BaseArrowClickable(new Point(centerX+size, centerY), size, size));
         arrow.add(new BaseArrowClickable(new Point(centerX, centerY-size), size, size));
         arrow.add(new BaseArrowClickable(new Point(centerX, centerY+size), size, size));
+
+
     }
 
     public ArrowClickable getArrowTop() {
