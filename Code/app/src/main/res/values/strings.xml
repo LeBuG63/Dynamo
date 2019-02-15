@@ -3,4 +3,5 @@
     <string name="main_button_game_text">Play</string>
     <string name="main_button_exit_text">Exit</string>
     <string name="main_button_options_text">Options</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

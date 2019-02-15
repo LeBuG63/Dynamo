@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import iut.ipi.runnergame.Activity.GameActivity;
+import iut.ipi.runnergame.Activity.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,23 @@ public class MainActivity extends AppCompatActivity {
                 gameThread.start();
 
                 setContentView(gameActivity);
+            }
+        });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
+
+        optionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               SettingsActivity settingsActivity = new SettingsActivity();
+
+                setContentView(R.layout.settings_activity);
             }
         });
     }
