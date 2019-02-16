@@ -3,6 +3,7 @@ package iut.ipi.runnergame.Entity;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import iut.ipi.runnergame.Animation.AnimationManager;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
@@ -15,7 +16,7 @@ public abstract class AbstractEntity {
     protected Collision collision;
     protected AnimationManager animationManager;
 
-    protected Rect rectangle;
+    protected RectF rectangle;
     protected Bitmap image;
 
     public AbstractEntity(PointF pos, Bitmap bitmap) {
@@ -27,7 +28,7 @@ public abstract class AbstractEntity {
     public AbstractEntity(PointF pos, int width, int height) {
         this(pos, new BaseCollisionBox(pos.x, pos.y, width, height));
 
-        this.rectangle = new Rect((int)pos.x, (int)pos.y, (int)pos.x + width, (int)pos.y + height);
+        this.rectangle = new RectF(pos.x, pos.y, pos.x + width, pos.y + height);
     }
 
     public AbstractEntity(PointF pos, Collision collision) {
@@ -60,7 +61,7 @@ public abstract class AbstractEntity {
         return image;
     }
 
-    public Rect getRectangle() {
+    public RectF getRectangle() {
         return rectangle;
     }
 
@@ -70,6 +71,8 @@ public abstract class AbstractEntity {
 
     public void setImage(Bitmap image) {
         this.image = image;
+        this.rectangle = new RectF(getPosition().x, getPosition().y, getPosition().x + image.getWidth(), getPosition().y + image.getHeight());
+
     }
 
 }

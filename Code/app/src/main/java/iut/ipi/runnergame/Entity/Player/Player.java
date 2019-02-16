@@ -14,7 +14,7 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class Player extends AbstractEntity implements Collidable, Movable {
     public static final float IMPULSE_MOVEMENT = 1000.0f;
-    public static final float IMPULSE_JUMP = 10.0f;
+    public static final float IMPULSE_JUMP = 18.0f;
 
     public static final int ANIMATION_IDLE = 0;
     public static final int ANIMATION_RUNNING_RIGHT = 1;

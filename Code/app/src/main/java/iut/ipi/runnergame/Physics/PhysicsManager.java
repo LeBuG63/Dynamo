@@ -3,7 +3,7 @@ package iut.ipi.runnergame.Physics;
 import android.graphics.PointF;
 
 public class PhysicsManager {
-    public static final float GRAVITY = 9.81f;
+    public static final float GRAVITY = 30f;
     public static final float FRICTION = 0.9f;
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
