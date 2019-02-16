@@ -13,12 +13,18 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
+import iut.ipi.runnergame.Entity.Plateform.TypesPlateform.SimplePlateform;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
+import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class GameActivity extends SurfaceView implements Runnable {
     private ConstraintLayout constraintLayout;
@@ -31,6 +37,8 @@ public class GameActivity extends SurfaceView implements Runnable {
 
     private PointF pointClicked = new PointF();
 
+    private List<AbstractPlateform> plateforms = new ArrayList<>();
+
     // volatile as it'll get modified in different thread
     private volatile boolean gamePlaying = true;
 
@@ -42,7 +50,11 @@ public class GameActivity extends SurfaceView implements Runnable {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, 32,32, 2);
 
         try {
-            player = new Player(context, new PointF(100, 100));
+            player = new Player(context, new PointF(100, 100), 3);
+
+            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(850, 200), 5));
+            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(0, WindowDefinitions.heightPixels - 150), 10));
+            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(500, WindowDefinitions.heightPixels - 300), 2));
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -85,9 +97,6 @@ public class GameActivity extends SurfaceView implements Runnable {
         long now = System.currentTimeMillis();
         long res = now - last;
 
-        if(res > 0)
-            Log.d("TIMER", String.valueOf(1.0/((float)res/1000.0)));
-
         cross.updateArrowPressed(pointClicked);
 
         if(cross.getArrowTop().getIsClicked()) {
@@ -103,10 +112,9 @@ public class GameActivity extends SurfaceView implements Runnable {
         }
         else {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
-
         }
 
-        player.updatePoisition((float)res/1000.0f);
+        PhysicsManager.updatePlayerPosition(player, plateforms,(float)res/1000.0f);
 
         last = now;
     }
@@ -125,9 +133,13 @@ public class GameActivity extends SurfaceView implements Runnable {
             canvas.drawColor(Color.DKGRAY);
             canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, new Paint());
 
+
+            for(AbstractPlateform plateform : plateforms) {
+                plateform.drawOnCanvas(canvas);
+            }
+
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);
-
             holder.unlockCanvasAndPost(canvas);
         }
     }

@@ -13,10 +13,14 @@ import java.util.Map;
 import iut.ipi.runnergame.Util.BitmapResizer;
 
 public class Spritesheet {
+    public static final int DEFAULT_SPRITE_SIZE = 32;
+
     private final int row;
     private final int col;
     private final int frameWidth;
+    private final int defaultFrameWidth;
     private final int frameHeight;
+    private final int defaultFrameHeight;
     private final int scale;
 
     private Map<Integer, List<Bitmap>> bitmapMap = new HashMap<>();
@@ -24,8 +28,12 @@ public class Spritesheet {
     public Spritesheet(Context context, int resourceId, int row, int col, int frameWidth, int frameHeight, int scale) throws IOException {
         this.row = row;
         this.col = col;
-        this.frameWidth = frameWidth;
-        this.frameHeight = frameHeight;
+
+        this.defaultFrameWidth = frameWidth;
+        this.defaultFrameHeight = frameHeight;
+
+        this.frameWidth = frameWidth * scale;
+        this.frameHeight = frameHeight * scale;
         this.scale = scale;
 
         Bitmap spritesheet = null;
@@ -46,8 +54,8 @@ public class Spritesheet {
             for (int x = 0; x < getCol(); ++x) {
                 Bitmap frame = null;
 
-                frame = Bitmap.createBitmap(spritesheet, getFrameWidth() * x, getFrameHeight() * y, getFrameWidth(), getFrameHeight());
-                frame = BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth() * getScale(), getFrameHeight() * getScale());
+                frame = Bitmap.createBitmap(spritesheet, getDefaultFrameWidth()  * x, getDefaultFrameHeight() * y, getDefaultFrameWidth(), getDefaultFrameHeight());
+                frame = BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth(), getFrameHeight());
 
                 bitmapMap.get(y).add(frame);
             }
@@ -56,6 +64,20 @@ public class Spritesheet {
 
     public Map<Integer, List<Bitmap>> getSprites() {
         return bitmapMap;
+    }
+
+    public Bitmap getSprite(int row, int col) {
+        if(col > 0)
+            return bitmapMap.get(row).get(col);
+        return bitmapMap.get(row).get(0);
+    }
+
+    public int getDefaultFrameWidth() {
+        return defaultFrameWidth;
+    }
+
+    public int getDefaultFrameHeight() {
+        return defaultFrameHeight;
     }
 
     public int getFrameWidth() {

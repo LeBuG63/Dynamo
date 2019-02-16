@@ -16,7 +16,7 @@ public abstract class AbstractEntity {
     public AbstractEntity(PointF pos, Bitmap bitmap) {
         this(pos, bitmap.getWidth(), bitmap.getHeight());
 
-        this.image = bitmap;
+        setImage(bitmap);
     }
 
     public AbstractEntity(PointF pos, int width, int height) {

@@ -119,18 +119,18 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
     @Override
     public Bitmap getNextFrame() {
         setNextFrameIndex();
-        return spritesheet.getSprites().get(actualRow).get(getFrameIndex());
+        return getFrame();
     }
 
     @Override
     public Bitmap getPrevFrame() {
         setPrevFrameIndex();
-        return spritesheet.getSprites().get(actualRow).get(getFrameIndex());
+        return getFrame();
     }
 
     @Override
     public Bitmap getFrame() {
-        return spritesheet.getSprites().get(actualRow).get(getFrameIndex());
+        return spritesheet.getSprite(actualRow, getFrameIndex());
     }
 
     @Override

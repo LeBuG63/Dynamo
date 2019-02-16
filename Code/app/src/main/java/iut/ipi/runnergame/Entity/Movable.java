@@ -9,8 +9,9 @@ public interface Movable {
     void moveRight(float force);
     void jump(float force);
 
+    void stopY();
+    void stopX();
+
     PointF getImpulse();
     void setImpulse(PointF impulse);
-
-    void updatePoisition(float dt);
 }

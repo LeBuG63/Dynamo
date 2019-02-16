@@ -1,11 +1,14 @@
 package iut.ipi.runnergame.Entity.Collision;
 
 public class BaseCollisionBox implements Collision {
+    private static final float COLLISION_OFFSET = 10.0f;
 
     private double left;
     private double top;
     private double width;
     private double height;
+
+    public CollisionOccuredSide collisionOccuredSide;
 
     public BaseCollisionBox(double left, double top, double width, double height) {
         this.left = left;
@@ -54,12 +57,39 @@ public class BaseCollisionBox implements Collision {
         return top;
     }
 
-    @Override
-    public boolean isInCollision(Collision other) {
+    private boolean collision(Collision other) {
         return !((other.getLeft() >= (this.getLeft() + this.getWidth()))
                 || ((other.getLeft() + other.getWidth()) <= this.getLeft())
                 || (other.getTop() >= (this.getTop() + this.getHeight()))
                 || ((other.getTop() + other.getHeight()) <= this.getTop()));
+    }
 
+    @Override
+    public boolean isInCollision(Collision other) {
+        if (collision(other)) {
+
+            if(collision(new BaseCollisionBox(other.getLeft() + COLLISION_OFFSET, other.getTop() - COLLISION_OFFSET, other.getWidth() - COLLISION_OFFSET, COLLISION_OFFSET))) {
+                collisionOccuredSide = CollisionOccuredSide.TOP;
+            }
+            else if(collision(new BaseCollisionBox(other.getLeft() + COLLISION_OFFSET, other.getTop() + other.getHeight(), other.getWidth() - COLLISION_OFFSET*2, COLLISION_OFFSET))) {
+                collisionOccuredSide = CollisionOccuredSide.DOWN;
+            }
+            else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + COLLISION_OFFSET, -COLLISION_OFFSET, other.getHeight()))) {
+                collisionOccuredSide = CollisionOccuredSide.LEFT;
+            }
+            else if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth(), other.getTop() + COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
+                collisionOccuredSide = CollisionOccuredSide.RIGHT;
+            }
+            return true;
+        }
+
+        collisionOccuredSide = CollisionOccuredSide.NONE;
+
+        return false;
+    }
+
+    @Override
+    public CollisionOccuredSide getCollisionSide() {
+        return collisionOccuredSide;
     }
 }

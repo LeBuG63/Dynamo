@@ -14,4 +14,5 @@ public interface Collision {
     void setHeight(double height);
 
     boolean isInCollision(Collision other);
+    CollisionOccuredSide getCollisionSide();
 }
