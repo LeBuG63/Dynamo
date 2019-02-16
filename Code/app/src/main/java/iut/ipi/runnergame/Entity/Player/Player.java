@@ -2,8 +2,8 @@ package iut.ipi.runnergame.Entity.Player;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
-import android.util.Log;
 
+import iut.ipi.runnergame.Animation.Animable;
 import iut.ipi.runnergame.Animation.AnimationManager;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
@@ -12,7 +12,7 @@ import iut.ipi.runnergame.Entity.Movable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
-public class Player extends AbstractEntity implements Collidable, Movable {
+public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final float IMPULSE_MOVEMENT = 1000.0f;
     public static final float IMPULSE_JUMP = 18.0f;
 
@@ -21,16 +21,19 @@ public class Player extends AbstractEntity implements Collidable, Movable {
     public static final int ANIMATION_RUNNING_LEFT = 2;
 
     private PointF impulse = new PointF(0.0f,0.0f);
+    private AnimationManager animationManager;
+
     private boolean onGround = true;
 
     public Player(PointF pos, Collision collision, AnimationManager animationManager) {
-        super(pos, collision, animationManager);
+        super(pos, collision);
 
+        setAnimationManager(animationManager);
         animationManager.start(0);
     }
 
     public Bitmap getSprite() {
-        return animationManager.getFrame();
+        return getAnimationManager().getFrame();
     }
 
 
@@ -86,5 +89,15 @@ public class Player extends AbstractEntity implements Collidable, Movable {
         else {
             onGround = true;
         }
+    }
+
+    @Override
+    public void setAnimationManager(AnimationManager animationManager) {
+        this.animationManager = animationManager;
+    }
+
+    @Override
+    public AnimationManager getAnimationManager() {
+        return animationManager;
     }
 }

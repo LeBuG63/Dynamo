@@ -1,20 +1,15 @@
 package iut.ipi.runnergame.Animation.SpriteSheetAnimation;
 
-import android.animation.AnimatorSet;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import iut.ipi.runnergame.Animation.AnimationManager;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
-import iut.ipi.runnergame.Util.BitmapResizer;
 
 public class BaseSpriteSheetAnimation implements AnimationManager {
     private HashMap<Integer, Integer> durationMap = new HashMap<>();

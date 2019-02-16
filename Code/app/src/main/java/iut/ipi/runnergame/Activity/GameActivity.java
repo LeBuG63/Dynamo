@@ -1,15 +1,11 @@
 package iut.ipi.runnergame.Activity;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.support.constraint.ConstraintLayout;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -17,16 +13,12 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Hud.Cross;
+import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class GameActivity extends SurfaceView implements Runnable {
     private ConstraintLayout constraintLayout;
@@ -44,6 +36,8 @@ public class GameActivity extends SurfaceView implements Runnable {
 
     public GameActivity(Context context) {
         super(context);
+
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, 32,32, 2);
 
