@@ -1,15 +1,20 @@
 package iut.ipi.runnergame.Entity.Player;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
+import java.io.IOException;
+
 import iut.ipi.runnergame.Animation.Animable;
 import iut.ipi.runnergame.Animation.AnimationManager;
+import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Movable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
+import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
@@ -22,13 +27,16 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
 
     private PointF impulse = new PointF(0.0f,0.0f);
     private AnimationManager animationManager;
+    private Collision collision;
 
     private boolean onGround = true;
 
-    public Player(PointF pos, Collision collision, AnimationManager animationManager) {
-        super(pos, collision);
+    public Player(Context context, PointF pos) throws IOException {
+        super(pos);
 
-        setAnimationManager(animationManager);
+        setCollision(collision);
+        setAnimationManager(new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, 4, 32, 32, 4, 1000, 3, 4));
+
         animationManager.start(0);
     }
 
@@ -99,5 +107,15 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     @Override
     public AnimationManager getAnimationManager() {
         return animationManager;
+    }
+
+    @Override
+    public void setCollision(Collision collision) {
+        this.collision = collision;
+    }
+
+    @Override
+    public Collision getCollision() {
+        return collision;
     }
 }

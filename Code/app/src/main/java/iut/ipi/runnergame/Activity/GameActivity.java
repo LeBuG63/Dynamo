@@ -42,7 +42,7 @@ public class GameActivity extends SurfaceView implements Runnable {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, 32,32, 2);
 
         try {
-            player = new Player(new PointF(100, 100), null, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, 4, 32, 32, 4, 1000, 3, 4));;
+            player = new Player(context, new PointF(100, 100));
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);

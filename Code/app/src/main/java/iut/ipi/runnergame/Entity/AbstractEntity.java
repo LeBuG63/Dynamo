@@ -10,30 +10,23 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 public abstract class AbstractEntity {
     protected PointF position = new PointF();
 
-    protected Collision collision;
-
     protected RectF rectangle;
     protected Bitmap image;
 
     public AbstractEntity(PointF pos, Bitmap bitmap) {
-        this(pos, new BaseCollisionBox(pos.x, pos.y, bitmap.getWidth(), bitmap.getHeight()));
+        this(pos, bitmap.getWidth(), bitmap.getHeight());
 
         this.image = bitmap;
     }
 
     public AbstractEntity(PointF pos, int width, int height) {
-        this(pos, new BaseCollisionBox(pos.x, pos.y, width, height));
+        this(pos);
 
         this.rectangle = new RectF(pos.x, pos.y, pos.x + width, pos.y + height);
     }
 
-    public AbstractEntity(PointF pos, Collision collision) {
+    public AbstractEntity(PointF pos) {
         this.position = pos;
-        this.collision = collision;
-    }
-
-    public Collision getCollision() {
-        return collision;
     }
 
     public Bitmap getSprite() {
