@@ -1,7 +1,7 @@
 package iut.ipi.runnergame.Entity.Player;
 
 import android.graphics.Bitmap;
-import android.graphics.Point;
+import android.graphics.PointF;
 
 import iut.ipi.runnergame.Animation.AnimationManager;
 import iut.ipi.runnergame.Entity.AbstractEntity;
@@ -16,7 +16,7 @@ public class Player extends AbstractEntity implements Collidable {
     public static final int ANIMATION_RUNNING_RIGHT = 1;
     public static final int ANIMATION_RUNNING_LEFT = 2;
 
-    public Player(Point pos, Collision collision, AnimationManager animationManager) {
+    public Player(PointF pos, Collision collision, AnimationManager animationManager) {
         super(pos, collision, animationManager);
 
         animationManager.start(0);

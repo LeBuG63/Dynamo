@@ -43,7 +43,7 @@ public class Spritesheet {
         for(int y = 0; y < getRow(); ++y){
             bitmapMap.put(y, new ArrayList<Bitmap>());
 
-            for (int x = 0; x < getRow(); ++x) {
+            for (int x = 0; x < getCol(); ++x) {
                 Bitmap frame = null;
 
                 frame = Bitmap.createBitmap(spritesheet, getFrameWidth() * x, getFrameHeight() * y, getFrameWidth(), getFrameHeight());

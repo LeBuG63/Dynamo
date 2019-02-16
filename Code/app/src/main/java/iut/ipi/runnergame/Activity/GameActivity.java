@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -33,7 +34,7 @@ public class GameActivity extends SurfaceView implements Runnable {
     private AbstractEntity player;
     private Cross cross;
 
-    private Point pointClicked = new Point();
+    private PointF pointClicked = new PointF();
 
     // volatile as it'll get modified in different thread
     private volatile boolean gamePlaying = true;
@@ -41,15 +42,13 @@ public class GameActivity extends SurfaceView implements Runnable {
     public GameActivity(Context context) {
         super(context);
 
-        int heightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
-
-        cross = new BaseCrossClickable(R.drawable.sprite_player_1, new Point(80,  heightPixels - 80*4), 80);
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, 32,32, 2);
 
         try {
-            player = new Player(new Point(100, 100), null, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, 4, 33, 33, 4, 1000, 3, 4));;
+            player = new Player(new PointF(100, 100), null, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, 4, 32, 32, 4, 1000, 3, 4));;
 
-            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 500);
-            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 500);
+            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
+            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
         }
         catch(IOException e) {
 
@@ -63,8 +62,8 @@ public class GameActivity extends SurfaceView implements Runnable {
                 getRootView().performClick();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    pointClicked.x = (int) event.getX();
-                    pointClicked.y = (int) event.getY();
+                    pointClicked.x = event.getX();
+                    pointClicked.y = event.getY();
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
                     pointClicked.x = -1;
@@ -108,7 +107,8 @@ public class GameActivity extends SurfaceView implements Runnable {
     public void draw() {
         if(holder.getSurface().isValid()) {
             canvas = holder.lockCanvas();
-
+            if(canvas == null) return;
+            
             Paint p = new Paint();
             Paint p2 = new Paint();
 
@@ -119,6 +119,7 @@ public class GameActivity extends SurfaceView implements Runnable {
             canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, new Paint());
 
             cross.drawRectOnCanvas(canvas, p, p2);
+            cross.drawOnCanvas(canvas);
 
             holder.unlockCanvasAndPost(canvas);
         }

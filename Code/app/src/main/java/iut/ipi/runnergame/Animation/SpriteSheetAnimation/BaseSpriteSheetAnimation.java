@@ -66,7 +66,7 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
                 public void run() {
                     setNextFrameIndex();
                 }
-            }, 0, durationMap.get(actualFrame));
+            }, 0, durationMap.get(actualRow));
         }
     }
 
@@ -81,7 +81,7 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
 
     public void setNextFrameIndex() {
         if(actualFrame + 1 >= col) {
-            actualFrame = 0;
+            actualFrame = -1;
         }
 
         actualFrame++;
@@ -89,7 +89,7 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
 
     public void setPrevFrameIndex() {
         if(actualFrame - 1 < 0) {
-            actualFrame = col - 1;
+            actualFrame = col;
         }
 
         actualFrame--;

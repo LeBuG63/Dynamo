@@ -17,9 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        getSupportActionBar().hide();
 
         Button gameButton = findViewById(R.id.button_game);
         Button optionsButton = findViewById(R.id.button_options);
