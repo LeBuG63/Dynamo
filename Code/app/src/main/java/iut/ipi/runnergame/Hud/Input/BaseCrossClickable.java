@@ -14,6 +14,7 @@ import java.util.List;
 import iut.ipi.runnergame.Hud.ArrowClickable;
 import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class BaseCrossClickable implements Cross {
     public static final int LEFT = 0;
@@ -27,7 +28,7 @@ public class BaseCrossClickable implements Cross {
     private List<ArrowClickable> arrow = new ArrayList<>();
 
     public BaseCrossClickable(Context context, int ressource, int spriteWidth, int spriteHeight, int scale) {
-        this(context, ressource, spriteWidth, spriteHeight, scale, new PointF((spriteWidth*scale), Resources.getSystem().getDisplayMetrics().heightPixels - (spriteHeight*scale)*3));
+        this(context, ressource, spriteWidth, spriteHeight, scale, new PointF((spriteWidth*scale), WindowDefinitions.heightPixels - (spriteHeight*scale)*3));
     }
 
     public BaseCrossClickable(Context context, int ressource, int spriteWidth, int spriteHeight, int scale, PointF center) {

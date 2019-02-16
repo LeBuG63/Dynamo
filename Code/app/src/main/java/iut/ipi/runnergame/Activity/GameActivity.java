@@ -10,20 +10,23 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.support.constraint.ConstraintLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
-import iut.ipi.runnergame.Entity.AbstractEntity;
-import iut.ipi.runnergame.Entity.Movable;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.R;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class GameActivity extends SurfaceView implements Runnable {
     private ConstraintLayout constraintLayout;
@@ -31,7 +34,7 @@ public class GameActivity extends SurfaceView implements Runnable {
     private SurfaceHolder   holder = null;
     private Canvas          canvas = null;
 
-    private AbstractEntity player;
+    private Player player;
     private Cross cross;
 
     private PointF pointClicked = new PointF();
@@ -82,7 +85,15 @@ public class GameActivity extends SurfaceView implements Runnable {
         }
     }
 
+    private long last = System.currentTimeMillis();
     public void update() {
+
+        long now = System.currentTimeMillis();
+        long res = now - last;
+
+        if(res > 0)
+            Log.d("TIMER", String.valueOf(1.0/((float)res/1000.0)));
+
         cross.updateArrowPressed(pointClicked);
 
         if(cross.getArrowTop().getIsClicked()) {
@@ -101,7 +112,9 @@ public class GameActivity extends SurfaceView implements Runnable {
 
         }
 
-        player.updatePoisition();
+        player.updatePoisition((float)res/1000.0f);
+
+        last = now;
     }
 
     public void draw() {

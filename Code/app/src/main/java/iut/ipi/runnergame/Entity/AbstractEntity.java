@@ -9,9 +9,7 @@ import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 
-public abstract class AbstractEntity implements Movable {
-    protected PointF impulse = new PointF(0.0f,0.0f);
-
+public abstract class AbstractEntity {
     protected PointF position = new PointF();
 
     protected Collision collision;
@@ -74,43 +72,4 @@ public abstract class AbstractEntity implements Movable {
         this.image = image;
     }
 
-    @Override
-    public void moveUp(float force) {
-        setImpulse(new PointF(0.0f, force));
-    }
-
-    @Override
-    public void moveDown(float force) {
-        setImpulse(new PointF(0.0f, -force));
-    }
-
-    @Override
-    public void moveLeft(float force) {
-        setImpulse(new PointF(-force, 0f));
-    }
-
-    @Override
-    public void moveRight(float force) {
-        setImpulse(new PointF(force, 0f));
-    }
-
-    @Override
-    public void jump(float force) {
-        setImpulse(new PointF(0.0f, -force));
-    }
-
-    @Override
-    public PointF getImpule() {
-        return impulse;
-    }
-
-    @Override
-    public void setImpulse(PointF impulse) {
-        this.impulse = impulse;
-    }
-
-    @Override
-    public void updatePoisition() {
-        PhysicsManager.mulVecWithWorldsPhysic(getPosition(), impulse);
-    }
 }
