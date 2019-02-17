@@ -43,11 +43,8 @@ public class PhysicsManager {
     public static void updatePlayerPosition(Player player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 
-<<<<<<< HEAD
-        PointF pointProjection = new PointF(player.getPosition().x, player.getPosition().y);
-=======
         PointF pointProjection = new PointF(Player.DEFAULT_X_POS, player.getPosition().y);
->>>>>>> plateforme
+
         PointF impulseProjection = new PointF(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
