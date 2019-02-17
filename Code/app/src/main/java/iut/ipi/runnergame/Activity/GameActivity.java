@@ -51,9 +51,10 @@ public class GameActivity extends SurfaceView implements Runnable {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, BaseCrossClickable.DEFAULT_SCALE);
 
         try {
-            player = new Player(new PointF(0, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(new PointF(Player.DEFAULT_X_POS, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
             plateformManager.add(PlateformType.SIMPLE, new PointF(850, 200), 5, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointF(1700, 200), 20, SimplePlateform.DEFAULT_SCALE);
             plateformManager.add(PlateformType.SIMPLE, new PointF(0, WindowDefinitions.heightPixels - 150), 10, SimplePlateform.DEFAULT_SCALE);
             plateformManager.add(PlateformType.SIMPLE, new PointF(500, WindowDefinitions.heightPixels - 300), 2, SimplePlateform.DEFAULT_SCALE);
 
@@ -98,8 +99,6 @@ public class GameActivity extends SurfaceView implements Runnable {
         long now = System.currentTimeMillis();
         long res = now - last;
 
-        plateformManager.translate(player.getPosition().x, 0);
-
         cross.updateArrowPressed(pointClicked);
 
         if(cross.getArrowTop().getIsClicked()) {
@@ -116,6 +115,8 @@ public class GameActivity extends SurfaceView implements Runnable {
         else {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
+
+        plateformManager.translate(player.getPosition().x, 0);
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
 
@@ -138,7 +139,7 @@ public class GameActivity extends SurfaceView implements Runnable {
 
             plateformManager.drawPlateformOnCanvas(canvas);
 
-            canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, new Paint());
+            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_X_POS, player.getPosition().y, new Paint());
 
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);

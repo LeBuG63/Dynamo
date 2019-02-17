@@ -22,8 +22,9 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
     public static final int DEFAULT_SCALE = 6;
+    public static final int DEFAULT_X_POS = WindowDefinitions.widthPixels/5;
 
-    public static final float IMPULSE_MOVEMENT = 500.0f;
+    public static final float IMPULSE_MOVEMENT = 800.0f;
     public static final float IMPULSE_JUMP = 18.0f;
 
     public static final int ANIMATION_IDLE = 0;
