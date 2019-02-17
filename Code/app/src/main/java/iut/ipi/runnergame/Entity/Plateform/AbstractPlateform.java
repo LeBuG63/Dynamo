@@ -17,22 +17,28 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
-    public static final int DEFAULT_SCALE = 4;
+    public static final int DEFAULT_SCALE = 8;
 
     private Collision collision;
+    private PointF offset = new PointF(0, 0);
 
     private Spritesheet spritesheet;
     private List<Block> blocks = new ArrayList<>();
 
     private int length;
+    private int width;
+    private int height;
 
-    public AbstractPlateform(Context context, int resourceId, PointF pos, int length) throws IOException {
-        super(pos);
-
+    public AbstractPlateform(Context context, int resourceId, PointF pos, int length, int scale) throws IOException {
+        super(pos, length * scale * Spritesheet.DEFAULT_SPRITE_SIZE, scale * Spritesheet.DEFAULT_SPRITE_SIZE);
         this.length = length;
 
         spritesheet = new Spritesheet(context, resourceId, 1, 3, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, DEFAULT_SCALE);
-        setCollision(new BaseCollisionBox(pos.x, pos.y, length * spritesheet.getFrameWidth(), spritesheet.getFrameHeight()));
+
+        width = length * spritesheet.getFrameWidth();
+        height = spritesheet.getFrameHeight();
+
+        setCollision(new BaseCollisionBox(pos.x, pos.y, width, height));
 
         for(int blockId = 0; blockId < length; ++blockId) {
             float x = pos.x + (float) (blockId * spritesheet.getFrameWidth());
@@ -53,7 +59,47 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     public void drawOnCanvas(Canvas canvas) {
         for(Block block : blocks) {
-            canvas.drawBitmap(block.getImage(), block.getPosition().x, block.getPosition().y, new Paint());
+            canvas.drawBitmap(block.getImage(), block.getPosition().x - getOffset().x, block.getPosition().y - getOffset().y, new Paint());
+        }
+    }
+
+    @Override
+    public PointF getPosition() {
+        return new PointF(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
+    }
+
+    public PointF getOffset() {
+        return offset;
+    }
+
+    public void setOffset(PointF offset) {
+        this.offset = offset;
+
+        float x = getPosition().x;
+        float y = getPosition().y;
+
+        setCollision(new BaseCollisionBox(x, y, width, height));
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public void setPosition(PointF position) {
+        int blockId = 0;
+
+        for (Block block : blocks) {
+            float x = position.x + (float) (blockId * spritesheet.getFrameWidth());
+            float y = position.y;
+
+            block.setPosition(new PointF(x, y));
+
+            blockId++;
         }
     }
 

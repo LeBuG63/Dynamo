@@ -15,6 +15,7 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 public class PhysicsManager {
     public static final float GRAVITY = 30f;
     public static final float FRICTION = 0.9f;
+
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
     public static void mulVecWithGravity(PointF point, PointF dir, float dt) {
@@ -42,15 +43,23 @@ public class PhysicsManager {
     public static void updatePlayerPosition(Player player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 
+        PointF pointProjection = new PointF(player.getPosition().x, player.getPosition().y);
+        PointF impulseProjection = new PointF(player.getImpulse().x, player.getImpulse().y);
+
+        mulVecWithGravity(pointProjection, impulseProjection, dt);
+        mulVecWithFriction(pointProjection, impulseProjection, dt);
+
+        Collision collisionProjection = new BaseCollisionBox(pointProjection.x, pointProjection.y, player.getSprite().getWidth(), player.getSprite().getHeight());
+
         for(AbstractPlateform plateform : plateforms) {
-            if(player.getCollision().isInCollision(plateform.getCollision())) {
-                switch(player.getCollision().getCollisionSide()) {
+            if(collisionProjection.isInCollision(plateform.getCollision())) {
+                switch(collisionProjection.getCollisionSide()) {
                     case NONE:
                         break;
                     case TOP:
                         Log.d("COLLISION", "TOP");
-
                         player.setOnGround(true);
+                        player.setPosition(new PointF(player.getPosition().x, plateform.getPosition().y - player.getSprite().getHeight()));
                         break;
                     case DOWN:
                         Log.d("COLLISION", "DOWN");
@@ -58,11 +67,11 @@ public class PhysicsManager {
                         break;
                     case RIGHT:
                         Log.d("COLLISION", "RIGHT");
-                        player.setImpulse(new PointF(1.0f, player.getImpulse().y));
+                        player.setPosition(new PointF(plateform.getPosition().x + plateform.getWidth() + 1, player.getPosition().y));
                         break;
                     case LEFT:
                         Log.d("COLLISION", "LEFT");
-                        player.setImpulse(new PointF(-1.0f, player.getImpulse().y));
+                        player.setPosition(new PointF(plateform.getPosition().x - player.getSprite().getWidth() - 1, player.getPosition().y));
                         break;
                 }
             }

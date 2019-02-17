@@ -9,7 +9,7 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 
 public class SimplePlateform extends AbstractPlateform {
-    public SimplePlateform(Context context, int resourceId, PointF pos, int length) throws IOException {
-        super(context, resourceId, pos, length);
+    public SimplePlateform(Context context, int resourceId, PointF pos, int length, int scale) throws IOException {
+        super(context, resourceId, pos, length, scale);
     }
 }

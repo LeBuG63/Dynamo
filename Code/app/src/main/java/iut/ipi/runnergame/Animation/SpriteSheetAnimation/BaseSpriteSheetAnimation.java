@@ -30,6 +30,10 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
 
     private Spritesheet spritesheet;
 
+    public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int totalFrames, int frameDuration, int row, int col) throws IOException {
+        this(context, resourceId, scale, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, totalFrames, frameDuration, row, col);
+    }
+
     public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
         this.totalFrames = totalFrames;
         this.frameDuration = frameDuration;
