@@ -43,24 +43,37 @@ public class PhysicsManager {
     public static void updatePlayerPosition(Player player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 
-        PointF pointProjection = new PointF(Player.DEFAULT_X_POS, player.getPosition().y);
+        // pour faire une bonne collision, il faut prevoir au moins une etape en avance
+        // cela sert notamment a eviter que le joueur entre dans les blocs ou il y a collision
+        // pour ca, une projection est faite pour permettre d'avoir ou potentiellement le joueur sera a la prochaine frame
+        // ensuite, il faut faire les calculs sur les projections pour savoir si il y a collision
 
+        PointF pointProjection = new PointF(Player.DEFAULT_X_POS, player.getPosition().y);
         PointF impulseProjection = new PointF(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
         mulVecWithFriction(pointProjection, impulseProjection, dt);
 
-        Collision collisionProjection = new BaseCollisionBox(pointProjection.x, pointProjection.y, player.getSprite().getWidth(), player.getSprite().getHeight());
+        float playerWidth = player.getSprite().getWidth();
+        float playerHeight = player.getSprite().getHeight();
+
+        float playerX = player.getPosition().x;
+        float playerY = player.getPosition().y;
+
+        Collision collisionProjection = new BaseCollisionBox(pointProjection.x, pointProjection.y, playerWidth, playerHeight);
 
         for(AbstractPlateform plateform : plateforms) {
             if(collisionProjection.isInCollision(plateform.getCollision())) {
+                float plateformX = plateform.getPosition().x;
+                float plateformY = plateform.getPosition().y;
+
                 switch(collisionProjection.getCollisionSide()) {
                     case NONE:
                         break;
                     case TOP:
                         Log.d("COLLISION", "TOP");
                         player.setOnGround(true);
-                        player.setPosition(new PointF(player.getPosition().x, plateform.getPosition().y - player.getSprite().getHeight()));
+                        player.setPosition(new PointF(playerX, (int)(plateformY - playerHeight)));
                         break;
                     case DOWN:
                         Log.d("COLLISION", "DOWN");
@@ -69,12 +82,12 @@ public class PhysicsManager {
                     case RIGHT:
                         Log.d("COLLISION", "RIGHT");
                         player.stopX();
-                        player.setPosition(new PointF(player.getPosition().x + 1, player.getPosition().y));
+                        player.setPosition(new PointF(playerX + 1, playerY));
                         break;
                     case LEFT:
                         Log.d("COLLISION", "LEFT");
                         player.stopX();
-                        player.setPosition(new PointF(player.getPosition().x - 1, player.getPosition().y));
+                        player.setPosition(new PointF(playerX - 1, playerY));
                         break;
                 }
             }
@@ -86,6 +99,6 @@ public class PhysicsManager {
 
         mulVecWithFriction(player.getPosition(), player.getImpulse(), dt);
 
-        player.setCollision(new BaseCollisionBox(Player.DEFAULT_X_POS, player.getPosition().y, player.getAnimationManager().getFrame().getWidth(), player.getAnimationManager().getFrame().getHeight()));
+        player.setCollision(new BaseCollisionBox(Player.DEFAULT_X_POS, player.getPosition().y, playerWidth, playerHeight));
     }
 }

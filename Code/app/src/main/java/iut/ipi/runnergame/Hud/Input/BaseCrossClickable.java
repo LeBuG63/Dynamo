@@ -76,19 +76,17 @@ public class BaseCrossClickable implements Cross {
     public void drawOnCanvas(Canvas canvas) {
         int i = 0;
         for(ArrowClickable arrowClickable : arrow) {
-            canvas.drawBitmap(spritesheet.getSprites().get(0).get(i), arrowClickable.getPosition().x, arrowClickable.getPosition().y, new Paint());
+            float x = arrowClickable.getPosition().x;
+            float y = arrowClickable.getPosition().y;
+
+            canvas.drawBitmap(spritesheet.getSprite(0, i),  x, y, new Paint());
             i++;
         }
     }
 
     public void updateArrowPressed(PointF point) {
         for(ArrowClickable arrowClickable : arrow) {
-            if(arrowClickable.pointInside(point)) {
-                arrowClickable.setIsClicked(true);
-            }
-            else {
-                arrowClickable.setIsClicked(false);
-            }
+            arrowClickable.setIsClicked(arrowClickable.pointInside(point));
         }
     }
 }

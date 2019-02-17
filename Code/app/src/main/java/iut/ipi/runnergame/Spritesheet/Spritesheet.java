@@ -56,7 +56,9 @@ public class Spritesheet {
             for (int x = 0; x < getCol(); ++x) {
                 Bitmap frame = null;
 
-                frame = Bitmap.createBitmap(spritesheet, getDefaultFrameWidth()  * x, getDefaultFrameHeight() * y, getDefaultFrameWidth(), getDefaultFrameHeight());
+                frame = Bitmap.createBitmap(spritesheet,
+                        getDefaultFrameWidth()  * x, getDefaultFrameHeight() * y,
+                        getDefaultFrameWidth(), getDefaultFrameHeight());
 
                 bitmapMap.get(y).add(BitmapResizer.bitmapResizerNN(frame, getFrameWidth(), getFrameHeight()));
             }

@@ -19,6 +19,13 @@ import iut.ipi.runnergame.Spritesheet.Spritesheet;
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
     public static final int DEFAULT_SCALE = 8;
 
+    public static final int BLOCK_SPRITE_START = 0;
+    public static final int BLOCK_SPRITE_INBETWEEN = 1;
+    public static final int BLOCK_SPRITE_END = 2;
+
+    public static final int N_COL_SPRITESHEET = 3;
+    public static final int N_ROW_SPRITESHEET = 1;
+
     private Collision collision;
     private PointF offset = new PointF(0, 0);
 
@@ -34,7 +41,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
         this.length = length;
 
-        spritesheet = new Spritesheet(context, resourceId, 1, 3, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, DEFAULT_SCALE);
+        spritesheet = new Spritesheet(context, resourceId, N_ROW_SPRITESHEET, N_COL_SPRITESHEET, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, DEFAULT_SCALE);
 
         width = length * spritesheet.getFrameWidth();
         height = spritesheet.getFrameHeight();
@@ -45,13 +52,13 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
             float x = pos.x + (float) (blockId * spritesheet.getFrameWidth());
             float y = pos.y;
 
-            Bitmap sprite = spritesheet.getSprite(0, 1);
+            Bitmap sprite = spritesheet.getSprite(0, BLOCK_SPRITE_INBETWEEN);
 
             if (blockId == 0) {
-                sprite = spritesheet.getSprite(0, 0);
+                sprite = spritesheet.getSprite(0, BLOCK_SPRITE_START);
             }
             else if (blockId == length - 1) {
-                sprite = spritesheet.getSprite(0, 2);
+                sprite = spritesheet.getSprite(0, BLOCK_SPRITE_END);
             }
 
             blocks.add(new Block(new PointF(x, y), sprite));
@@ -60,7 +67,10 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     public void drawOnCanvas(Canvas canvas) {
         for(Block block : blocks) {
-            canvas.drawBitmap(block.getImage(), block.getPosition().x - getOffset().x, block.getPosition().y - getOffset().y, new Paint());
+            float x = block.getPosition().x - getOffset().x;
+            float y = block.getPosition().y - getOffset().y;
+
+            canvas.drawBitmap(block.getImage(), x, y, new Paint());
         }
     }
 
@@ -79,6 +89,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
         float x = getPosition().x;
         float y = getPosition().y;
 
+        // il faut recalculer la hitbox a chaque modification de l offset
         setCollision(new BaseCollisionBox(x, y, width, height));
     }
 

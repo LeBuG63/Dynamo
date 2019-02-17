@@ -123,7 +123,6 @@ public class GameActivity extends SurfaceView implements Runnable {
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
 
-
         last = now;
     }
 
