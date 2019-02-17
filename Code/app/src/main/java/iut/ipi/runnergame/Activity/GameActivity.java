@@ -7,18 +7,16 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.constraint.ConstraintLayout;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
-import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
+import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
+import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Plateform.TypesPlateform.SimplePlateform;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Hud.Cross;
@@ -41,7 +39,7 @@ public class GameActivity extends SurfaceView implements Runnable {
 
     private PointF pointClicked = new PointF();
 
-    private List<AbstractPlateform> plateforms = new ArrayList<>();
+    private PlateformManager plateformManager;
 
     // volatile as it'll get modified in different thread
     private volatile boolean gamePlaying = true;
@@ -49,14 +47,19 @@ public class GameActivity extends SurfaceView implements Runnable {
     public GameActivity(Context context) {
         super(context);
 
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, 4);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+        plateformManager = new PlateformManager(context);
+
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, BaseCrossClickable.DEFAULT_SCALE);
 
         try {
-            player = new Player(new PointF(100, 100), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(new PointF(Player.DEFAULT_X_POS, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
-            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(850, 200), 5, AbstractPlateform.DEFAULT_SCALE));
-            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(0, WindowDefinitions.heightPixels - 150), 10, AbstractPlateform.DEFAULT_SCALE));
-            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(500, WindowDefinitions.heightPixels - 300), 2, AbstractPlateform.DEFAULT_SCALE));
+            plateformManager.add(PlateformType.SIMPLE, new PointF(850, 200), 5, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointF(1700, 200), 20, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointF(0, WindowDefinitions.heightPixels - 150), 10, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointF(500, WindowDefinitions.heightPixels - 300), 2, SimplePlateform.DEFAULT_SCALE);
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -116,7 +119,10 @@ public class GameActivity extends SurfaceView implements Runnable {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
-        PhysicsManager.updatePlayerPosition(player, plateforms,(float)res/1000.0f);
+        plateformManager.translate(player.getPosition().x, 0);
+
+        PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
+
 
         last = now;
     }
@@ -139,12 +145,10 @@ public class GameActivity extends SurfaceView implements Runnable {
             paint.setFilterBitmap(false);
 
             canvas.drawColor(Color.DKGRAY);
-            canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, paint);
 
+            plateformManager.drawPlateformOnCanvas(canvas);
 
-            for(AbstractPlateform plateform : plateforms) {
-                plateform.drawOnCanvas(canvas);
-            }
+            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_X_POS, player.getPosition().y, new Paint());
 
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);

@@ -15,6 +15,7 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 public class PhysicsManager {
     public static final float GRAVITY = 30f;
     public static final float FRICTION = 0.9f;
+
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
     public static void mulVecWithGravity(PointF point, PointF dir, float dt) {
@@ -42,7 +43,11 @@ public class PhysicsManager {
     public static void updatePlayerPosition(Player player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 
+<<<<<<< HEAD
         PointF pointProjection = new PointF(player.getPosition().x, player.getPosition().y);
+=======
+        PointF pointProjection = new PointF(Player.DEFAULT_X_POS, player.getPosition().y);
+>>>>>>> plateforme
         PointF impulseProjection = new PointF(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
@@ -66,11 +71,13 @@ public class PhysicsManager {
                         break;
                     case RIGHT:
                         Log.d("COLLISION", "RIGHT");
-                        player.setPosition(new PointF(plateform.getRectangle().right + 1, player.getPosition().y));
+                        player.stopX();
+                        player.setPosition(new PointF(player.getPosition().x + 1, player.getPosition().y));
                         break;
                     case LEFT:
                         Log.d("COLLISION", "LEFT");
-                        player.setPosition(new PointF(plateform.getPosition().x - player.getSprite().getWidth() - 1, player.getPosition().y));
+                        player.stopX();
+                        player.setPosition(new PointF(player.getPosition().x - 1, player.getPosition().y));
                         break;
                 }
             }
@@ -82,6 +89,6 @@ public class PhysicsManager {
 
         mulVecWithFriction(player.getPosition(), player.getImpulse(), dt);
 
-        player.setCollision(new BaseCollisionBox(player.getPosition().x, player.getPosition().y, player.getAnimationManager().getFrame().getWidth(), player.getAnimationManager().getFrame().getHeight()));
+        player.setCollision(new BaseCollisionBox(Player.DEFAULT_X_POS, player.getPosition().y, player.getAnimationManager().getFrame().getWidth(), player.getAnimationManager().getFrame().getHeight()));
     }
 }

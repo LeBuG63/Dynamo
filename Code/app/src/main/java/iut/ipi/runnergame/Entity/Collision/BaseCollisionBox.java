@@ -3,14 +3,14 @@ package iut.ipi.runnergame.Entity.Collision;
 public class BaseCollisionBox implements Collision {
     private static final float COLLISION_OFFSET = 10.0f;
 
-    private double left;
-    private double top;
-    private double width;
-    private double height;
+    private float left;
+    private float top;
+    private float width;
+    private float height;
 
     public CollisionOccuredSide collisionOccuredSide;
 
-    public BaseCollisionBox(double left, double top, double width, double height) {
+    public BaseCollisionBox(float left, float top, float width, float height) {
         this.left = left;
         this.top = top;
         this.width = width;
@@ -18,42 +18,42 @@ public class BaseCollisionBox implements Collision {
     }
 
     @Override
-    public double getWidth() {
+    public float getWidth() {
         return width;
     }
 
     @Override
-    public void setWidth(double width) {
+    public void setWidth(float width) {
         this.width = width;
     }
 
     @Override
-    public double getHeight() {
+    public float getHeight() {
         return height;
     }
 
     @Override
-    public void setHeight(double height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
     @Override
-    public void setLeft(double x) {
+    public void setLeft(float x) {
         left = x;
     }
 
     @Override
-    public void setTop(double x) {
+    public void setTop(float x) {
         top = x;
     }
 
     @Override
-    public double getLeft() {
+    public float getLeft() {
         return left;
     }
 
     @Override
-    public double getTop() {
+    public float getTop() {
         return top;
     }
 

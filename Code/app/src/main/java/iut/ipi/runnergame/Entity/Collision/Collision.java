@@ -1,17 +1,17 @@
 package iut.ipi.runnergame.Entity.Collision;
 
 public interface Collision {
-    void setLeft(double x);
-    void setTop(double x);
+    void setLeft(float x);
+    void setTop(float x);
 
-    double getLeft();
-    double getTop();
+    float getLeft();
+    float getTop();
 
-    double getWidth();
-    double getHeight();
+    float getWidth();
+    float getHeight();
 
-    void setWidth(double width);
-    void setHeight(double height);
+    void setWidth(float width);
+    void setHeight(float height);
 
     boolean isInCollision(Collision other);
     CollisionOccuredSide getCollisionSide();
