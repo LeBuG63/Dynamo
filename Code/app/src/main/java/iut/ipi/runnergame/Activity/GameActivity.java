@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -24,6 +25,7 @@ import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
+import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class GameActivity extends SurfaceView implements Runnable {
@@ -45,16 +47,14 @@ public class GameActivity extends SurfaceView implements Runnable {
     public GameActivity(Context context) {
         super(context);
 
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, 32,32, 2);
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, 4);
 
         try {
-            player = new Player(context, new PointF(100, 100), 3);
+            player = new Player(context, new PointF(100, 100), 6);
 
-            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(850, 200), 5));
-            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(0, WindowDefinitions.heightPixels - 150), 10));
-            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(500, WindowDefinitions.heightPixels - 300), 2));
+            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(850, 200), 5, AbstractPlateform.DEFAULT_SCALE));
+            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(0, WindowDefinitions.heightPixels - 150), 10, AbstractPlateform.DEFAULT_SCALE));
+            plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(500, WindowDefinitions.heightPixels - 300), 2, AbstractPlateform.DEFAULT_SCALE));
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -123,15 +123,21 @@ public class GameActivity extends SurfaceView implements Runnable {
         if(holder.getSurface().isValid()) {
             canvas = holder.lockCanvas();
             if(canvas == null) return;
-            
+
             Paint p = new Paint();
             Paint p2 = new Paint();
 
             p.setColor(Color.GREEN);
             p2.setColor(Color.RED);
 
+            Paint paint = new Paint();
+
+            paint.setDither(false);
+            paint.setAntiAlias(false);
+            paint.setFilterBitmap(false);
+
             canvas.drawColor(Color.DKGRAY);
-            canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, new Paint());
+            canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, paint);
 
 
             for(AbstractPlateform plateform : plateforms) {
@@ -140,6 +146,7 @@ public class GameActivity extends SurfaceView implements Runnable {
 
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);
+
             holder.unlockCanvasAndPost(canvas);
         }
     }

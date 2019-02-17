@@ -1,23 +1,34 @@
 package iut.ipi.runnergame.Util;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class BitmapResizer {
-
     public static Bitmap bitmapResizerPixelPerfect(Bitmap bitmap, int newWidth, int newHeight) {
-        Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+        int[] colors = new int[newWidth * newHeight];
 
-        Canvas canvas = new Canvas(scaledBitmap);
-        Paint paint = new Paint();
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
 
-        paint.setAntiAlias(false);
-        paint.setDither(false);
-        paint.setFilterBitmap(false);
+        int xRatio = ((width << 16) / newWidth) + 1;
+        int yRatio = ((height << 16) / newHeight) + 1;
 
-        canvas.drawBitmap(bitmap, null, new Rect(0, 0, newWidth, newHeight), paint);
+        for(int i = 0; i < newHeight; ++i) {
+            for(int j = 0; j < newWidth; ++j) {
+                int x = (j*xRatio) >> 16;
+                int y = (i*yRatio) >> 16;
+
+                colors[i * newWidth + j] = bitmap.getPixel(x, y);
+            }
+        }
+
+        Bitmap scaledBitmap = Bitmap.createBitmap(colors, newWidth, newHeight, Bitmap.Config.ARGB_8888);
 
         return scaledBitmap;
     }

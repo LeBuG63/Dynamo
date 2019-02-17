@@ -17,7 +17,7 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
-    public static final int DEFAULT_SCALE = 4;
+    public static final int DEFAULT_SCALE = 8;
 
     private Collision collision;
 
@@ -26,7 +26,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     private int length;
 
-    public AbstractPlateform(Context context, int resourceId, PointF pos, int length) throws IOException {
+    public AbstractPlateform(Context context, int resourceId, PointF pos, int length, int scale) throws IOException {
         super(pos);
 
         this.length = length;

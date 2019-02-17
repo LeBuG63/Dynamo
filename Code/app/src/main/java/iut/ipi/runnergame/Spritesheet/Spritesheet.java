@@ -13,7 +13,7 @@ import java.util.Map;
 import iut.ipi.runnergame.Util.BitmapResizer;
 
 public class Spritesheet {
-    public static final int DEFAULT_SPRITE_SIZE = 32;
+    public static final int DEFAULT_SPRITE_SIZE = 16;
 
     private final int row;
     private final int col;
@@ -38,7 +38,9 @@ public class Spritesheet {
 
         Bitmap spritesheet = null;
 
-        spritesheet = BitmapFactory.decodeResource(context.getResources(), resourceId);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        spritesheet = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
 
         if(spritesheet == null) {
             throw new IOException("spritesheet not found: " + resourceId);
@@ -55,9 +57,8 @@ public class Spritesheet {
                 Bitmap frame = null;
 
                 frame = Bitmap.createBitmap(spritesheet, getDefaultFrameWidth()  * x, getDefaultFrameHeight() * y, getDefaultFrameWidth(), getDefaultFrameHeight());
-                frame = BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth(), getFrameHeight());
 
-                bitmapMap.get(y).add(frame);
+                bitmapMap.get(y).add(BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth(), getFrameHeight()));
             }
         }
     }
