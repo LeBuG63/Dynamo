@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class BitmapResizer {
-    public static Bitmap bitmapResizerPixelPerfect(Bitmap bitmap, int newWidth, int newHeight) {
+    public static Bitmap bitmapResizerNN(Bitmap bitmap, int newWidth, int newHeight) {
         int[] colors = new int[newWidth * newHeight];
 
         int width = bitmap.getWidth();

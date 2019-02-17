@@ -28,6 +28,8 @@ import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
+import static iut.ipi.runnergame.Entity.Player.Player.DEFAULT_FRAME_DURATION;
+
 public class GameActivity extends SurfaceView implements Runnable {
     private ConstraintLayout constraintLayout;
 
@@ -50,7 +52,7 @@ public class GameActivity extends SurfaceView implements Runnable {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, 4);
 
         try {
-            player = new Player(context, new PointF(100, 100), 6);
+            player = new Player(new PointF(100, 100), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, DEFAULT_FRAME_DURATION, 3, 4));
 
             plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(850, 200), 5, AbstractPlateform.DEFAULT_SCALE));
             plateforms.add(new SimplePlateform(context, R.drawable.sprite_simple_plateform_1, new PointF(0, WindowDefinitions.heightPixels - 150), 10, AbstractPlateform.DEFAULT_SCALE));

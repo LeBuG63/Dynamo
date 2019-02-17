@@ -53,5 +53,4 @@ public abstract class AbstractEntity {
         this.image = image;
         this.rectangle = new RectF(getPosition().x, getPosition().y, getPosition().x + image.getWidth(), getPosition().y + image.getHeight());
     }
-
 }

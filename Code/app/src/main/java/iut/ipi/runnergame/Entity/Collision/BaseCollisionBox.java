@@ -68,17 +68,18 @@ public class BaseCollisionBox implements Collision {
     public boolean isInCollision(Collision other) {
         if (collision(other)) {
 
-            if(collision(new BaseCollisionBox(other.getLeft() + COLLISION_OFFSET, other.getTop() - COLLISION_OFFSET, other.getWidth() - COLLISION_OFFSET, COLLISION_OFFSET))) {
+            if(collision(new BaseCollisionBox(other.getLeft(), other.getTop(), other.getWidth(), -COLLISION_OFFSET))) {
                 collisionOccuredSide = CollisionOccuredSide.TOP;
             }
-            else if(collision(new BaseCollisionBox(other.getLeft() + COLLISION_OFFSET, other.getTop() + other.getHeight(), other.getWidth() - COLLISION_OFFSET*2, COLLISION_OFFSET))) {
-                collisionOccuredSide = CollisionOccuredSide.DOWN;
-            }
+
             else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + COLLISION_OFFSET, -COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide = CollisionOccuredSide.LEFT;
             }
             else if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth(), other.getTop() + COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide = CollisionOccuredSide.RIGHT;
+            }
+            else if(collision(new BaseCollisionBox(other.getLeft() + COLLISION_OFFSET, other.getTop() + other.getHeight(), other.getWidth() - COLLISION_OFFSET*2, COLLISION_OFFSET))) {
+                collisionOccuredSide = CollisionOccuredSide.DOWN;
             }
             return true;
         }

@@ -27,7 +27,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     private int length;
 
     public AbstractPlateform(Context context, int resourceId, PointF pos, int length, int scale) throws IOException {
-        super(pos);
+        super(pos, length * scale * Spritesheet.DEFAULT_SPRITE_SIZE, scale * Spritesheet.DEFAULT_SPRITE_SIZE);
 
         this.length = length;
 

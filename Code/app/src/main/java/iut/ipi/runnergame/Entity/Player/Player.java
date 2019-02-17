@@ -21,6 +21,7 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
+    public static final int DEFAULT_SCALE = 6;
 
     public static final float IMPULSE_MOVEMENT = 1000.0f;
     public static final float IMPULSE_JUMP = 18.0f;
@@ -35,10 +36,10 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
 
     private boolean onGround = false;
 
-    public Player(Context context, PointF pos, int scale) throws IOException {
+    public Player(PointF pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
-        setAnimationManager(new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, scale, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, 4, DEFAULT_FRAME_DURATION, 3, 4));
+        setAnimationManager(animationManager);
         setCollision(new BaseCollisionBox(pos.x, pos.y, getAnimationManager().getFrame().getWidth(), getAnimationManager().getFrame().getHeight()));
 
         animationManager.start(0);

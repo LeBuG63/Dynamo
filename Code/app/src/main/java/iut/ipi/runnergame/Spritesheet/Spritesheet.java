@@ -58,7 +58,7 @@ public class Spritesheet {
 
                 frame = Bitmap.createBitmap(spritesheet, getDefaultFrameWidth()  * x, getDefaultFrameHeight() * y, getDefaultFrameWidth(), getDefaultFrameHeight());
 
-                bitmapMap.get(y).add(BitmapResizer.bitmapResizerPixelPerfect(frame, getFrameWidth(), getFrameHeight()));
+                bitmapMap.get(y).add(BitmapResizer.bitmapResizerNN(frame, getFrameWidth(), getFrameHeight()));
             }
         }
     }
