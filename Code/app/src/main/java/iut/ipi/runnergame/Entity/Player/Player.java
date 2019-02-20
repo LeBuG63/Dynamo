@@ -2,7 +2,7 @@ package iut.ipi.runnergame.Entity.Player;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 
 import java.io.IOException;
 
@@ -21,9 +21,9 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
-    public static final int DEFAULT_SCALE = 6;
+    public static final int DEFAULT_SCALE = 20;
 
-    public static final int DEFAULT_X_POS = WindowDefinitions.widthPixels/5;
+    public static final int DEFAULT_X_POS = WindowDefinitions.widthPixels/2;
 
     public static final float IMPULSE_MOVEMENT = 800.0f;
     public static final float IMPULSE_JUMP = 18.0f;
@@ -32,13 +32,13 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     public static final int ANIMATION_RUNNING_RIGHT = 1;
     public static final int ANIMATION_RUNNING_LEFT = 2;
 
-    private PointF impulse = new PointF(0.0f,0.0f);
+    private PointScaled impulse = new PointScaled(0.0f,0.0f);
     private AnimationManager animationManager;
     private Collision collision;
 
     private boolean onGround = false;
 
-    public Player(PointF pos, AnimationManager animationManager) throws IOException {
+    public Player(PointScaled pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
         setAnimationManager(animationManager);
@@ -61,51 +61,51 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
 
     @Override
     public void moveUp(float force) {
-        setImpulse(new PointF(0.0f, force));
+        setImpulse(new PointScaled(0.0f, force));
     }
 
     @Override
     public void moveDown(float force) {
-        setImpulse(new PointF(0.0f, -force));
+        setImpulse(new PointScaled(0.0f, -force));
     }
 
     @Override
     public void moveLeft(float force) {
-        setImpulse(new PointF(-force, 0f));
+        setImpulse(new PointScaled(-force, 0f));
     }
 
     @Override
     public void moveRight(float force) {
-        setImpulse(new PointF(force, 0f));
+        setImpulse(new PointScaled(force, 0f));
     }
 
     @Override
     public void stopY() {
-        this.impulse = new PointF(this.impulse.x, 0);
+        this.impulse = new PointScaled(this.impulse.x, 0);
     }
 
     @Override
     public void stopX() {
-        this.impulse = new PointF(0, this.impulse.y);
+        this.impulse = new PointScaled(0, this.impulse.y);
     }
 
     @Override
     public void jump(float force) {
         if (onGround) {
             onGround = false;
-            setImpulse(new PointF(0.0f, -force));
-            setPosition(new PointF(getPosition().x, getPosition().y - force));
+            setImpulse(new PointScaled(0.0f, -force));
+            setPosition(new PointScaled(getPosition().x, getPosition().y - force));
         }
     }
 
     @Override
-    public PointF getImpulse() {
+    public PointScaled getImpulse() {
         return impulse;
     }
 
     @Override
-    public void setImpulse(PointF impulse) {
-        PointF save = this.impulse;
+    public void setImpulse(PointScaled impulse) {
+        PointScaled save = this.impulse;
 
         this.impulse.x = (impulse.x == 0) ? save.x : impulse.x;
         this.impulse.y = (impulse.y == 0) ? save.y : impulse.y;

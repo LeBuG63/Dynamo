@@ -1,12 +1,14 @@
 package iut.ipi.runnergame.Activity;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PointF;
-import android.graphics.Rect;
+import iut.ipi.runnergame.Util.PointScaled;
 import android.support.constraint.ConstraintLayout;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +27,7 @@ import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 import static iut.ipi.runnergame.Entity.Player.Player.DEFAULT_FRAME_DURATION;
 
@@ -37,7 +40,7 @@ public class GameActivity extends SurfaceView implements Runnable {
     private Player player;
     private Cross cross;
 
-    private PointF pointClicked = new PointF();
+    private PointScaled pointClicked = new PointScaled();
 
     private PlateformManager plateformManager;
 
@@ -54,12 +57,12 @@ public class GameActivity extends SurfaceView implements Runnable {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, BaseCrossClickable.DEFAULT_SCALE);
 
         try {
-            player = new Player(new PointF(Player.DEFAULT_X_POS, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(new PointScaled(100, -100), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
-            plateformManager.add(PlateformType.SIMPLE, new PointF(850, 200), 5, SimplePlateform.DEFAULT_SCALE);
-            plateformManager.add(PlateformType.SIMPLE, new PointF(1700, 200), 20, SimplePlateform.DEFAULT_SCALE);
-            plateformManager.add(PlateformType.SIMPLE, new PointF(0, WindowDefinitions.heightPixels - 150), 10, SimplePlateform.DEFAULT_SCALE);
-            plateformManager.add(PlateformType.SIMPLE, new PointF(500, WindowDefinitions.heightPixels - 300), 2, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointScaled(850, 200), 5, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointScaled(1700, 200), 20, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.FROZEN, new PointScaled(0, 500), 10, SimplePlateform.DEFAULT_SCALE);
+            plateformManager.add(PlateformType.SIMPLE, new PointScaled(500,  700), 2, SimplePlateform.DEFAULT_SCALE);
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -119,17 +122,22 @@ public class GameActivity extends SurfaceView implements Runnable {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
-        plateformManager.translate(player.getPosition().x, 0);
+        plateformManager.translate(player.getPosition().x - Player.DEFAULT_X_POS, 0);
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
 
         last = now;
+
+        Log.d("aaaa", String.valueOf(WindowDefinitions.heightPixels));
+        Log.d("aaaa", String.valueOf(WindowDefinitions.widthPixels));
     }
 
     public void draw() {
         if(holder.getSurface().isValid()) {
             canvas = holder.lockCanvas();
             if(canvas == null) return;
+
+            canvas.scale(WindowDefinitions.ratioWidth, WindowDefinitions.ratioWidth);
 
             Paint p = new Paint();
             Paint p2 = new Paint();

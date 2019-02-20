@@ -3,7 +3,7 @@ package iut.ipi.runnergame.Hud.Input;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import iut.ipi.runnergame.Hud.ArrowClickable;
 import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 public class BaseCrossClickable implements Cross {
     public static final int LEFT = 0;
@@ -26,19 +27,19 @@ public class BaseCrossClickable implements Cross {
     private List<ArrowClickable> arrow = new ArrayList<>();
 
     public BaseCrossClickable(Context context, int resource, int spriteWidth, int spriteHeight, int scale) {
-        this(context, resource, spriteWidth, spriteHeight, scale, new PointF((spriteWidth*scale)*2, WindowDefinitions.heightPixels - (spriteHeight*scale)*3));
+        this(context, resource, spriteWidth, spriteHeight, scale, new PointScaled((spriteWidth*scale)*2, 300 + (spriteHeight*scale)*3));
     }
 
-    public BaseCrossClickable(Context context, int resource, int spriteWidth, int spriteHeight, int scale, PointF center) {
+    public BaseCrossClickable(Context context, int resource, int spriteWidth, int spriteHeight, int scale, PointScaled center) {
         float centerX = center.x;
         float centerY = center.y;
 
         int size = spriteWidth * scale;
 
-        arrow.add(new BaseArrowClickable(new PointF(centerX - size, centerY), size, size));
-        arrow.add(new BaseArrowClickable(new PointF(centerX + size, centerY), size, size));
-        arrow.add(new BaseArrowClickable(new PointF(centerX, centerY - size), size, size));
-        arrow.add(new BaseArrowClickable(new PointF(centerX, centerY + size), size, size));
+        arrow.add(new BaseArrowClickable(new PointScaled(centerX - size, centerY), size, size));
+        arrow.add(new BaseArrowClickable(new PointScaled(centerX + size, centerY), size, size));
+        arrow.add(new BaseArrowClickable(new PointScaled(centerX, centerY - size), size, size));
+        arrow.add(new BaseArrowClickable(new PointScaled(centerX, centerY + size), size, size));
 
         try {
             spritesheet = new Spritesheet(context, resource, 1, 4, spriteWidth, spriteHeight, scale);
@@ -84,7 +85,7 @@ public class BaseCrossClickable implements Cross {
         }
     }
 
-    public void updateArrowPressed(PointF point) {
+    public void updateArrowPressed(PointScaled point) {
         for(ArrowClickable arrowClickable : arrow) {
             arrowClickable.setIsClicked(arrowClickable.pointInside(point));
         }

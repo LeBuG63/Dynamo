@@ -2,7 +2,7 @@ package iut.ipi.runnergame.Hud;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 
 public interface Cross {
     ArrowClickable getArrowTop();
@@ -11,5 +11,5 @@ public interface Cross {
     ArrowClickable getArrowRight();
     void drawRectOnCanvas(Canvas canvas, Paint paintNonClicked, Paint paintClicked);
     void drawOnCanvas(Canvas canvas);
-    void updateArrowPressed(PointF point);
+    void updateArrowPressed(PointScaled point);
 }

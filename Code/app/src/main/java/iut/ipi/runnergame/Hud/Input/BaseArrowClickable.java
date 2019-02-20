@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Hud.Input;
 
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
@@ -13,13 +13,13 @@ public class BaseArrowClickable extends AbstractEntity implements ArrowClickable
 
     private Collision collision;
 
-    public BaseArrowClickable(PointF pos, int width, int heigth) {
+    public BaseArrowClickable(PointScaled pos, int width, int heigth) {
         super(pos, width, heigth);
 
         collision = new BaseCollisionBox(pos.x, pos.y,  width, heigth);
     }
 
-    public boolean pointInside(PointF point) {
+    public boolean pointInside(PointScaled point) {
         return getCollision().isInCollision(new BaseCollisionBox(point.x, point.y, 1, 1));
     }
 
@@ -32,7 +32,7 @@ public class BaseArrowClickable extends AbstractEntity implements ArrowClickable
     }
 
     @Override
-    public PointF getPosition() {
+    public PointScaled getPosition() {
         return super.getPosition();
     }
 

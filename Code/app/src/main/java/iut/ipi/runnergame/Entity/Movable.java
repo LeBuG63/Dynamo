@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Entity;
 
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 
 public interface Movable {
     void moveUp(float force);
@@ -12,6 +12,6 @@ public interface Movable {
     void stopY();
     void stopX();
 
-    PointF getImpulse();
-    void setImpulse(PointF impulse);
+    PointScaled getImpulse();
+    void setImpulse(PointScaled impulse);
 }

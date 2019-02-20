@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
-    public static final int DEFAULT_SCALE = 8;
+    public static final int DEFAULT_SCALE = 20;
 
     public static final int BLOCK_SPRITE_START = 0;
     public static final int BLOCK_SPRITE_INBETWEEN = 1;
@@ -27,7 +27,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     public static final int N_ROW_SPRITESHEET = 1;
 
     private Collision collision;
-    private PointF offset = new PointF(0, 0);
+    private PointScaled offset = new PointScaled(0, 0);
 
     private Spritesheet spritesheet;
     private List<Block> blocks = new ArrayList<>();
@@ -36,7 +36,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     private int width;
     private int height;
 
-    public AbstractPlateform(Context context, int resourceId, PointF pos, int length, int scale) throws IOException {
+    public AbstractPlateform(Context context, int resourceId, PointScaled pos, int length, int scale) throws IOException {
         super(pos, length * scale * Spritesheet.DEFAULT_SPRITE_SIZE, scale * Spritesheet.DEFAULT_SPRITE_SIZE);
 
         this.length = length;
@@ -61,7 +61,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
                 sprite = spritesheet.getSprite(0, BLOCK_SPRITE_END);
             }
 
-            blocks.add(new Block(new PointF(x, y), sprite));
+            blocks.add(new Block(new PointScaled(x, y), sprite));
         }
     }
 
@@ -75,15 +75,15 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     }
 
     @Override
-    public PointF getPosition() {
-        return new PointF(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
+    public PointScaled getPosition() {
+        return new PointScaled(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
     }
 
-    public PointF getOffset() {
+    public PointScaled getOffset() {
         return offset;
     }
 
-    public void setOffset(PointF offset) {
+    public void setOffset(PointScaled offset) {
         this.offset = offset;
 
         float x = getPosition().x;
@@ -102,14 +102,14 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     }
 
     @Override
-    public void setPosition(PointF position) {
+    public void setPosition(PointScaled position) {
         int blockId = 0;
 
         for (Block block : blocks) {
             float x = position.x + (float) (blockId * spritesheet.getFrameWidth());
             float y = position.y;
 
-            block.setPosition(new PointF(x, y));
+            block.setPosition(new PointScaled(x, y));
 
             blockId++;
         }

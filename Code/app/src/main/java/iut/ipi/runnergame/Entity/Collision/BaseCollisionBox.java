@@ -1,5 +1,7 @@
 package iut.ipi.runnergame.Entity.Collision;
 
+import iut.ipi.runnergame.Util.WindowDefinitions;
+
 public class BaseCollisionBox implements Collision {
     private static final float COLLISION_OFFSET = 10.0f;
 
@@ -13,7 +15,7 @@ public class BaseCollisionBox implements Collision {
     public BaseCollisionBox(float left, float top, float width, float height) {
         this.left = left;
         this.top = top;
-        this.width = width;
+        this.width = width ;
         this.height = height;
     }
 

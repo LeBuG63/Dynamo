@@ -1,29 +1,29 @@
 package iut.ipi.runnergame.Entity;
 
 import android.graphics.Bitmap;
-import android.graphics.PointF;
+import iut.ipi.runnergame.Util.PointScaled;
 import android.graphics.RectF;
 
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 
 public abstract class AbstractEntity {
-    private PointF position = new PointF();
+    private PointScaled position = new PointScaled();
 
     private RectF rectangle;
     private Bitmap image;
 
-    public AbstractEntity(PointF pos) {
+    public AbstractEntity(PointScaled pos) {
         this.position = pos;
     }
 
-    public AbstractEntity(PointF pos, Bitmap bitmap) {
+    public AbstractEntity(PointScaled pos, Bitmap bitmap) {
         this(pos, bitmap.getWidth(), bitmap.getHeight());
 
         setImage(bitmap);
     }
 
-    public AbstractEntity(PointF pos, int width, int height) {
+    public AbstractEntity(PointScaled pos, int width, int height) {
         this(pos);
 
         this.rectangle = new RectF(pos.x, pos.y, pos.x + width, pos.y + height);
@@ -33,7 +33,7 @@ public abstract class AbstractEntity {
         return image;
     }
 
-    public PointF getPosition() {
+    public PointScaled getPosition() {
         return position;
     }
 
@@ -45,7 +45,7 @@ public abstract class AbstractEntity {
         return rectangle;
     }
 
-    public void setPosition(PointF position) {
+    public void setPosition(PointScaled position) {
         this.position = position;
 
         if(getImage() != null)

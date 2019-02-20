@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import iut.ipi.runnergame.Util.BitmapResizer;
+import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 public class Spritesheet {
     public static final int DEFAULT_SPRITE_SIZE = 16;
