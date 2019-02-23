@@ -14,11 +14,12 @@ import iut.ipi.runnergame.Entity.Movable;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointScaled;
 import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
 
-    public static final int DEFAULT_X_POS = WindowDefinitions.widthPixels/2;
+    public static final int DEFAULT_X_POS = WindowUtil.ScaleIntToWindow(WindowDefinitions.widthPixels);
 
     public static final float IMPULSE_MOVEMENT = 800.0f;
     public static final float IMPULSE_JUMP = 18.0f;

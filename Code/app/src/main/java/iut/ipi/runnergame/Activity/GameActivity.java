@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
 import iut.ipi.runnergame.Hud.Input.BaseArrowClickable;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
@@ -40,11 +41,10 @@ public class GameActivity extends SurfaceView implements Runnable {
 
     private Player player;
     private Cross cross;
+    private ShadowManager shadowManager;
 
     private AbstractPoint pointClicked = new PointScaled();
     private PlateformManager plateformManager;
-
-    private Accelerometer accelerometer;
 
     // volatile as it'll get modified in different thread
     private volatile boolean gamePlaying = true;
@@ -54,10 +54,8 @@ public class GameActivity extends SurfaceView implements Runnable {
 
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        accelerometer = new Accelerometer(context);
-
+        shadowManager = new ShadowManager(context, 2, 0.3f, Color.WHITE);
         plateformManager = new PlateformManager(context);
-
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, new PointScaled(1000.f, WindowDefinitions.heightPixels - 1000));
 
         try {
@@ -128,6 +126,7 @@ public class GameActivity extends SurfaceView implements Runnable {
         }
 
         plateformManager.translate(player.getPosition().x - Player.DEFAULT_X_POS, 0);
+        shadowManager.update();
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
 
@@ -139,11 +138,13 @@ public class GameActivity extends SurfaceView implements Runnable {
             canvas = holder.lockCanvas();
             if(canvas == null) return;
 
-            canvas.scale(WindowDefinitions.ratioWidth, WindowDefinitions.ratioWidth);
+            canvas.scale(WindowDefinitions.ratioWidth, WindowDefinitions.ratioHeight);
 
             Paint p = new Paint();
             Paint p2 = new Paint();
+            Paint circle = new Paint();
 
+            circle.setColor(Color.BLUE);
             p.setColor(Color.GREEN);
             p2.setColor(Color.RED);
 
@@ -161,6 +162,8 @@ public class GameActivity extends SurfaceView implements Runnable {
 
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);
+
+            shadowManager.drawShadowToCanvas(canvas, player);
 
             holder.unlockCanvasAndPost(canvas);
         }

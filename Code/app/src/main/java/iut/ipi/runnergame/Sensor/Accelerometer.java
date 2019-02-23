@@ -17,6 +17,7 @@ public class Accelerometer implements SensorEventListener {
     private long lastUpdate = 0;
 
     private boolean isShaked = false;
+    private float speed = 0.0f;
 
     public Accelerometer(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -39,12 +40,11 @@ public class Accelerometer implements SensorEventListener {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
-
-                float speed = Math.abs(x + y + z - lastValues[0] - lastValues[1] - lastValues[2]) / diffTime * 1000;
+                speed = Math.abs(x + y + z - lastValues[0] - lastValues[1] - lastValues[2]) / diffTime * 1000;
 
                 if (speed > SHAKE_THRESHOLD) {
                     isShaked = true;
-                    Log.d("accelerometer", "SHAKED");
+                    Log.d("ACCELEROMETER", "SHAKED");
                 } else {
                     isShaked = false;
                 }
@@ -61,5 +61,9 @@ public class Accelerometer implements SensorEventListener {
 
     public boolean isShaked() {
         return isShaked;
+    }
+
+    public float getSpeed() {
+        return speed;
     }
 }
