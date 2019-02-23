@@ -5,16 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 
-import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Constantes;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class ShadowManager  {
     private Accelerometer accelerometer;
@@ -42,7 +36,7 @@ public class ShadowManager  {
         if(accelSpeed  != speed) {
             accelSpeed = speed;
 
-            shadow.addToRadius(speed);
+            //shadow.addToRadius(speed);
         }
 
         shadow.update();
@@ -51,10 +45,10 @@ public class ShadowManager  {
     public void drawShadowToCanvas(Canvas canvas, Player player) {
         path.reset();
 
-        path.addCircle(shadow.getPosition().x + player.getSprite().getWidth()/2, player.getPosition().y + player.getSprite().getHeight()/2, shadow.getRadius(), Path.Direction.CW);
+        path.addCircle(shadow.getPosition().x, shadow.getPosition().y, shadow.getRadius(), Path.Direction.CW);
         path.setFillType(Path.FillType.INVERSE_EVEN_ODD);
 
-        canvas.drawCircle(shadow.getPosition().x, player.getPosition().y, shadow.getRadius(), circlePaint);
+        canvas.drawCircle( shadow.getPosition().x, shadow.getPosition().y, shadow.getRadius(), circlePaint);
         canvas.drawPath(path, shadowPaint);
         canvas.clipPath(path);
 

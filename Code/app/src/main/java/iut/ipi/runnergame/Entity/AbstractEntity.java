@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointScaled;
 
 public abstract class AbstractEntity {
     public static int DEFAULT_SCALE = 9;

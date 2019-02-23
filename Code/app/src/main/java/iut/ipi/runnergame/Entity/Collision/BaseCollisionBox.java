@@ -3,7 +3,6 @@ package iut.ipi.runnergame.Entity.Collision;
 import android.graphics.RectF;
 
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class BaseCollisionBox implements Collision {
     private static final float COLLISION_OFFSET = 10.0f;

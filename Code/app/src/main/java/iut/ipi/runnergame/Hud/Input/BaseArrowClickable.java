@@ -1,7 +1,5 @@
 package iut.ipi.runnergame.Hud.Input;
 
-import android.util.Log;
-
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;

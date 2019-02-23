@@ -1,13 +1,6 @@
 package iut.ipi.runnergame.Util;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class BitmapResizer {
     public static Bitmap bitmapResizerNN(Bitmap bitmap, int newWidth, int newHeight) {

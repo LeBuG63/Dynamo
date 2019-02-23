@@ -3,7 +3,6 @@ package iut.ipi.runnergame.Hud.Input;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;

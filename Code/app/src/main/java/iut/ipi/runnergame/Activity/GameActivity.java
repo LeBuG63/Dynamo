@@ -4,13 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
-import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
-import iut.ipi.runnergame.Hud.Input.BaseArrowClickable;
-import iut.ipi.runnergame.Sensor.Accelerometer;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointCell;
-
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,13 +16,14 @@ import java.io.IOException;
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
-import iut.ipi.runnergame.Entity.Plateform.TypesPlateform.SimplePlateform;
 import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
 import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.PointCell;
 import iut.ipi.runnergame.Util.Point.PointScaled;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
@@ -56,7 +50,7 @@ public class GameActivity extends SurfaceView implements Runnable {
 
         shadowManager = new ShadowManager(context, 2, 0.3f, Color.WHITE);
         plateformManager = new PlateformManager(context);
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, new PointScaled(1000.f, WindowDefinitions.heightPixels - 1000));
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, new PointScaled(1000.f, WindowDefinitions.HEIGHT_DPI - 1000));
 
         try {
             player = new Player(new PointCell(5, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
@@ -79,8 +73,8 @@ public class GameActivity extends SurfaceView implements Runnable {
                 getRootView().performClick();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    pointClicked.x = event.getX() / WindowDefinitions.ratioWidth;
-                    pointClicked.y = event.getY() / WindowDefinitions.ratioHeight;
+                    pointClicked.x = event.getX() / WindowDefinitions.RATIO_WIDTH;
+                    pointClicked.y = event.getY() / WindowDefinitions.RATIO_HEIGHT;
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
                     pointClicked.x = -1;
@@ -138,7 +132,7 @@ public class GameActivity extends SurfaceView implements Runnable {
             canvas = holder.lockCanvas();
             if(canvas == null) return;
 
-            canvas.scale(WindowDefinitions.ratioWidth, WindowDefinitions.ratioHeight);
+            canvas.scale(WindowDefinitions.RATIO_WIDTH, WindowDefinitions.RATIO_HEIGHT);
 
             Paint p = new Paint();
             Paint p2 = new Paint();

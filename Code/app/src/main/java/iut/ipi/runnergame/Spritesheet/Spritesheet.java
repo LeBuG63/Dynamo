@@ -12,7 +12,6 @@ import java.util.Map;
 
 import iut.ipi.runnergame.Util.BitmapResizer;
 import iut.ipi.runnergame.Util.WindowDefinitions;
-import iut.ipi.runnergame.Util.WindowUtil;
 
 public class Spritesheet {
     public static final int DEFAULT_SPRITE_SIZE = 16;
@@ -34,8 +33,8 @@ public class Spritesheet {
         this.defaultFrameWidth = frameWidth;
         this.defaultFrameHeight = frameHeight;
 
-        this.frameWidth = frameWidth * scale;
-        this.frameHeight = frameHeight * scale;
+        this.frameWidth = frameWidth * scale * (int)WindowDefinitions.DENSITY;
+        this.frameHeight = frameHeight * scale * (int)WindowDefinitions.DENSITY;
         this.scale = scale;
 
         Bitmap spritesheet = null;
