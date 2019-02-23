@@ -2,12 +2,13 @@ package iut.ipi.runnergame.Entity.Plateform;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import iut.ipi.runnergame.Util.PointScaled;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.PointScaled;
 
 public class PlateformManager {
     private List<AbstractPlateform> plateforms = new ArrayList<>();
@@ -24,9 +25,9 @@ public class PlateformManager {
         }
     }
 
-    public void add(PlateformType type, PointScaled position, int lenght, int scale) {
+    public void add(PlateformType type, AbstractPoint position, int lenght) {
         try {
-            plateforms.add(PlateformFactory.create(context, type, position, lenght, scale));
+            plateforms.add(PlateformFactory.create(context, type, position, lenght));
         } catch (IOException e) {}
     }
 

@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Entity;
 
-import iut.ipi.runnergame.Util.PointScaled;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public interface Movable {
     void moveUp(float force);
@@ -12,6 +12,6 @@ public interface Movable {
     void stopY();
     void stopX();
 
-    PointScaled getImpulse();
-    void setImpulse(PointScaled impulse);
+    AbstractPoint getImpulse();
+    void setImpulse(AbstractPoint impulse);
 }

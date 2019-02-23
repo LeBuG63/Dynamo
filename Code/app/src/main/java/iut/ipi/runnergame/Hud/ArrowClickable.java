@@ -1,13 +1,14 @@
 package iut.ipi.runnergame.Hud;
 
-import iut.ipi.runnergame.Util.PointScaled;
 import android.graphics.RectF;
+
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public interface ArrowClickable {
     RectF getRectangle();
-    PointScaled getPosition();
+    AbstractPoint getPosition();
 
-    boolean pointInside(PointScaled point);
+    boolean pointInside(AbstractPoint point);
     boolean getIsClicked();
     void setIsClicked(boolean isClicked);
 }

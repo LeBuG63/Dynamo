@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import iut.ipi.runnergame.Util.PointScaled;
+
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.PointCell;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,10 +17,9 @@ import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Util.Point.PointScaled;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
-    public static final int DEFAULT_SCALE = 20;
-
     public static final int BLOCK_SPRITE_START = 0;
     public static final int BLOCK_SPRITE_INBETWEEN = 1;
     public static final int BLOCK_SPRITE_END = 2;
@@ -27,7 +28,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     public static final int N_ROW_SPRITESHEET = 1;
 
     private Collision collision;
-    private PointScaled offset = new PointScaled(0, 0);
+    private AbstractPoint offset;
 
     private Spritesheet spritesheet;
     private List<Block> blocks = new ArrayList<>();
@@ -36,19 +37,21 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     private int width;
     private int height;
 
-    public AbstractPlateform(Context context, int resourceId, PointScaled pos, int length, int scale) throws IOException {
-        super(pos, length * scale * Spritesheet.DEFAULT_SPRITE_SIZE, scale * Spritesheet.DEFAULT_SPRITE_SIZE);
+    public AbstractPlateform(Context context, int resourceId, AbstractPoint pos, int length) throws IOException {
+        super(pos, length * AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE);
+
+        //setPosition(new PointScaled(WindowUtil.ScaleFloatToWindow(pos.x), WindowUtil.ScaleFloatToWindow(pos.y)));
 
         this.length = length;
 
-        spritesheet = new Spritesheet(context, resourceId, N_ROW_SPRITESHEET, N_COL_SPRITESHEET, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, DEFAULT_SCALE);
+        spritesheet = new Spritesheet(context, resourceId, N_ROW_SPRITESHEET, N_COL_SPRITESHEET, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE);
 
         width = length * spritesheet.getFrameWidth();
         height = spritesheet.getFrameHeight();
 
         setCollision(new BaseCollisionBox(pos.x, pos.y, width, height));
 
-        for(int blockId = 0; blockId < length; ++blockId) {
+        for(int blockId = 0; blockId < length; blockId++) {
             float x = pos.x + (float) (blockId * spritesheet.getFrameWidth());
             float y = pos.y;
 
@@ -75,15 +78,15 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     }
 
     @Override
-    public PointScaled getPosition() {
+    public AbstractPoint getPosition() {
         return new PointScaled(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
     }
 
-    public PointScaled getOffset() {
+    public AbstractPoint getOffset() {
         return offset;
     }
 
-    public void setOffset(PointScaled offset) {
+    public void setOffset(AbstractPoint offset) {
         this.offset = offset;
 
         float x = getPosition().x;
@@ -102,7 +105,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     }
 
     @Override
-    public void setPosition(PointScaled position) {
+    public void setPosition(AbstractPoint position) {
         int blockId = 0;
 
         for (Block block : blocks) {

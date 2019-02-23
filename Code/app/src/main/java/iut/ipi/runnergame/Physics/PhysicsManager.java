@@ -1,16 +1,15 @@
 package iut.ipi.runnergame.Physics;
 
-import iut.ipi.runnergame.Util.PointScaled;
 import android.util.Log;
 
 import java.util.List;
 
-import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.PointScaled;
 
 public class PhysicsManager {
     public static final float GRAVITY = 30f;
@@ -18,14 +17,14 @@ public class PhysicsManager {
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
-    public static void mulVecWithGravity(PointScaled point, PointScaled dir, float dt) {
-        PointScaled oldPoint = dir;
+    public static void mulVecWithGravity(AbstractPoint point, AbstractPoint dir, float dt) {
+        AbstractPoint oldPoint = dir;
 
         dir.y += GRAVITY * dt;
         point.y += dir.y + (oldPoint.y + dir.y) * 0.5f * dt;
     }
 
-    public static void mulVecWithFriction(PointScaled point, PointScaled dir, float dt) {
+    public static void mulVecWithFriction(AbstractPoint point, AbstractPoint dir, float dt) {
         dir.x *= FRICTION  * dt;
 
         if(Math.abs(dir.x) < VECTOR_CONSIDERED_NULL) {
@@ -35,7 +34,7 @@ public class PhysicsManager {
         point.x += dir.x;
     }
 
-    public static void mulVecWithWorldsPhysic(PointScaled point, PointScaled dir, float dt) {
+    public static void mulVecWithWorldsPhysic(AbstractPoint point, AbstractPoint dir, float dt) {
         mulVecWithGravity(point, dir, dt);
         mulVecWithFriction(point, dir, dt);
     }
@@ -48,8 +47,8 @@ public class PhysicsManager {
         // pour ca, une projection est faite pour permettre d'avoir ou potentiellement le joueur sera a la prochaine frame
         // ensuite, il faut faire les calculs sur les projections pour savoir si il y a collision
 
-        PointScaled pointProjection = new PointScaled(Player.DEFAULT_X_POS, player.getPosition().y);
-        PointScaled impulseProjection = new PointScaled(player.getImpulse().x, player.getImpulse().y);
+        AbstractPoint pointProjection = new PointScaled(Player.DEFAULT_X_POS, player.getPosition().y);
+        AbstractPoint impulseProjection = new PointScaled(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
         mulVecWithFriction(pointProjection, impulseProjection, dt);

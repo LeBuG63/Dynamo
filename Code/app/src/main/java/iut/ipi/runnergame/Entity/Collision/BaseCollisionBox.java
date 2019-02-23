@@ -1,5 +1,8 @@
 package iut.ipi.runnergame.Entity.Collision;
 
+import android.graphics.RectF;
+
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class BaseCollisionBox implements Collision {
@@ -19,7 +22,11 @@ public class BaseCollisionBox implements Collision {
         this.height = height;
     }
 
-    @Override
+    public BaseCollisionBox(RectF rectangle) {
+        this(rectangle.left, rectangle.top, rectangle.width(), rectangle.height());
+    }
+
+        @Override
     public float getWidth() {
         return width;
     }
@@ -89,6 +96,10 @@ public class BaseCollisionBox implements Collision {
         collisionOccuredSide = CollisionOccuredSide.NONE;
 
         return false;
+    }
+
+    public boolean isInCollisionWithPoint(AbstractPoint point) {
+        return (point.x > getLeft() && point.x < (getLeft() + getWidth()) && point.y > getTop() && point.y < (getTop() + getHeight()));
     }
 
     @Override

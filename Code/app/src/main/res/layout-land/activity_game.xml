@@ -6,13 +6,4 @@
     android:id="@+id/constraintlayout"
     android:screenOrientation="landscape">
 
-    <view
-        class="iut.ipi.runnergame.Hud.Input.BaseCrossClickable"
-        id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cross"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="359dp" />
-
 </android.support.constraint.ConstraintLayout>

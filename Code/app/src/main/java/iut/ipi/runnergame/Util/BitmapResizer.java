@@ -28,8 +28,6 @@ public class BitmapResizer {
             }
         }
 
-        Bitmap scaledBitmap = Bitmap.createBitmap(colors, newWidth, newHeight, Bitmap.Config.ARGB_8888);
-
-        return scaledBitmap;
+        return Bitmap.createBitmap(colors, newWidth, newHeight, Bitmap.Config.ARGB_8888);
     }
 }

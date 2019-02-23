@@ -1,27 +1,22 @@
 package iut.ipi.runnergame.Entity.Player;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import iut.ipi.runnergame.Util.PointScaled;
 
 import java.io.IOException;
 
 import iut.ipi.runnergame.Animation.Animable;
 import iut.ipi.runnergame.Animation.AnimationManager;
-import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Movable;
-import iut.ipi.runnergame.Physics.PhysicsManager;
-import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.PointScaled;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
-    public static final int DEFAULT_SCALE = 20;
 
     public static final int DEFAULT_X_POS = WindowDefinitions.widthPixels/2;
 
@@ -38,7 +33,7 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
 
     private boolean onGround = false;
 
-    public Player(PointScaled pos, AnimationManager animationManager) throws IOException {
+    public Player(AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
         setAnimationManager(animationManager);
@@ -99,12 +94,12 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     }
 
     @Override
-    public PointScaled getImpulse() {
+    public AbstractPoint getImpulse() {
         return impulse;
     }
 
     @Override
-    public void setImpulse(PointScaled impulse) {
+    public void setImpulse(AbstractPoint impulse) {
         PointScaled save = this.impulse;
 
         this.impulse.x = (impulse.x == 0) ? save.x : impulse.x;

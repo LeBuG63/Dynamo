@@ -1,5 +1,7 @@
 package iut.ipi.runnergame.Entity.Collision;
 
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+
 public interface Collision {
     void setLeft(float x);
     void setTop(float x);
@@ -14,5 +16,6 @@ public interface Collision {
     void setHeight(float height);
 
     boolean isInCollision(Collision other);
+    boolean isInCollisionWithPoint(AbstractPoint point);
     CollisionOccuredSide getCollisionSide();
 }

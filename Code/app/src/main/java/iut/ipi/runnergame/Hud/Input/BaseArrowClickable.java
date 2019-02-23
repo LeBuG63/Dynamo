@@ -1,26 +1,27 @@
 package iut.ipi.runnergame.Hud.Input;
 
-import iut.ipi.runnergame.Util.PointScaled;
+import android.util.Log;
 
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Hud.ArrowClickable;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class BaseArrowClickable extends AbstractEntity implements ArrowClickable, Collidable {
     private boolean isClicked = false;
 
-    private Collision collision;
+    public Collision collision;
 
-    public BaseArrowClickable(PointScaled pos, int width, int heigth) {
+    public BaseArrowClickable(AbstractPoint pos, int width, int heigth) {
         super(pos, width, heigth);
 
-        collision = new BaseCollisionBox(pos.x, pos.y,  width, heigth);
+        collision = new BaseCollisionBox(pos.x, pos.y, width, heigth);
     }
 
-    public boolean pointInside(PointScaled point) {
-        return getCollision().isInCollision(new BaseCollisionBox(point.x, point.y, 1, 1));
+    public boolean pointInside(AbstractPoint point) {
+        return getCollision().isInCollisionWithPoint(point);
     }
 
     public boolean getIsClicked() {
@@ -32,7 +33,7 @@ public class BaseArrowClickable extends AbstractEntity implements ArrowClickable
     }
 
     @Override
-    public PointScaled getPosition() {
+    public AbstractPoint getPosition() {
         return super.getPosition();
     }
 

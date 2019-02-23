@@ -1,13 +1,15 @@
 package iut.ipi.runnergame.Activity;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import iut.ipi.runnergame.Util.PointScaled;
+
+import iut.ipi.runnergame.Hud.Input.BaseArrowClickable;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.PointCell;
+
 import android.support.constraint.ConstraintLayout;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -26,10 +28,8 @@ import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Util.Point.PointScaled;
 import iut.ipi.runnergame.Util.WindowDefinitions;
-import iut.ipi.runnergame.Util.WindowUtil;
-
-import static iut.ipi.runnergame.Entity.Player.Player.DEFAULT_FRAME_DURATION;
 
 public class GameActivity extends SurfaceView implements Runnable {
     private ConstraintLayout constraintLayout;
@@ -40,7 +40,7 @@ public class GameActivity extends SurfaceView implements Runnable {
     private Player player;
     private Cross cross;
 
-    private PointScaled pointClicked = new PointScaled();
+    private AbstractPoint pointClicked = new PointScaled();
 
     private PlateformManager plateformManager;
 
@@ -54,15 +54,13 @@ public class GameActivity extends SurfaceView implements Runnable {
 
         plateformManager = new PlateformManager(context);
 
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, Spritesheet.DEFAULT_SPRITE_SIZE,Spritesheet.DEFAULT_SPRITE_SIZE, BaseCrossClickable.DEFAULT_SCALE);
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, new PointScaled(1000.f, WindowDefinitions.heightPixels - 1000));
 
         try {
-            player = new Player(new PointScaled(100, -100), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(new PointCell(5, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
-            plateformManager.add(PlateformType.SIMPLE, new PointScaled(850, 200), 5, SimplePlateform.DEFAULT_SCALE);
-            plateformManager.add(PlateformType.SIMPLE, new PointScaled(1700, 200), 20, SimplePlateform.DEFAULT_SCALE);
-            plateformManager.add(PlateformType.FROZEN, new PointScaled(0, 500), 10, SimplePlateform.DEFAULT_SCALE);
-            plateformManager.add(PlateformType.SIMPLE, new PointScaled(500,  700), 2, SimplePlateform.DEFAULT_SCALE);
+            for(int i = 0; i < 10; i += 2)
+                plateformManager.add(PlateformType.SIMPLE, new PointCell(20-i*2, i), 20);
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -79,13 +77,16 @@ public class GameActivity extends SurfaceView implements Runnable {
                 getRootView().performClick();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    pointClicked.x = event.getX();
-                    pointClicked.y = event.getY();
+                    pointClicked.x = event.getX() / WindowDefinitions.ratioWidth;
+                    pointClicked.y = event.getY() / WindowDefinitions.ratioHeight;
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
                     pointClicked.x = -1;
                     pointClicked.y = -1;
                 }
+
+                Log.d("point", pointClicked.toString());
+
                 return true;
             }
         });
@@ -127,9 +128,6 @@ public class GameActivity extends SurfaceView implements Runnable {
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
 
         last = now;
-
-        Log.d("aaaa", String.valueOf(WindowDefinitions.heightPixels));
-        Log.d("aaaa", String.valueOf(WindowDefinitions.widthPixels));
     }
 
     public void draw() {
