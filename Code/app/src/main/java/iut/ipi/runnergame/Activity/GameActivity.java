@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import iut.ipi.runnergame.Hud.Input.BaseArrowClickable;
+import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointCell;
 
@@ -41,8 +42,9 @@ public class GameActivity extends SurfaceView implements Runnable {
     private Cross cross;
 
     private AbstractPoint pointClicked = new PointScaled();
-
     private PlateformManager plateformManager;
+
+    private Accelerometer accelerometer;
 
     // volatile as it'll get modified in different thread
     private volatile boolean gamePlaying = true;
@@ -51,6 +53,8 @@ public class GameActivity extends SurfaceView implements Runnable {
         super(context);
 
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+        accelerometer = new Accelerometer(context);
 
         plateformManager = new PlateformManager(context);
 
