@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import iut.ipi.runnergame.Game.GameManager;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.WindowDefinitions;
@@ -32,10 +35,8 @@ public class GameActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-       // textViewTimer = findViewById(R.id.textview_timer);
+        textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
-
-        //surfaceView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         gameManager = new GameManager(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
@@ -83,27 +84,27 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
-        /*
         Timer timer = new Timer();
 
         final long timerStarted = System.currentTimeMillis();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         long millis = System.currentTimeMillis();
 
-                        long minutes = ((millis - timerStarted) / 60000);
+                        long millisec = ((millis - timerStarted)) % 1000;
                         long seconds = ((millis - timerStarted) / 1000) % 60;
 
-                        textViewTimer.setText(String.valueOf(minutes) + " " + String.valueOf(seconds));
+                        String strSeconds = ((seconds < 10) ? "0" : "") + String.valueOf(seconds);
+                        String strMillisec = ((millisec < 100) ? "0" : "") + String.valueOf(millisec);
+
+                        textViewTimer.setText(strSeconds + "." + strMillisec);
                     }
                 });
             }
-        }, 0, 100); */
+        }, 0, 100);
     }
 }
