@@ -1,11 +1,12 @@
 package iut.ipi.runnergame.Game;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
-import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -19,13 +20,16 @@ import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointCell;
-import iut.ipi.runnergame.Util.Point.PointScaled;
+import iut.ipi.runnergame.Util.Point.Point;
+import iut.ipi.runnergame.Util.Point.PointAdjusted;
+import iut.ipi.runnergame.Util.Point.PointRelative;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameManager extends Thread {
-    private AbstractPoint pointFingerPressed = new PointScaled();
+    private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
+
+    private AbstractPoint pointFingerPressed = new Point();
 
     private SurfaceHolder holder = null;
 
@@ -39,15 +43,16 @@ public class GameManager extends Thread {
     private volatile boolean gamePlaying = true;
 
     public GameManager(Context context, SurfaceHolder surfaceHolder) {
-        shadowManager = new ShadowManager(context, 2, 0.3f, Color.WHITE);
+        shadowManager = new ShadowManager(context,  WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
         plateformManager = new PlateformManager(context);
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, new PointScaled(1000.f, WindowDefinitions.HEIGHT_DPI - 1000));
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, defaultPointCross);
 
         try {
-            player = new Player(new PointCell(5, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(new PointRelative(50, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
-            for(int i = 0; i < 10; i += 2)
-                plateformManager.add(PlateformType.SIMPLE, new PointCell(20-i*2, i), 20);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 20);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 20);
+            plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 20);
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -57,6 +62,15 @@ public class GameManager extends Thread {
         }
 
         holder = surfaceHolder;
+    }
+
+    public void updatePosition(int width, int height) {
+        WindowDefinitions.HEIGHT = height;
+        WindowDefinitions.WIDTH = width;
+
+        Player.DEFAULT_X_POS = (int)new PointRelative(50,0).x;
+        shadowManager.setPosition(new PointRelative(50,0));
+        cross.setPosition(defaultPointCross);
     }
 
     @Override
@@ -98,11 +112,10 @@ public class GameManager extends Thread {
     }
 
     public void draw() {
+
         if(holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
-
-            canvas.scale(WindowDefinitions.RATIO_WIDTH, WindowDefinitions.RATIO_HEIGHT);
 
             Paint p = new Paint();
             Paint p2 = new Paint();
@@ -127,6 +140,9 @@ public class GameManager extends Thread {
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);
             shadowManager.drawShadowToCanvas(canvas, player);
+
+            Log.d("canvas", "h "  + String.valueOf(canvas.getHeight()));
+            Log.d("canvas", "w "+ String.valueOf(canvas.getWidth()));
 
             holder.unlockCanvasAndPost(canvas);
         }

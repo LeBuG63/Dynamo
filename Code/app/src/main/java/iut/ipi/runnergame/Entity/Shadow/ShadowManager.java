@@ -9,12 +9,15 @@ import android.graphics.Path;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Constantes;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ShadowManager  {
+    private final int SHAKE_THRESHOLD = 100;
+
     private Accelerometer accelerometer;
     private Shadow shadow;
 
@@ -27,15 +30,13 @@ public class ShadowManager  {
 
     private float radiusOffset = 1.0f;
     private float shadowAmplitude = 15.0f;
-    private float accelSpeed = 0;
 
-    public ShadowManager(Context context, int shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
+    public ShadowManager(Context context, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
         shadow = new Shadow(shadowDecreaseValue, shadowIncreaseValueRatio);
-        accelerometer = new Accelerometer(context);
+        accelerometer = new Accelerometer(context, SHAKE_THRESHOLD);
 
         circlePaint.setColor(Color.TRANSPARENT);
         shadowPaint.setColor(Color.TRANSPARENT);
-        //circlePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
         Timer timer = new Timer();
 
@@ -48,15 +49,15 @@ public class ShadowManager  {
     }
 
     public void update() {
-        float speed = accelerometer.getSpeed();
-
-        if(accelSpeed  != speed) {
-            accelSpeed = speed;
-
-            //shadow.addToRadius(speed);
+        if(accelerometer.isShaked()) {
+            shadow.addToRadius(accelerometer.getSpeed() / 100);
         }
 
         shadow.update();
+    }
+
+    public void setPosition(AbstractPoint point) {
+        shadow.setPosition(point);
     }
 
     public void drawShadowToCanvas(Canvas canvas, Player player) {

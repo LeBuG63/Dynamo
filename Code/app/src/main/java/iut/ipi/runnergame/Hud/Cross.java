@@ -10,6 +10,9 @@ public interface Cross {
     ArrowClickable getArrowBottom();
     ArrowClickable getArrowLeft();
     ArrowClickable getArrowRight();
+
+    void setPosition(AbstractPoint point);
+
     void drawRectOnCanvas(Canvas canvas, Paint paintNonClicked, Paint paintClicked);
     void drawOnCanvas(Canvas canvas);
     void updateArrowPressed(AbstractPoint point);

@@ -15,7 +15,7 @@ import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointScaled;
+import iut.ipi.runnergame.Util.Point.Point;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
     public static final int BLOCK_SPRITE_START = 0;
@@ -38,7 +38,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     public AbstractPlateform(Context context, int resourceId, AbstractPoint pos, int length) throws IOException {
         super(pos, length * AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE);
 
-        //setPosition(new PointScaled(WindowUtil.ScaleFloatToWindow(pos.x), WindowUtil.ScaleFloatToWindow(pos.y)));
+        //setPosition(new Point(WindowUtil.ScaleFloatToWindow(pos.x), WindowUtil.ScaleFloatToWindow(pos.y)));
 
         this.length = length;
 
@@ -62,7 +62,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
                 sprite = spritesheet.getSprite(0, BLOCK_SPRITE_END);
             }
 
-            blocks.add(new Block(new PointScaled(x, y), sprite));
+            blocks.add(new Block(new Point(x, y), sprite));
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     @Override
     public AbstractPoint getPosition() {
-        return new PointScaled(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
+        return new Point(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
     }
 
     public AbstractPoint getOffset() {
@@ -110,7 +110,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
             float x = position.x + (float) (blockId * spritesheet.getFrameWidth());
             float y = position.y;
 
-            block.setPosition(new PointScaled(x, y));
+            block.setPosition(new Point(x, y));
 
             blockId++;
         }

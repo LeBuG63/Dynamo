@@ -1,9 +1,12 @@
 package iut.ipi.runnergame.Activity;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,7 +22,6 @@ public class GameActivity extends AppCompatActivity {
     private SurfaceView surfaceView;
     private TextView textViewTimer;
 
-
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -33,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
        // textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
 
-        surfaceView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        //surfaceView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         gameManager = new GameManager(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
@@ -47,8 +49,8 @@ public class GameActivity extends AppCompatActivity {
                 surfaceView.getRootView().performClick();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    x = event.getX() / WindowDefinitions.RATIO_WIDTH;
-                    y = event.getY() / WindowDefinitions.RATIO_HEIGHT;
+                    x = event.getX();
+                    y = event.getY();
 
                     gameManager.setPointFingerPressed(x, y);
                 }
@@ -62,7 +64,26 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
-/*
+
+        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                gameManager.updatePosition(width, height);
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
+
+
+        /*
         Timer timer = new Timer();
 
         final long timerStarted = System.currentTimeMillis();

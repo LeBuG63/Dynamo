@@ -55,7 +55,6 @@ public class Spritesheet {
 
 
     private Object key = new Object();
-    private Object cutEnded = new Object();
     private void cutSpritesheet(Bitmap spritesheet) {
         ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 

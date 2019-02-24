@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointScaled;
+import iut.ipi.runnergame.Util.Point.Point;
 
 public class PlateformManager {
     private List<AbstractPlateform> plateforms = new ArrayList<>();
@@ -21,7 +21,7 @@ public class PlateformManager {
 
     public void translate(float offsetx, float offsety) {
         for (AbstractPlateform plateform : plateforms) {
-            plateform.setOffset(new PointScaled(offsetx, offsety));
+            plateform.setOffset(new Point(offsetx, offsety));
         }
     }
 

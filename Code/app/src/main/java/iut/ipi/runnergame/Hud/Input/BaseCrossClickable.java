@@ -12,37 +12,44 @@ import iut.ipi.runnergame.Hud.ArrowClickable;
 import iut.ipi.runnergame.Hud.Cross;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointScaled;
+import iut.ipi.runnergame.Util.Point.Point;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class BaseCrossClickable implements Cross {
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
     public static final int TOP = 2;
     public static final int BOTTOM = 3;
-    public static final int DEFAULT_SCALE = 10;
+    public static final int DEFAULT_SCALE = 3;
 
+    private int scale;
     private Spritesheet spritesheet;
 
     private List<ArrowClickable> arrow = new ArrayList<>();
 
     public BaseCrossClickable(Context context, int resource, int scale, AbstractPoint center) {
+        this.scale = scale;
+
+        setPosition(center);
+
+        try {
+            spritesheet = new Spritesheet(context, resource, 1, 4, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, scale);
+        }
+        catch (IOException e) {}
+    }
+
+    public void setPosition(AbstractPoint center) {
         float centerX = center.x;
         float centerY = center.y;
 
-        int spriteWidth = Spritesheet.DEFAULT_SPRITE_SIZE;
-        int spriteHeight = Spritesheet.DEFAULT_SPRITE_SIZE;
+        int size =  Spritesheet.DEFAULT_SPRITE_SIZE * scale * (int) WindowDefinitions.DENSITY;
 
-        int size =  spriteWidth * scale;
+        arrow.clear();
 
-        arrow.add(new BaseArrowClickable(new PointScaled(centerX - size, centerY), size, size));
-        arrow.add(new BaseArrowClickable(new PointScaled(centerX + size, centerY), size, size));
-        arrow.add(new BaseArrowClickable(new PointScaled(centerX, centerY - size), size, size));
-        arrow.add(new BaseArrowClickable(new PointScaled(centerX, centerY + size), size, size));
-
-        try {
-            spritesheet = new Spritesheet(context, resource, 1, 4, spriteWidth, spriteHeight, scale);
-        }
-        catch (IOException e) {}
+        arrow.add(new BaseArrowClickable(new Point(centerX - size, centerY), size, size));
+        arrow.add(new BaseArrowClickable(new Point(centerX + size, centerY), size, size));
+        arrow.add(new BaseArrowClickable(new Point(centerX, centerY - size), size, size));
+        arrow.add(new BaseArrowClickable(new Point(centerX, centerY + size), size, size));
     }
 
     public ArrowClickable getArrowTop() {

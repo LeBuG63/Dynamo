@@ -9,7 +9,7 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointScaled;
+import iut.ipi.runnergame.Util.Point.Point;
 
 public class PhysicsManager {
     public static final float GRAVITY = 30f;
@@ -47,8 +47,8 @@ public class PhysicsManager {
         // pour ca, une projection est faite pour permettre d'avoir ou potentiellement le joueur sera a la prochaine frame
         // ensuite, il faut faire les calculs sur les projections pour savoir si il y a collision
 
-        AbstractPoint pointProjection = new PointScaled(Player.DEFAULT_X_POS, player.getPosition().y);
-        AbstractPoint impulseProjection = new PointScaled(player.getImpulse().x, player.getImpulse().y);
+        AbstractPoint pointProjection = new Point(Player.DEFAULT_X_POS, player.getPosition().y);
+        AbstractPoint impulseProjection = new Point(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
         mulVecWithFriction(pointProjection, impulseProjection, dt);
@@ -74,7 +74,7 @@ public class PhysicsManager {
                     case TOP:
                         Log.d("COLLISION", "TOP");
                         player.setOnGround(true);
-                        player.setPosition(new PointScaled(playerX, (int)(plateformY - playerHeight)));
+                        player.setPosition(new Point(playerX, (int)(plateformY - playerHeight)));
                         break;
                     case DOWN:
                         Log.d("COLLISION", "DOWN");
@@ -83,12 +83,12 @@ public class PhysicsManager {
                     case RIGHT:
                         Log.d("COLLISION", "RIGHT");
                         player.stopX();
-                        player.setPosition(new PointScaled(playerX + 1, playerY));
+                        player.setPosition(new Point(playerX + 1, playerY));
                         break;
                     case LEFT:
                         Log.d("COLLISION", "LEFT");
                         player.stopX();
-                        player.setPosition(new PointScaled(playerX - 1, playerY));
+                        player.setPosition(new Point(playerX - 1, playerY));
                         break;
                 }
             }

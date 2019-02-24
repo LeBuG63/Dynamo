@@ -13,20 +13,21 @@ public class Shadow extends AbstractEntity {
     public Shadow(float shadowDecreaseValue, float shadowIncreaseValueRatio) {
         super(new PointRelative(50.0f, 50.0f));
 
-        this.shadowDecreaseValue = WindowUtil.ScaleFloatToWindow(shadowDecreaseValue);
-        this.shadowIncreaseValueRatio = WindowUtil.ScaleFloatToWindow(shadowIncreaseValueRatio);
+        this.shadowDecreaseValue = shadowDecreaseValue;
+        this.shadowIncreaseValueRatio = shadowIncreaseValueRatio;
     }
 
     public void addToRadius(float value) {
-        radius += value * shadowIncreaseValueRatio;
+        if(radius < WindowUtil.convertPixelsToDp(2000))
+            radius += value * shadowIncreaseValueRatio;
     }
 
     public void subToRadius(float value) {
-        radius += value;
+        radius -= value * shadowDecreaseValue;
     }
 
     public void update() {
-        if(radius > WindowUtil.ScaleFloatToWindow(100))
+        if(radius > WindowUtil.convertPixelsToDp(200))
             radius -= shadowDecreaseValue;
     }
     public float getRadius() {

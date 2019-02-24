@@ -9,7 +9,6 @@ import android.util.Log;
 
 public class Accelerometer implements SensorEventListener {
     private final long DELAY_UPDATE = 100;
-    private final int SHAKE_THRESHOLD = 100;
     private SensorManager sensorManager;
     private Sensor sensorAccelerometer;
 
@@ -19,7 +18,11 @@ public class Accelerometer implements SensorEventListener {
     private boolean isShaked = false;
     private float speed = 0.0f;
 
-    public Accelerometer(Context context) {
+    private long shakeTreshold;
+
+    public Accelerometer(Context context, int shakeTreshold) {
+        this.shakeTreshold = shakeTreshold;
+
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, sensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -42,7 +45,7 @@ public class Accelerometer implements SensorEventListener {
 
                 speed = Math.abs(x + y + z - lastValues[0] - lastValues[1] - lastValues[2]) / diffTime * 1000;
 
-                if (speed > SHAKE_THRESHOLD) {
+                if (speed > shakeTreshold) {
                     isShaked = true;
                     Log.d("ACCELEROMETER", "SHAKED");
                 } else {
