@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
+import iut.ipi.runnergame.Game.GameManager;
 import iut.ipi.runnergame.Hud.Input.BaseArrowClickable;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
@@ -33,139 +34,43 @@ import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.PointScaled;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
-public class GameActivity extends SurfaceView implements Runnable {
-    private ConstraintLayout constraintLayout;
-
-    private SurfaceHolder   holder = null;
-    private Canvas          canvas = null;
-
-    private Player player;
-    private Cross cross;
-    private ShadowManager shadowManager;
-
-    private AbstractPoint pointClicked = new PointScaled();
-    private PlateformManager plateformManager;
-
-    // volatile as it'll get modified in different thread
-    private volatile boolean gamePlaying = true;
+public class GameActivity extends SurfaceView {
+    private GameManager gameManager;
 
     public GameActivity(Context context) {
         super(context);
 
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        shadowManager = new ShadowManager(context, 2, 0.3f, Color.WHITE);
-        plateformManager = new PlateformManager(context);
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, new PointScaled(1000.f, WindowDefinitions.heightPixels - 1000));
+        gameManager = new GameManager(context, getHolder());
 
-        try {
-            player = new Player(new PointCell(5, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
-
-            for(int i = 0; i < 10; i += 2)
-                plateformManager.add(PlateformType.SIMPLE, new PointCell(20-i*2, i), 20);
-
-            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
-            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
-        }
-        catch(IOException e) {
-
-        }
-
-        holder = getHolder();
+        gameManager.start();
 
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                float x = -1;
+                float y = -1;
+
                 getRootView().performClick();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    pointClicked.x = event.getX() / WindowDefinitions.ratioWidth;
-                    pointClicked.y = event.getY() / WindowDefinitions.ratioHeight;
+                    x = event.getX() / WindowDefinitions.ratioWidth;
+                    y = event.getY() / WindowDefinitions.ratioHeight;
+
+                    gameManager.setPointFingerPressed(x, y);
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    pointClicked.x = -1;
-                    pointClicked.y = -1;
+                    x = -1;
+                    y = -1;
+
+                    gameManager.setPointFingerPressed(x, y);
                 }
 
-                Log.d("point", pointClicked.toString());
 
                 return true;
             }
         });
     }
 
-    @Override
-    public void run() {
-        while(gamePlaying) {
-            update();
-            draw();
-        }
-    }
-
-    private long last = System.currentTimeMillis();
-    public void update() {
-
-        long now = System.currentTimeMillis();
-        long res = now - last;
-
-        cross.updateArrowPressed(pointClicked);
-
-        if(cross.getArrowTop().getIsClicked()) {
-            player.jump(Player.IMPULSE_JUMP);
-        }
-        else if(cross.getArrowLeft().getIsClicked()) {
-            player.moveLeft(Player.IMPULSE_MOVEMENT);
-            player.getAnimationManager().start(Player.ANIMATION_RUNNING_LEFT);
-        }
-        else if(cross.getArrowRight().getIsClicked()) {
-            player.moveRight(Player.IMPULSE_MOVEMENT);
-            player.getAnimationManager().start(Player.ANIMATION_RUNNING_RIGHT);
-        }
-        else {
-            player.getAnimationManager().start(Player.ANIMATION_IDLE);
-        }
-
-        plateformManager.translate(player.getPosition().x - Player.DEFAULT_X_POS, 0);
-        shadowManager.update();
-
-        PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
-
-        last = now;
-    }
-
-    public void draw() {
-        if(holder.getSurface().isValid()) {
-            canvas = holder.lockCanvas();
-            if(canvas == null) return;
-
-            canvas.scale(WindowDefinitions.ratioWidth, WindowDefinitions.ratioHeight);
-
-            Paint p = new Paint();
-            Paint p2 = new Paint();
-            Paint circle = new Paint();
-
-            circle.setColor(Color.BLUE);
-            p.setColor(Color.GREEN);
-            p2.setColor(Color.RED);
-
-            Paint paint = new Paint();
-
-            paint.setDither(false);
-            paint.setAntiAlias(false);
-            paint.setFilterBitmap(false);
-
-            canvas.drawColor(Color.DKGRAY);
-
-            plateformManager.drawPlateformOnCanvas(canvas);
-
-            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_X_POS, player.getPosition().y, new Paint());
-
-            cross.drawRectOnCanvas(canvas, p, p2);
-            cross.drawOnCanvas(canvas);
-
-            shadowManager.drawShadowToCanvas(canvas, player);
-
-            holder.unlockCanvasAndPost(canvas);
-        }
-    }
 }

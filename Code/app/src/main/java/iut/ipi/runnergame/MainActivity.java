@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GameActivity gameActivity = new GameActivity(getBaseContext());
-                Thread gameThread = new Thread(gameActivity);
-
-                gameThread.start();
-
                 setContentView(gameActivity);
             }
         });
