@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class BitmapResizer {
     public static Bitmap bitmapResizerNN(Bitmap bitmap, int newWidth, int newHeight) {
-        int[] colors = new int[newWidth * newHeight];
+       /* int[] colors = new int[newWidth * newHeight];
 
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -26,8 +26,8 @@ public class BitmapResizer {
 
                 colors[i * newWidth + j] = bitmap.getPixel(x, y);
             }
-        }
+        } */
 
-        return Bitmap.createBitmap(colors, newWidth, newHeight, Bitmap.Config.ARGB_8888);
+        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
     }
 }
