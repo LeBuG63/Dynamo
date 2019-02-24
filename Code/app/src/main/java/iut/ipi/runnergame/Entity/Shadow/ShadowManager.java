@@ -5,16 +5,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 
-import iut.ipi.runnergame.Entity.AbstractEntity;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Constantes;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 public class ShadowManager  {
     private Accelerometer accelerometer;
@@ -23,8 +22,12 @@ public class ShadowManager  {
     private Paint circlePaint = new Paint();
     private Paint shadowPaint = new Paint();
 
+    private Random randomGenerator = new Random();
+
     private Path path = new Path();
 
+    private float radiusOffset = 1.0f;
+    private float shadowAmplitude = 15.0f;
     private float accelSpeed = 0;
 
     public ShadowManager(Context context, int shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
@@ -34,6 +37,15 @@ public class ShadowManager  {
         circlePaint.setColor(Color.TRANSPARENT);
         shadowPaint.setColor(Color.TRANSPARENT);
         //circlePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+               radiusOffset = (float)Math.cos(System.currentTimeMillis() ) * shadowAmplitude;
+            }
+        }, 0, 100);
     }
 
     public void update() {
@@ -51,10 +63,13 @@ public class ShadowManager  {
     public void drawShadowToCanvas(Canvas canvas, Player player) {
         path.reset();
 
-        path.addCircle(shadow.getPosition().x + player.getSprite().getWidth()/2, player.getPosition().y + player.getSprite().getHeight()/2, shadow.getRadius(), Path.Direction.CW);
+        float cx = shadow.getPosition().x + player.getSprite().getWidth() / 2;
+        float cy = player.getPosition().y + player.getSprite().getHeight() / 2;
+
+        path.addCircle(cx, cy, shadow.getRadius() + radiusOffset, Path.Direction.CW);
         path.setFillType(Path.FillType.INVERSE_EVEN_ODD);
 
-        canvas.drawCircle(shadow.getPosition().x, player.getPosition().y, shadow.getRadius(), circlePaint);
+        canvas.drawCircle(cx, cy, shadow.getRadius(), circlePaint);
         canvas.drawPath(path, shadowPaint);
         canvas.clipPath(path);
 
