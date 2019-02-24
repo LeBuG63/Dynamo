@@ -16,6 +16,7 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
     public static final int BLOCK_SPRITE_START = 0;
@@ -71,7 +72,14 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
             float x = block.getPosition().x - getOffset().x;
             float y = block.getPosition().y - getOffset().y;
 
-            canvas.drawBitmap(block.getImage(), x, y, new Paint());
+            if (x > 0 - block.getSprite().getWidth() && y > 0 && y < WindowDefinitions.HEIGHT) {
+                if (x > WindowDefinitions.WIDTH) {
+                    break;
+                }
+                else {
+                    canvas.drawBitmap(block.getImage(), x, y, new Paint());
+                }
+            }
         }
     }
 

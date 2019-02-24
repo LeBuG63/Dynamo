@@ -50,7 +50,7 @@ public class GameManager extends Thread {
         try {
             player = new Player(new PointRelative(50, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 20);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 20000);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 20);
             plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 20);
 
