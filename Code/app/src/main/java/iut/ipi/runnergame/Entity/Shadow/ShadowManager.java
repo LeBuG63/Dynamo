@@ -29,7 +29,7 @@ public class ShadowManager  {
     private Path path = new Path();
 
     private float radiusOffset = 1.0f;
-    private float shadowAmplitude = 15.0f;
+    private float shadowAmplitude = 10.0f;
 
     public ShadowManager(Context context, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
         shadow = new Shadow(shadowDecreaseValue, shadowIncreaseValueRatio);
@@ -54,10 +54,6 @@ public class ShadowManager  {
         }
 
         shadow.update();
-    }
-
-    public void setPosition(AbstractPoint point) {
-        shadow.setPosition(point);
     }
 
     public void drawShadowToCanvas(Canvas canvas, Player player) {

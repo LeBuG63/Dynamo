@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                gameManager.updatePosition(width, height);
+                gameManager.updatePosition();
             }
 
             @Override
@@ -105,6 +105,6 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 100);
+        }, 0, 10);
     }
 }

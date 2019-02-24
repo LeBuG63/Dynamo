@@ -50,7 +50,7 @@ public class GameManager extends Thread {
         try {
             player = new Player(new PointRelative(50, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 20000);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 200);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 20);
             plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 20);
 
@@ -64,13 +64,8 @@ public class GameManager extends Thread {
         holder = surfaceHolder;
     }
 
-    public void updatePosition(int width, int height) {
-        WindowDefinitions.HEIGHT = height;
-        WindowDefinitions.WIDTH = width;
-
-        Player.DEFAULT_X_POS = (int)new PointRelative(50,0).x;
-        shadowManager.setPosition(new PointRelative(50,0));
-        cross.setPosition(defaultPointCross);
+    public void updatePosition() {
+        AbstractPoint.resizePointsInPool();
     }
 
     @Override

@@ -5,7 +5,8 @@ import iut.ipi.runnergame.Util.Point.PointRelative;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class Shadow extends AbstractEntity {
-    private float radius = 11;
+    private float defaultRadius = WindowUtil.convertPixelsToDp(200);
+    private float radius = defaultRadius;
 
     private float shadowDecreaseValue;
     private float shadowIncreaseValueRatio;
@@ -27,8 +28,10 @@ public class Shadow extends AbstractEntity {
     }
 
     public void update() {
-        if(radius > WindowUtil.convertPixelsToDp(200))
+        if(radius > defaultRadius)
             radius -= shadowDecreaseValue;
+        else
+            radius = defaultRadius;
     }
     public float getRadius() {
         return radius;
