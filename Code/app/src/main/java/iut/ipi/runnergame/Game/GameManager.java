@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -21,6 +22,7 @@ import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointCell;
 import iut.ipi.runnergame.Util.Point.PointScaled;
 import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameManager extends Thread {
     private AbstractPoint pointFingerPressed = new PointScaled();
@@ -56,7 +58,6 @@ public class GameManager extends Thread {
 
         holder = surfaceHolder;
     }
-
 
     @Override
     public void run() {
@@ -125,7 +126,6 @@ public class GameManager extends Thread {
 
             cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);
-
             shadowManager.drawShadowToCanvas(canvas, player);
 
             holder.unlockCanvasAndPost(canvas);

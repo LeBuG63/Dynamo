@@ -1,5 +1,6 @@
 package iut.ipi.runnergame;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        final Intent gameIntent = new Intent(this, GameActivity.class);
+
         Button gameButton = findViewById(R.id.button_game);
         Button optionsButton = findViewById(R.id.button_options);
         Button exitButton = findViewById(R.id.button_exit);
@@ -33,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameActivity gameActivity = new GameActivity(getBaseContext());
-                setContentView(gameActivity);
+                startActivity(gameIntent);
             }
         });
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                SettingsActivity settingsActivity = new SettingsActivity();
 
-                setContentView(R.layout.settings_activity);
+               setContentView(R.layout.settings_activity);
             }
         });
     }
