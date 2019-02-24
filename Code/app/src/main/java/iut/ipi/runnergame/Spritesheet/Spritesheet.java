@@ -3,12 +3,15 @@ package iut.ipi.runnergame.Spritesheet;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import iut.ipi.runnergame.Util.BitmapResizer;
 import iut.ipi.runnergame.Util.WindowDefinitions;
@@ -51,20 +54,45 @@ public class Spritesheet {
         cutSpritesheet(spritesheet);
     }
 
+
+    private Object key = new Object();
+    private Object cutEnded = new Object();
     private void cutSpritesheet(Bitmap spritesheet) {
-        for(int y = 0; y < getRow(); ++y){
-            bitmapMap.put(y, new ArrayList<Bitmap>());
+        ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-            for (int x = 0; x < getCol(); ++x) {
-                Bitmap frame = null;
+        final Bitmap finalSpritesheet = spritesheet;
 
-                frame = Bitmap.createBitmap(spritesheet,
-                        getDefaultFrameWidth()  * x, getDefaultFrameHeight() * y,
-                        getDefaultFrameWidth(), getDefaultFrameHeight());
+        try {
+            final boolean first = true;
 
-                bitmapMap.get(y).add(BitmapResizer.bitmapResizerNN(frame, getFrameWidth(), getFrameHeight()));
+            for(int yy = 0; yy < getRow(); yy++) {
+                bitmapMap.put(yy, new ArrayList<Bitmap>());
             }
+
+            for(int yy = 0; yy < getRow(); ++yy){
+                final int y = yy;
+
+                exec.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int x = 0; x < getCol(); ++x) {
+                            Bitmap frame = null;
+
+                            frame = Bitmap.createBitmap(finalSpritesheet,
+                                    getDefaultFrameWidth() * x, getDefaultFrameHeight() * y,
+                                    getDefaultFrameWidth(), getDefaultFrameHeight());
+
+                            synchronized (key) {
+                                bitmapMap.get(y).add(BitmapResizer.bitmapResizerNN(frame, getFrameWidth(), getFrameHeight()));
+                            }
+                        }
+                    }
+                });
+            }
+        } finally {
+            exec.shutdown();
         }
+        while(!exec.isTerminated()) {}
     }
 
     public Map<Integer, List<Bitmap>> getSprites() {
@@ -74,6 +102,7 @@ public class Spritesheet {
     public Bitmap getSprite(int row, int col) {
         if(col > 0)
             return bitmapMap.get(row).get(col);
+
         return bitmapMap.get(row).get(0);
     }
 
