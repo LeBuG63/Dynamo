@@ -1,8 +1,6 @@
 package iut.ipi.runnergame.Activity;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -17,13 +15,16 @@ import java.util.TimerTask;
 
 import iut.ipi.runnergame.Game.GameManager;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.Point.Point;
 
 public class GameActivity extends AppCompatActivity {
     private GameManager gameManager;
 
     private SurfaceView surfaceView;
     private TextView textViewTimer;
+
+    private AbstractPoint[] fingerPoints = new Point[10]; // comme les 10 doigts de la main
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -41,27 +42,40 @@ public class GameActivity extends AppCompatActivity {
         gameManager = new GameManager(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
 
+        for(int i = 0; i < fingerPoints.length; ++i) {
+            fingerPoints[i] = new Point();
+        }
+
         surfaceView.setOnTouchListener(new  View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                float x = -1;
-                float y = -1;
-
                 surfaceView.getRootView().performClick();
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    x = event.getX();
-                    y = event.getY();
+                int maskedAction = event.getActionMasked();
+                int pointerId = event.getPointerId(event.getActionIndex());
 
-                    gameManager.setPointFingerPressed(x, y);
+                switch (maskedAction) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_POINTER_DOWN: {
+                        MotionEvent.PointerCoords pointerCoords = new MotionEvent.PointerCoords();
+
+                        event.getPointerCoords(pointerId, pointerCoords);
+
+                        fingerPoints[pointerId].x = pointerCoords.x;
+                        fingerPoints[pointerId].y = pointerCoords.y;
+
+                        gameManager.setPointsFingerPressed(fingerPoints);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_POINTER_UP: {
+                        fingerPoints[pointerId].x = -1;
+                        fingerPoints[pointerId].y = -1;
+
+                        gameManager.setPointsFingerPressed(fingerPoints);
+                        break;
+                    }
                 }
-                else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    x = -1;
-                    y = -1;
-
-                    gameManager.setPointFingerPressed(x, y);
-                }
-
                 return true;
             }
         });

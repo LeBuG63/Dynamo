@@ -3,6 +3,8 @@ package iut.ipi.runnergame.Hud;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.List;
+
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public interface Cross {
@@ -15,5 +17,5 @@ public interface Cross {
 
     void drawRectOnCanvas(Canvas canvas, Paint paintNonClicked, Paint paintClicked);
     void drawOnCanvas(Canvas canvas);
-    void updateArrowPressed(AbstractPoint point);
+    void updateArrowPressed(List<AbstractPoint> points);
 }

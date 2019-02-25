@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
@@ -28,13 +30,15 @@ import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameManager extends Thread {
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
+    private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
 
-    private AbstractPoint pointFingerPressed = new Point();
+    private List<AbstractPoint> pointFingerPressed = new ArrayList<>();
 
     private SurfaceHolder holder = null;
 
     private Player player;
     private Cross cross;
+    private Cross crossAB;
 
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
@@ -45,7 +49,8 @@ public class GameManager extends Thread {
     public GameManager(Context context, SurfaceHolder surfaceHolder) {
         shadowManager = new ShadowManager(context,  WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
         plateformManager = new PlateformManager(context);
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, defaultPointCross);
+        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
+        crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
 
         try {
             player = new Player(new PointRelative(50, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
@@ -80,21 +85,26 @@ public class GameManager extends Thread {
     public void update() {
         long now = System.currentTimeMillis();
         long res = now - last;
+        boolean idle = true;
 
         cross.updateArrowPressed(pointFingerPressed);
+        crossAB.updateArrowPressed(pointFingerPressed);
 
-        if(cross.getArrowTop().getIsClicked()) {
+        if(cross.getArrowTop().getIsClicked() || crossAB.getArrowTop().getIsClicked()) {
             player.jump(Player.IMPULSE_JUMP);
+            idle = false;
         }
-        else if(cross.getArrowLeft().getIsClicked()) {
+        if(cross.getArrowLeft().getIsClicked()) {
             player.moveLeft(Player.IMPULSE_MOVEMENT);
             player.getAnimationManager().start(Player.ANIMATION_RUNNING_LEFT);
+            idle = false;
         }
-        else if(cross.getArrowRight().getIsClicked()) {
+        if(cross.getArrowRight().getIsClicked()) {
             player.moveRight(Player.IMPULSE_MOVEMENT);
             player.getAnimationManager().start(Player.ANIMATION_RUNNING_RIGHT);
+            idle = false;
         }
-        else {
+        if(idle){
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
@@ -132,20 +142,23 @@ public class GameManager extends Thread {
 
             canvas.drawBitmap(player.getSprite(), Player.DEFAULT_X_POS, player.getPosition().y, new Paint());
 
-            cross.drawRectOnCanvas(canvas, p, p2);
             cross.drawOnCanvas(canvas);
+            crossAB.drawOnCanvas(canvas);
+
             shadowManager.drawShadowToCanvas(canvas, player);
 
-            Log.d("canvas", "h "  + String.valueOf(canvas.getHeight()));
-            Log.d("canvas", "w "+ String.valueOf(canvas.getWidth()));
 
             holder.unlockCanvasAndPost(canvas);
         }
     }
 
-    public void setPointFingerPressed(float x, float y) {
-        pointFingerPressed.x = x;
-        pointFingerPressed.y = y;
-    }
+    public void setPointsFingerPressed(AbstractPoint[] points) {
+        pointFingerPressed.clear();
 
+        if(points == null) return;
+
+        for(int index = 0; index < points.length; ++index) {
+            pointFingerPressed.add(points[index]);
+        }
+    }
 }

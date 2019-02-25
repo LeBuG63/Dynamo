@@ -72,21 +72,17 @@ public class PhysicsManager {
                     case NONE:
                         break;
                     case TOP:
-                        Log.d("COLLISION", "TOP");
                         player.setOnGround(true);
                         player.setPosition(new Point(playerX, (int)(plateformY - playerHeight)));
                         break;
                     case DOWN:
-                        Log.d("COLLISION", "DOWN");
                         player.stopY();
                         break;
                     case RIGHT:
-                        Log.d("COLLISION", "RIGHT");
                         player.stopX();
                         player.setPosition(new Point(playerX + 1, playerY));
                         break;
                     case LEFT:
-                        Log.d("COLLISION", "LEFT");
                         player.stopX();
                         player.setPosition(new Point(playerX - 1, playerY));
                         break;

@@ -103,8 +103,8 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     public void setImpulse(AbstractPoint impulse) {
         Point save = this.impulse;
 
-        this.impulse.x = (impulse.x == 0) ? save.x : impulse.x;
-        this.impulse.y = (impulse.y == 0) ? save.y : impulse.y;
+        this.impulse.x = (impulse.x == 0f) ? save.x : impulse.x;
+        this.impulse.y = (impulse.y == 0f) ? save.y : impulse.y;
     }
 
     @Override

@@ -79,7 +79,6 @@ public class BaseCollisionBox implements Collision {
             if(collision(new BaseCollisionBox(other.getLeft(), other.getTop(), other.getWidth(), -COLLISION_OFFSET))) {
                 collisionOccuredSide = CollisionOccuredSide.TOP;
             }
-
             else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + COLLISION_OFFSET, -COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide = CollisionOccuredSide.LEFT;
             }
