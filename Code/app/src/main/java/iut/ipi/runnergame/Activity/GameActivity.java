@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -62,14 +63,16 @@ public class GameActivity extends AppCompatActivity {
 
                 switch (maskedAction) {
                     case MotionEvent.ACTION_DOWN:
-                    case MotionEvent.ACTION_POINTER_DOWN: {
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                    case MotionEvent.ACTION_MOVE: {
                         MotionEvent.PointerCoords pointerCoords = new MotionEvent.PointerCoords();
 
-                        event.getPointerCoords(pointerId, pointerCoords);
+                        try {
+                            event.getPointerCoords(pointerId, pointerCoords);
 
-                        fingerPoints[pointerId].x = pointerCoords.x;
-                        fingerPoints[pointerId].y = pointerCoords.y;
-
+                            fingerPoints[pointerId].x = pointerCoords.x;
+                            fingerPoints[pointerId].y = pointerCoords.y;
+                        } catch (Exception e) {}
                         gameManager.setPointsFingerPressed(fingerPoints);
                         break;
                     }
