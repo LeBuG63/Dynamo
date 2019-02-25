@@ -1,17 +1,16 @@
 package iut.ipi.runnergame.Game;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
@@ -22,15 +21,14 @@ import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.Point;
 import iut.ipi.runnergame.Util.Point.PointAdjusted;
 import iut.ipi.runnergame.Util.Point.PointRelative;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameManager extends Thread {
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
+    private final AbstractPoint defaultPointPlayer = new PointRelative(50, 0);
 
     private List<AbstractPoint> pointFingerPressed = new ArrayList<>();
 
@@ -53,7 +51,7 @@ public class GameManager extends Thread {
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
 
         try {
-            player = new Player(new PointRelative(50, 0), new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
 
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 200);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 20);
@@ -112,6 +110,12 @@ public class GameManager extends Thread {
         shadowManager.update();
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
+
+        if(player.isDead()) {
+            player.setDeath(false);
+            player.setPosition(defaultPointPlayer);
+            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, 100));
+        }
 
         last = now;
     }

@@ -96,6 +96,10 @@ public class PhysicsManager {
 
         mulVecWithFriction(player.getPosition(), player.getImpulse(), dt);
 
+        if(player.getPosition().y > 5000) {
+            player.setDeath(true);
+        }
+
         player.setCollision(new BaseCollisionBox(Player.DEFAULT_X_POS, player.getPosition().y, playerWidth, playerHeight));
     }
 }

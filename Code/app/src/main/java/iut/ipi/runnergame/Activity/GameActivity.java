@@ -1,5 +1,6 @@
 package iut.ipi.runnergame.Activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +15,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import iut.ipi.runnergame.Game.GameManager;
+import iut.ipi.runnergame.Game.GameOverDataBundle;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
 
 public class GameActivity extends AppCompatActivity {
+    public static String strTimer;
+    private static GameActivity instance = null;
+
     private GameManager gameManager;
 
     private SurfaceView surfaceView;
@@ -115,10 +120,25 @@ public class GameActivity extends AppCompatActivity {
                         String strSeconds = ((seconds < 10) ? "0" : "") + String.valueOf(seconds);
                         String strMillisec = ((millisec < 100) ? "0" : "") + String.valueOf(millisec);
 
-                        textViewTimer.setText(strSeconds + "." + strMillisec);
+                        strTimer = strSeconds + "." + strMillisec;
+
+                        textViewTimer.setText(strTimer);
                     }
                 });
             }
         }, 0, 10);
+
+        instance = this;
+    }
+
+    public static void launchLoseActivity(GameOverDataBundle data) {
+        if(instance == null) return;
+        instance.finish();
+
+        Intent loseIntent = new Intent(instance, GameOverActivity.class);
+
+        loseIntent.putExtra("loseDataBundle", data);
+
+        instance.startActivity(loseIntent);
     }
 }

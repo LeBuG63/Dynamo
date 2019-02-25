@@ -33,6 +33,7 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     private Collision collision;
 
     private boolean onGround = false;
+    private boolean isDead = false;
 
     public Player(AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
@@ -125,5 +126,13 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     @Override
     public Collision getCollision() {
         return collision;
+    }
+
+    public void setDeath(boolean b) {
+        isDead = b;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }
