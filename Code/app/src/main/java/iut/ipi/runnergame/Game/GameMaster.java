@@ -20,6 +20,8 @@ import iut.ipi.runnergame.Hud.AbstractCross;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
+import iut.ipi.runnergame.Sound.AbstractPlayer;
+import iut.ipi.runnergame.Sound.SoundEffectPlayer;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointAdjusted;
 import iut.ipi.runnergame.Util.Point.PointRelative;
@@ -39,6 +41,8 @@ public class GameMaster extends Thread {
     private AbstractCross cross;
     private AbstractCross crossAB;
 
+    private AbstractPlayer sfxPlayer;
+
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
 
@@ -46,6 +50,10 @@ public class GameMaster extends Thread {
         plateformManager = new PlateformManager(context);
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
+
+        sfxPlayer = new SoundEffectPlayer(context);
+
+        sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
         try {
             player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
@@ -87,6 +95,9 @@ public class GameMaster extends Thread {
         crossAB.updateArrowPressed(pointFingerPressed);
 
         if(cross.getArrowTop().getIsClicked() || crossAB.getArrowTop().getIsClicked()) {
+            if(player.isOnGround())
+                sfxPlayer.playUntilFinished("footsteps");
+
             player.jump(Player.IMPULSE_JUMP);
             idle = false;
         }
