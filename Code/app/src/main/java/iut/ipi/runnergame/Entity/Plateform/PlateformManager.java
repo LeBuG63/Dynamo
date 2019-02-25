@@ -37,6 +37,20 @@ public class PlateformManager {
         }
     }
 
+    public int getLevelLength() {
+        int maxX = 0;
+
+        for(AbstractPlateform plateform : getPlateforms()) {
+            int rightSide = (int)plateform.getRectangle().right;
+
+            if(rightSide > maxX) {
+               maxX = rightSide;
+           }
+        }
+
+        return maxX;
+    }
+
     public List<AbstractPlateform> getPlateforms() {
         return plateforms;
     }
