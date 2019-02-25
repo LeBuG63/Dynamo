@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+import iut.ipi.runnergame.Entity.Drawable;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Constantes;
@@ -15,8 +16,10 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ShadowManager  {
+public class ShadowManager implements Drawable {
     private final int SHAKE_THRESHOLD = 100;
+
+    private Player player;
 
     private Accelerometer accelerometer;
     private Shadow shadow;
@@ -31,9 +34,11 @@ public class ShadowManager  {
     private float radiusOffset = 1.0f;
     private float shadowAmplitude = 10.0f;
 
-    public ShadowManager(Context context, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
+    public ShadowManager(Context context, Player player, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
         shadow = new Shadow(shadowDecreaseValue, shadowIncreaseValueRatio);
         accelerometer = new Accelerometer(context, SHAKE_THRESHOLD);
+
+        this.player = player;
 
         circlePaint.setColor(Color.TRANSPARENT);
         shadowPaint.setColor(Color.TRANSPARENT);
@@ -56,7 +61,8 @@ public class ShadowManager  {
         shadow.update();
     }
 
-    public void drawShadowToCanvas(Canvas canvas, Player player) {
+    @Override
+    public void drawOnCanvas(Canvas canvas) {
         path.reset();
 
         float cx = shadow.getPosition().x + player.getSprite().getWidth() / 2;

@@ -8,14 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import iut.ipi.runnergame.Entity.Drawable;
 import iut.ipi.runnergame.Hud.ArrowClickable;
-import iut.ipi.runnergame.Hud.Cross;
+import iut.ipi.runnergame.Hud.AbstractCross;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
-public class BaseCrossClickable implements Cross {
+public class BaseCrossClickable extends AbstractCross {
     public static final int LEFT = 0;
     public static final int TOP = 1;
     public static final int RIGHT = 2;
@@ -84,7 +85,6 @@ public class BaseCrossClickable implements Cross {
         }
     }
 
-    @Override
     public void drawOnCanvas(Canvas canvas) {
         int i = 0;
 

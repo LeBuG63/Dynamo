@@ -29,6 +29,9 @@ public class Spritesheet {
 
     private Map<Integer, List<Bitmap>> bitmapMap = new HashMap<>();
 
+    public Spritesheet(Context context, int resourceId, int row, int col, int scale) throws IOException {
+        this(context, resourceId, row, col, DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE, scale);
+    }
     public Spritesheet(Context context, int resourceId, int row, int col, int frameWidth, int frameHeight, int scale) throws IOException {
         this.row = row;
         this.col = col;

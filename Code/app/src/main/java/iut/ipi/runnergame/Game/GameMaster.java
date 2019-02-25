@@ -16,7 +16,7 @@ import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
-import iut.ipi.runnergame.Hud.Cross;
+import iut.ipi.runnergame.Hud.AbstractCross;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
@@ -25,7 +25,7 @@ import iut.ipi.runnergame.Util.Point.PointAdjusted;
 import iut.ipi.runnergame.Util.Point.PointRelative;
 import iut.ipi.runnergame.Util.WindowUtil;
 
-public class GameManager extends Thread {
+public class GameMaster extends Thread {
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
     private final AbstractPoint defaultPointPlayer = new PointRelative(50, 0);
@@ -35,23 +35,20 @@ public class GameManager extends Thread {
     private SurfaceHolder holder = null;
 
     private Player player;
-    private Cross cross;
-    private Cross crossAB;
+    private AbstractCross cross;
+    private AbstractCross crossAB;
 
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
 
-    // volatile as it'll get modified in different thread
-    private volatile boolean gamePlaying = true;
-
-    public GameManager(Context context, SurfaceHolder surfaceHolder) {
-        shadowManager = new ShadowManager(context,  WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
+    public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         plateformManager = new PlateformManager(context);
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
 
         try {
             player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
 
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 200);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 20);
@@ -73,7 +70,7 @@ public class GameManager extends Thread {
 
     @Override
     public void run() {
-        while(gamePlaying) {
+        while(true) {
             update();
             draw();
         }
@@ -121,7 +118,6 @@ public class GameManager extends Thread {
     }
 
     public void draw() {
-
         if(holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
@@ -149,7 +145,7 @@ public class GameManager extends Thread {
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
 
-            shadowManager.drawShadowToCanvas(canvas, player);
+            shadowManager.drawOnCanvas(canvas);
 
 
             holder.unlockCanvasAndPost(canvas);

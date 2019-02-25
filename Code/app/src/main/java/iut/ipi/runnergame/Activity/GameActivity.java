@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import iut.ipi.runnergame.Game.GameManager;
+import iut.ipi.runnergame.Game.GameMaster;
 import iut.ipi.runnergame.Game.GameOverDataBundle;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
@@ -24,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
     public static String strTimer;
     private static GameActivity instance = null;
 
-    private GameManager gameManager;
+    private GameMaster gameManager;
 
     private SurfaceView surfaceView;
     private TextView textViewTimer;
@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
 
-        gameManager = new GameManager(getApplicationContext(), surfaceView.getHolder());
+        gameManager = new GameMaster(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
 
         for(int i = 0; i < fingerPoints.length; ++i) {
