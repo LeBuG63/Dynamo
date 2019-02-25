@@ -19,6 +19,7 @@ import iut.ipi.runnergame.Game.GameOverDataBundle;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class GameActivity extends AppCompatActivity {
     public static String strTimer;
@@ -84,25 +85,7 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                gameManager.updatePosition();
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-
-            }
-        });
-
-
+        
         Timer timer = new Timer();
 
         final long timerStarted = System.currentTimeMillis();

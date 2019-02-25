@@ -19,7 +19,7 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
 
-    public static int DEFAULT_X_POS = (int)new PointRelative(50,0).x;
+    public static AbstractPoint DEFAULT_POS = new PointRelative(50,0);
 
     public static final float IMPULSE_MOVEMENT = 800.0f;
     public static final float IMPULSE_JUMP = 18.0f;

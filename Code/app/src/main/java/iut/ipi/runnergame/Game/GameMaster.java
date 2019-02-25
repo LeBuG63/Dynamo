@@ -23,6 +23,7 @@ import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointAdjusted;
 import iut.ipi.runnergame.Util.Point.PointRelative;
+import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameMaster extends Thread {
@@ -103,7 +104,7 @@ public class GameMaster extends Thread {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
-        plateformManager.translate(player.getPosition().x - Player.DEFAULT_X_POS, 0);
+        plateformManager.translate(player.getPosition().x - Player.DEFAULT_POS.x, 0);
         shadowManager.update();
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
@@ -121,6 +122,12 @@ public class GameMaster extends Thread {
         if(holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
+
+            if(canvas.getHeight() != WindowDefinitions.HEIGHT) {
+                WindowDefinitions.HEIGHT = canvas.getHeight();
+                WindowDefinitions.WIDTH = canvas.getWidth();
+                updatePosition();
+            }
 
             Paint p = new Paint();
             Paint p2 = new Paint();
@@ -140,13 +147,12 @@ public class GameMaster extends Thread {
 
             plateformManager.drawPlateformOnCanvas(canvas);
 
-            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_X_POS, player.getPosition().y, new Paint());
+            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());
 
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
 
             shadowManager.drawOnCanvas(canvas);
-
 
             holder.unlockCanvasAndPost(canvas);
         }

@@ -47,7 +47,7 @@ public class PhysicsManager {
         // pour ca, une projection est faite pour permettre d'avoir ou potentiellement le joueur sera a la prochaine frame
         // ensuite, il faut faire les calculs sur les projections pour savoir si il y a collision
 
-        AbstractPoint pointProjection = new Point(Player.DEFAULT_X_POS, player.getPosition().y);
+        AbstractPoint pointProjection = new Point(Player.DEFAULT_POS.x, player.getPosition().y);
         AbstractPoint impulseProjection = new Point(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
@@ -100,6 +100,6 @@ public class PhysicsManager {
             player.setDeath(true);
         }
 
-        player.setCollision(new BaseCollisionBox(Player.DEFAULT_X_POS, player.getPosition().y, playerWidth, playerHeight));
+        player.setCollision(new BaseCollisionBox(Player.DEFAULT_POS.x, player.getPosition().y, playerWidth, playerHeight));
     }
 }
