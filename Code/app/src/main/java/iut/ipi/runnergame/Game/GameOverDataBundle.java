@@ -18,15 +18,18 @@ public class GameOverDataBundle implements Parcelable {
 
     private String timer;
     private int distance;
+    private int levelLength;
 
     public GameOverDataBundle(Parcel in) {
         timer = in.readString();
         distance = in.readInt();
+        levelLength = in.readInt();
     }
 
-    public GameOverDataBundle(String timer, int distance) {
+    public GameOverDataBundle(String timer, int distance, int levelLength) {
         this.timer = timer;
         this.distance = distance;
+        this.levelLength = levelLength;
     }
 
     @Override
@@ -38,6 +41,7 @@ public class GameOverDataBundle implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(timer);
         dest.writeInt(distance);
+        dest.writeInt(levelLength);
     }
 
     public String getTimer() {
@@ -46,5 +50,9 @@ public class GameOverDataBundle implements Parcelable {
 
     public int getDistance() {
         return distance;
+    }
+
+    public int getLevelLength() {
+        return levelLength;
     }
 }

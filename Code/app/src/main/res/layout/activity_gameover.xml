@@ -8,6 +8,10 @@
     android:screenOrientation="landscape"
     tools:context=".Activity.GameOverActivity">
 
+    <SurfaceView
+        android:id="@+id/surface_view_gameover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/textView7"
@@ -32,7 +36,7 @@
         android:textSize="30sp"
         android:textStyle="normal|bold"
         app:fontFamily="@font/vt323"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textview_gameover_distance"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textview_gameover_distance_player"
         app:layout_constraintEnd_toEndOf="@+id/textView7" />
 
     <TextView
@@ -51,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textview_gameover_distance"
+        android:id="@+id/textview_gameover_distance_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"

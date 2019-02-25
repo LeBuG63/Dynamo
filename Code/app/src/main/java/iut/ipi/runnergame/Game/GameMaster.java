@@ -51,9 +51,9 @@ public class GameMaster extends Thread {
             player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
             shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
 
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 200);
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 20);
-            plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 20);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 6);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 10);
+            plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 10);
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -110,9 +110,10 @@ public class GameMaster extends Thread {
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
 
         if(player.isDead()) {
+            int distance = (int)(player.getPosition().x - Player.DEFAULT_POS.x);
             player.setDeath(false);
             player.setPosition(defaultPointPlayer);
-            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, 100));
+            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, plateformManager.getLevelLength()));
         }
 
         last = now;
