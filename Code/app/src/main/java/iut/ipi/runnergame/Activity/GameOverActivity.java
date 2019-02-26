@@ -46,13 +46,13 @@ public class GameOverActivity extends AppCompatActivity {
         else if(percentage > 100)
             percentage = 100.0f;
 
-        distance.setText(Util.roundFloatNDigits(percentage, 2) + "%");
+        distance.setText(String.format("%s%%", Util.roundFloatNDigits(percentage, 2)));
 
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameOverMaster.kill();
                 finish();
+                gameOverMaster.kill();
             }
         });
     }

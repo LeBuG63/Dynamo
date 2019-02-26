@@ -46,6 +46,8 @@ public class GameMaster extends Thread {
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
 
+    private boolean isRunning = true;
+
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         plateformManager = new PlateformManager(context);
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
@@ -80,10 +82,14 @@ public class GameMaster extends Thread {
 
     @Override
     public void run() {
-        while(true) {
+        while(isRunning) {
             update();
             draw();
         }
+    }
+
+    public void kill() {
+        isRunning = false;
     }
 
     private long last = System.currentTimeMillis();

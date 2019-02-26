@@ -17,6 +17,7 @@ import java.util.TimerTask;
 
 import iut.ipi.runnergame.Game.GameMaster;
 import iut.ipi.runnergame.Game.GameOverDataBundle;
+import iut.ipi.runnergame.Game.GameOverMaster;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
@@ -26,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
     public static String strTimer;
     private static GameActivity instance = null;
 
-    private GameMaster gameManager;
+    private static GameMaster gameManager;
 
     private SurfaceView surfaceView;
     private TextView textViewTimer;
@@ -120,6 +121,7 @@ public class GameActivity extends AppCompatActivity {
     public static void launchLoseActivity(GameOverDataBundle data) {
         if(instance == null) return;
         instance.finish();
+        gameManager.kill();
 
         Intent loseIntent = new Intent(instance, GameOverActivity.class);
 
