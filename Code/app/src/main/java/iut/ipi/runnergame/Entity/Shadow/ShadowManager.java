@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ShadowManager implements Drawable {
-    private final int SHAKE_THRESHOLD = 100;
+    private final int SHAKE_THRESHOLD = 60;
 
     private Player player;
 

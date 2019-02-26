@@ -6,7 +6,8 @@ import iut.ipi.runnergame.Util.WindowUtil;
 
 public class Shadow extends AbstractEntity {
     private float defaultRadius = WindowUtil.convertPixelsToDp(200);
-    private float radius = defaultRadius;
+    private float maxRadius = WindowUtil.convertPixelsToDp(2000);
+    private float radius = maxRadius;
 
     private float shadowDecreaseValue;
     private float shadowIncreaseValueRatio;
@@ -19,7 +20,7 @@ public class Shadow extends AbstractEntity {
     }
 
     public void addToRadius(float value) {
-        if(radius < WindowUtil.convertPixelsToDp(2000))
+        if(radius < maxRadius)
             radius += value * shadowIncreaseValueRatio;
     }
 

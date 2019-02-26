@@ -10,6 +10,8 @@ import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.PointRelative;
 
 public class GameOverMaster extends Thread {
+    private volatile boolean isRunning = true;
+
     private SurfaceHolder holder;
 
     private StatisticDistanceFlag distanceFlag;
@@ -22,10 +24,14 @@ public class GameOverMaster extends Thread {
 
     @Override
     public void run() {
-        while(true) {
+        while(isRunning) {
             update();
             draw();
         }
+    }
+
+    public void kill() {
+        isRunning = false;
     }
 
     public void update() {

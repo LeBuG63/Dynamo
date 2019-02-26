@@ -29,7 +29,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         SurfaceView surfaceView = findViewById(R.id.surface_view_gameover);
 
-        GameOverMaster gameOverMaster = new GameOverMaster(getApplicationContext(), surfaceView.getHolder(), dataBundle.getDistance(), dataBundle.getLevelLength(), 10.0f);
+        final GameOverMaster gameOverMaster = new GameOverMaster(getApplicationContext(), surfaceView.getHolder(), dataBundle.getDistance(), dataBundle.getLevelLength(), 10.0f);
         gameOverMaster.start();
 
         TextView timer = findViewById(R.id.textview_gameover_time);
@@ -51,6 +51,7 @@ public class GameOverActivity extends AppCompatActivity {
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gameOverMaster.kill();
                 finish();
             }
         });

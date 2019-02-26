@@ -60,6 +60,7 @@ public class GameMaster extends Thread {
             shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
 
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 6);
+            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(-100, 200 ), 6);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 10);
             plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 10);
 

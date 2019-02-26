@@ -80,11 +80,11 @@ public class PhysicsManager {
                         break;
                     case RIGHT:
                         player.stopX();
-                        player.setPosition(new Point(playerX + 1, playerY));
+                        player.setPosition(new Point(playerX, playerY));
                         break;
                     case LEFT:
                         player.stopX();
-                        player.setPosition(new Point(playerX - 1, playerY));
+                        player.setPosition(new Point(playerX, playerY));
                         break;
                 }
             }

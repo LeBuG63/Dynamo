@@ -5,7 +5,7 @@ import android.graphics.RectF;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class BaseCollisionBox implements Collision {
-    private static final float COLLISION_OFFSET = 10.0f;
+    private static final float COLLISION_OFFSET = 5.0f;
 
     private float left;
     private float top;
@@ -79,13 +79,13 @@ public class BaseCollisionBox implements Collision {
             if(collision(new BaseCollisionBox(other.getLeft(), other.getTop(), other.getWidth(), -COLLISION_OFFSET))) {
                 collisionOccuredSide = CollisionOccuredSide.TOP;
             }
-            else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + COLLISION_OFFSET, -COLLISION_OFFSET, other.getHeight()))) {
+            else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop(), -COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide = CollisionOccuredSide.LEFT;
             }
-            else if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth(), other.getTop() + COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
+            else if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth(), other.getTop() - COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide = CollisionOccuredSide.RIGHT;
             }
-            else if(collision(new BaseCollisionBox(other.getLeft() + COLLISION_OFFSET, other.getTop() + other.getHeight(), other.getWidth() - COLLISION_OFFSET*2, COLLISION_OFFSET))) {
+            else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + other.getHeight(), other.getWidth(), COLLISION_OFFSET))) {
                 collisionOccuredSide = CollisionOccuredSide.DOWN;
             }
             return true;
@@ -97,6 +97,7 @@ public class BaseCollisionBox implements Collision {
     }
 
     public boolean isInCollisionWithPoint(AbstractPoint point) {
+        if(point == null) return false;
         return (point.x > getLeft() && point.x < (getLeft() + getWidth()) && point.y > getTop() && point.y < (getTop() + getHeight()));
     }
 
