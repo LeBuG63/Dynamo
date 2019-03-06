@@ -44,4 +44,9 @@ public class BaseArrowClickable extends AbstractEntity implements ArrowClickable
     public Collision getCollision() {
         return collision;
     }
+
+    @Override
+    public void updateBecauseCollision() {
+        // rien a faire car tout est gerer dans la cross
+    }
 }

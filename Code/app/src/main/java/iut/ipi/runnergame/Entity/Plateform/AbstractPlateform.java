@@ -13,12 +13,13 @@ import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
+import iut.ipi.runnergame.Entity.Translatable;
 import iut.ipi.runnergame.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
-public abstract class AbstractPlateform extends AbstractEntity implements Collidable {
+public abstract class AbstractPlateform extends AbstractEntity implements Collidable, Translatable {
     public static final int BLOCK_SPRITE_START = 0;
     public static final int BLOCK_SPRITE_INBETWEEN = 1;
     public static final int BLOCK_SPRITE_END = 2;
@@ -84,14 +85,21 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     }
 
     @Override
+    public void updateBecauseCollision() {
+        // on ne fait rien si il y a collision
+    }
+
+    @Override
     public AbstractPoint getPosition() {
         return new Point(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
     }
 
+    @Override
     public AbstractPoint getOffset() {
         return offset;
     }
 
+    @Override
     public void setOffset(AbstractPoint offset) {
         this.offset = offset;
 

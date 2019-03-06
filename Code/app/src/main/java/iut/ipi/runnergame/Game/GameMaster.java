@@ -12,12 +12,15 @@ import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Entity.Gameplay.PieceManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
+import iut.ipi.runnergame.Entity.Gameplay.Piece;
 import iut.ipi.runnergame.Hud.AbstractCross;
 import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
+import iut.ipi.runnergame.Physics.CollisionManager;
 import iut.ipi.runnergame.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Sound.AbstractPlayer;
@@ -25,6 +28,7 @@ import iut.ipi.runnergame.Sound.SoundEffectPlayer;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointAdjusted;
 import iut.ipi.runnergame.Util.Point.PointRelative;
+import iut.ipi.runnergame.Util.TranslateUtil;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
@@ -46,6 +50,10 @@ public class GameMaster extends Thread {
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
 
+    private PieceManager pieceManager;
+
+    private TranslateUtil translateUtil = new TranslateUtil();
+
     private boolean isRunning = true;
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
@@ -60,6 +68,11 @@ public class GameMaster extends Thread {
         try {
             player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
             shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
+            pieceManager = new PieceManager(context);
+
+            pieceManager.add(new Piece(context, new PointAdjusted(100, 100), R.drawable.sprite_piece_gold_1));
+            pieceManager.add(new Piece(context, new PointAdjusted(0, 300), R.drawable.sprite_piece_gold_1));
+            pieceManager.add(new Piece(context, new PointAdjusted(0, 350), R.drawable.sprite_piece_gold_1));
 
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 6);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(-100, 200 ), 6);
@@ -122,7 +135,10 @@ public class GameMaster extends Thread {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
-        plateformManager.translate(player.getPosition().x - Player.DEFAULT_POS.x, 0);
+        translateUtil.translateListObject(plateformManager.getPlateforms(), player.getPosition().x - Player.DEFAULT_POS.x, 0);
+        translateUtil.translateListObject(pieceManager.getPieces(), player.getPosition().x - Player.DEFAULT_POS.x, 0);
+
+        pieceManager.update(player);
         shadowManager.update();
 
         PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
@@ -148,14 +164,6 @@ public class GameMaster extends Thread {
                 updatePosition();
             }
 
-            Paint p = new Paint();
-            Paint p2 = new Paint();
-            Paint circle = new Paint();
-
-            circle.setColor(Color.BLUE);
-            p.setColor(Color.GREEN);
-            p2.setColor(Color.RED);
-
             Paint paint = new Paint();
 
             paint.setDither(false);
@@ -166,11 +174,12 @@ public class GameMaster extends Thread {
 
             plateformManager.drawPlateformOnCanvas(canvas);
 
+            pieceManager.drawPiecesOnCanvas(canvas);
+
             canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());
 
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
-
             shadowManager.drawOnCanvas(canvas);
 
             holder.unlockCanvasAndPost(canvas);

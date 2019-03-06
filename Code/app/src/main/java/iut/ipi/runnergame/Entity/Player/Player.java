@@ -44,6 +44,7 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
         animationManager.start(0);
     }
 
+    @Override
     public Bitmap getSprite() {
         return getAnimationManager().getFrame();
     }
@@ -108,12 +109,10 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
         this.impulse.y = (impulse.y == 0f) ? save.y : impulse.y;
     }
 
-    @Override
-    public void setAnimationManager(AnimationManager animationManager) {
+    private void setAnimationManager(AnimationManager animationManager) {
         this.animationManager = animationManager;
     }
 
-    @Override
     public AnimationManager getAnimationManager() {
         return animationManager;
     }
@@ -126,6 +125,11 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     @Override
     public Collision getCollision() {
         return collision;
+    }
+
+    @Override
+    public void updateBecauseCollision() {
+        // on ne fait rien car c est lui l acteur des collisions
     }
 
     public void setDeath(boolean b) {

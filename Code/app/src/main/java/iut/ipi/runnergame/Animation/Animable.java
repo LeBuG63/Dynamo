@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Animation;
 
+import android.graphics.Bitmap;
+
 public interface Animable {
-    void setAnimationManager(AnimationManager animationManager);
-    AnimationManager getAnimationManager();
 }

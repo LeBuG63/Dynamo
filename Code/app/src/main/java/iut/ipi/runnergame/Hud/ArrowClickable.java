@@ -2,9 +2,10 @@ package iut.ipi.runnergame.Hud;
 
 import android.graphics.RectF;
 
+import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
-public interface ArrowClickable {
+public interface ArrowClickable extends Collidable {
     RectF getRectangle();
     AbstractPoint getPosition();
 

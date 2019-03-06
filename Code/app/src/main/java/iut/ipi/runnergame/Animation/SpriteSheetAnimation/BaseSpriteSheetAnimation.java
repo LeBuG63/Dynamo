@@ -29,6 +29,7 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
     private Timer timer;
 
     private Spritesheet spritesheet;
+    private boolean firstTimeLaunched = true;
 
     public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int totalFrames, int frameDuration, int row, int col) throws IOException {
         this(context, resourceId, scale, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, totalFrames, frameDuration, row, col);
@@ -49,10 +50,10 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         }
     }
 
-
-    @Override
     public void start(int animationIndex) {
-        if(animationIndex != actualRow) {
+        if(animationIndex != actualRow || firstTimeLaunched) {
+            firstTimeLaunched = false;
+
             actualRow = animationIndex;
             actualFrame = 0;
 
@@ -69,7 +70,6 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         }
     }
 
-    @Override
     public void setDurationFrame(int i, int duration) {
         durationMap.put(i, duration);
     }
@@ -95,54 +95,44 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
     }
 
 
-    @Override
     public void end() {
         timer.cancel();
     }
 
-    @Override
     public void pause() {
 
     }
 
-    @Override
     public boolean isPlaying() {
         return isPlaying;
     }
 
-    @Override
     public int getFrameId() {
         return actualFrame;
     }
 
-    @Override
     public int getCountFrames() {
         return getTotalFrames();
     }
 
-    @Override
     public Bitmap getNextFrame() {
         setNextFrameIndex();
         return getFrame();
     }
 
-    @Override
     public Bitmap getPrevFrame() {
         setPrevFrameIndex();
         return getFrame();
     }
 
-    @Override
     public Bitmap getFrame() {
         return spritesheet.getSprite(actualRow, getFrameIndex());
     }
 
-    @Override
     public int getTotalFrames() {
         return totalFrames;
     }
 
-    @Override
     public int getFrameDuration() {
         return frameDuration;
     }
