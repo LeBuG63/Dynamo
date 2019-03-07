@@ -19,15 +19,22 @@ import iut.ipi.runnergame.Util.Point.Point;
 public class Piece extends AbstractEntity implements Collidable, Animable, Translatable {
     private static int DEFAULT_SIZE = 3;
 
+    public static int VALUE_LOW = 100;
+    public static int VALUE_NORMAL = 250;
+    public static int VALUE_HIGH = 500;
+
     private AnimationManager animationManager;
     private Collision collision;
 
     private AbstractPoint offset = new Point();
 
+    private int value = 0;
     private boolean needToBeDeleted = false;
 
-    public Piece(Context context, AbstractPoint pos, int resourceId) {
+    public Piece(Context context, AbstractPoint pos, int resourceId, int value) {
         super(pos);
+
+        this.value = value;
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, resourceId, DEFAULT_SIZE, 4, 250, 1, 4);
@@ -37,6 +44,10 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getValue() {
+        return value;
     }
 
     @Override
@@ -55,8 +66,7 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
         float x = getPosition().x;
         float y = getPosition().y;
 
-        // il faut recalculer la hitbox a chaque modification de l offset
-        setCollision(new BaseCollisionBox(x, y, getSprite().getWidth(), getSprite().getHeight()));
+        setCollision(new BaseCollisionBox(x - offset.x, y - offset.y, getSprite().getWidth(), getSprite().getHeight()));
     }
 
     @Override

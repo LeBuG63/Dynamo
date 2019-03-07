@@ -34,10 +34,12 @@ public class GameOverActivity extends AppCompatActivity {
 
         TextView timer = findViewById(R.id.textview_gameover_time);
         TextView distance = findViewById(R.id.textview_gameover_distance_player);
+        TextView score = findViewById(R.id.textview_gameover_score);
 
         Button mainMenuButton = findViewById(R.id.button_gameover_mainmenu);
 
         timer.setText(dataBundle.getTimer());
+        score.setText(Integer.toString(dataBundle.getScore()));
 
         float percentage = (float)dataBundle.getDistance() / dataBundle.getLevelLength() * 100.0f;
 

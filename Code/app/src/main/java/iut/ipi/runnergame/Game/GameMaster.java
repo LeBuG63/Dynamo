@@ -70,9 +70,9 @@ public class GameMaster extends Thread {
             shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
             pieceManager = new PieceManager(context);
 
-            pieceManager.add(new Piece(context, new PointAdjusted(100, 100), R.drawable.sprite_piece_gold_1));
-            pieceManager.add(new Piece(context, new PointAdjusted(0, 300), R.drawable.sprite_piece_gold_1));
-            pieceManager.add(new Piece(context, new PointAdjusted(0, 350), R.drawable.sprite_piece_gold_1));
+            pieceManager.add(new Piece(context, new PointAdjusted(100, 100), R.drawable.sprite_piece_gold_1, Piece.VALUE_NORMAL));
+            pieceManager.add(new Piece(context, new PointAdjusted(0, 300), R.drawable.sprite_piece_gold_1, Piece.VALUE_NORMAL));
+            pieceManager.add(new Piece(context, new PointAdjusted(0, 350), R.drawable.sprite_piece_gold_1, Piece.VALUE_NORMAL));
 
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 6);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(-100, 200 ), 6);
@@ -147,7 +147,7 @@ public class GameMaster extends Thread {
             int distance = (int)(player.getPosition().x - Player.DEFAULT_POS.x);
             player.setDeath(false);
             player.setPosition(defaultPointPlayer);
-            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, plateformManager.getLevelLength()));
+            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, plateformManager.getLevelLength(), player.getScore()));
         }
 
         last = now;

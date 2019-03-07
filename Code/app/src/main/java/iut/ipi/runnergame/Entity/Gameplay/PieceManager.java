@@ -35,13 +35,19 @@ public class PieceManager {
     }
 
     public void update(Player player) {
+        List<Piece> tmp = new ArrayList<>(pieceList);
+
         for(Piece piece : pieceList) {
             if(player.getCollision().isInCollision(piece.getCollision())) {
                 piece.updateBecauseCollision();
 
-                pieceList.remove(piece);
+                player.addToScore(piece.getValue());
+
+                tmp.remove(piece);
             }
         }
+
+        pieceList = tmp;
     }
 
     public List<Piece> getPieces() {

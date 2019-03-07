@@ -5,7 +5,7 @@ import android.graphics.RectF;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class BaseCollisionBox implements Collision {
-    private static final float COLLISION_OFFSET = 5.0f;
+    private static final float COLLISION_OFFSET = 2.0f;
 
     private float left;
     private float top;

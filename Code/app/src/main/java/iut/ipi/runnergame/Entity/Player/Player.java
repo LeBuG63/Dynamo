@@ -35,6 +35,8 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     private boolean onGround = false;
     private boolean isDead = false;
 
+    private int score = 0;
+
     public Player(AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
@@ -42,6 +44,14 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
         setCollision(new BaseCollisionBox(pos.x, pos.y, getAnimationManager().getFrame().getWidth(), getAnimationManager().getFrame().getHeight()));
 
         animationManager.start(0);
+    }
+
+    public void addToScore(int add) {
+        score += add;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     @Override
