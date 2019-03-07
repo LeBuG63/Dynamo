@@ -13,6 +13,7 @@ import java.util.List;
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.Gameplay.PieceManager;
+import iut.ipi.runnergame.Entity.Gameplay.PieceType;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Player.Player;
@@ -70,9 +71,9 @@ public class GameMaster extends Thread {
             shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
             pieceManager = new PieceManager(context);
 
-            pieceManager.add(new Piece(context, new PointAdjusted(100, 100), R.drawable.sprite_piece_gold_1, Piece.VALUE_NORMAL));
-            pieceManager.add(new Piece(context, new PointAdjusted(0, 300), R.drawable.sprite_piece_gold_1, Piece.VALUE_NORMAL));
-            pieceManager.add(new Piece(context, new PointAdjusted(0, 350), R.drawable.sprite_piece_gold_1, Piece.VALUE_NORMAL));
+            pieceManager.add(PieceType.LOW, new PointAdjusted(150, 200));
+            pieceManager.add(PieceType.NORMAL, new PointAdjusted(200, 200));
+            pieceManager.add(PieceType.HIGH, new PointAdjusted(250, 200));
 
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 6);
             plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(-100, 200 ), 6);

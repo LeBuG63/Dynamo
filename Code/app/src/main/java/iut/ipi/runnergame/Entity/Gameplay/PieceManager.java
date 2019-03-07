@@ -9,6 +9,7 @@ import java.util.List;
 
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Physics.CollisionManager;
+import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class PieceManager {
     private List<Piece> pieceList = new ArrayList<>();
@@ -21,8 +22,13 @@ public class PieceManager {
         this.context = context;
     }
 
-    public void add(Piece piece) {
-        pieceList.add(piece);
+    public void add(PieceType piece, AbstractPoint point) {
+        Piece pieceCreated;
+
+        pieceCreated = PieceFactory.create(context, point, piece);
+
+        if(pieceCreated != null)
+            pieceList.add(pieceCreated);
     }
 
     public void drawPiecesOnCanvas(Canvas canvas) {

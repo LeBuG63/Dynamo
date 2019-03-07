@@ -9,6 +9,8 @@ import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class PlateformFactory {
+
+    // comme ca instanciation impossible
     private PlateformFactory() {}
 
     public static AbstractPlateform create(Context context, PlateformType type, AbstractPoint position, int lenght) throws IOException {
