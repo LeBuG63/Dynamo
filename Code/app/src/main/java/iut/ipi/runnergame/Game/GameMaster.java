@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -34,6 +35,8 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameMaster extends Thread {
+    private final int FPS = 30;
+
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
     private final AbstractPoint defaultPointPlayer = new PointRelative(50, 0);
@@ -96,9 +99,26 @@ public class GameMaster extends Thread {
 
     @Override
     public void run() {
+        long timeBeforeUpdate = 0;
+        long updateDuration = 0;
+        long deltaMillis = 0;
+        long timeAfterUpdate = System.nanoTime();
+
         while(isRunning) {
-            update();
+            timeBeforeUpdate = System.nanoTime();
+            updateDuration = timeBeforeUpdate - timeAfterUpdate;
+            deltaMillis = updateDuration / 1000000L;
+            Log.d("render", String.valueOf(deltaMillis));
+            update(deltaMillis/1000.0f);
             draw();
+
+            timeAfterUpdate = System.nanoTime();
+            long sleepTime = Math.max(2, 17 - (timeAfterUpdate - timeBeforeUpdate));
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -106,10 +126,7 @@ public class GameMaster extends Thread {
         isRunning = false;
     }
 
-    private long last = System.currentTimeMillis();
-    public void update() {
-        long now = System.currentTimeMillis();
-        long res = now - last;
+    public void update(float dt) {
         boolean idle = true;
 
         cross.updateArrowPressed(pointFingerPressed);
@@ -142,7 +159,7 @@ public class GameMaster extends Thread {
         pieceManager.update(player);
         shadowManager.update();
 
-        PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),(float)res/1000.0f);
+        PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),dt);
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - Player.DEFAULT_POS.x);
@@ -150,8 +167,6 @@ public class GameMaster extends Thread {
             player.setPosition(defaultPointPlayer);
             GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, plateformManager.getLevelLength(), player.getScore()));
         }
-
-        last = now;
     }
 
     public void draw() {
@@ -179,9 +194,15 @@ public class GameMaster extends Thread {
 
             canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());
 
+            // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
+            // les mettres au dessus et en dessous corrige le probleme
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
+
             shadowManager.drawOnCanvas(canvas);
+
+            cross.drawOnCanvas(canvas);
+            crossAB.drawOnCanvas(canvas);
 
             holder.unlockCanvasAndPost(canvas);
         }

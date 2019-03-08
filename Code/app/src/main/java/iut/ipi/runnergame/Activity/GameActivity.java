@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,11 +15,9 @@ import java.util.TimerTask;
 
 import iut.ipi.runnergame.Game.GameMaster;
 import iut.ipi.runnergame.Game.GameOverDataBundle;
-import iut.ipi.runnergame.Game.GameOverMaster;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class GameActivity extends AppCompatActivity {
     public static String strTimer;
@@ -33,6 +29,10 @@ public class GameActivity extends AppCompatActivity {
     private TextView textViewTimer;
 
     private AbstractPoint[] fingerPoints = new Point[10]; // comme les 10 doigts de la main
+
+    private Timer timerUpdateScore = new Timer();
+
+    private boolean instanceOnPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -89,33 +89,45 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
-        
-        Timer timer = new Timer();
 
         final long timerStarted = System.currentTimeMillis();
-        timer.schedule(new TimerTask() {
+        timerUpdateScore.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        long millis = System.currentTimeMillis();
+                        if (!instanceOnPause) {
+                            long millis = System.currentTimeMillis();
 
-                        long millisec = ((millis - timerStarted)) % 1000;
-                        long seconds = ((millis - timerStarted) / 1000) % 60;
+                            long millisec = ((millis - timerStarted)) % 1000;
+                            long seconds = ((millis - timerStarted) / 1000);
 
-                        String strSeconds = ((seconds < 10) ? "0" : "") + String.valueOf(seconds);
-                        String strMillisec = ((millisec < 100) ? "0" : "") + String.valueOf(millisec);
+                            String strSeconds = ((seconds < 10) ? "0" : "") + String.valueOf(seconds);
+                            String strMillisec = ((millisec < 100) ? "0" : "") + String.valueOf(millisec);
 
-                        strTimer = strSeconds + "." + strMillisec;
+                            strTimer = strSeconds + "." + strMillisec;
 
-                        textViewTimer.setText(strTimer);
+                            textViewTimer.setText(strTimer);
+                        }
                     }
                 });
             }
         }, 0, 10);
 
         instance = this;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        instanceOnPause = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        instanceOnPause = false;
     }
 
     public static void launchLoseActivity(GameOverDataBundle data) {
