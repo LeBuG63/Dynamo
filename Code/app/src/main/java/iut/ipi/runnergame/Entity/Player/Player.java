@@ -29,6 +29,7 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
     public static final int ANIMATION_RUNNING_LEFT = 2;
     public static final int ANIMATION_JUMP_RIGHT = 3;
     public static final int ANIMATION_JUMP_LEFT = 4;
+    public static final int ANIMATION_FALLING = 5;
 
     public boolean hasAnotherJump = true;
 

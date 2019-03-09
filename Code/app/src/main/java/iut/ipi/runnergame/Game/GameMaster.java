@@ -20,6 +20,7 @@ import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
 import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
+import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Game.Level.LevelCreator;
 import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
@@ -57,7 +58,7 @@ public class GameMaster extends Thread {
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
         try {
-            player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 5, 4));
+            player = new BasePlayer(context, defaultPointPlayer, Player.DEFAULT_SCALE);
 
             levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
 
@@ -155,7 +156,7 @@ public class GameMaster extends Thread {
 
             player.jump(Player.IMPULSE_JUMP);
 
-            if (player.getImpulse().x > 0) {
+            if (player.getImpulse().x >= 0) {
                 player.getAnimationManager().start(Player.ANIMATION_JUMP_RIGHT);
             } else {
                 player.getAnimationManager().start(Player.ANIMATION_JUMP_LEFT);

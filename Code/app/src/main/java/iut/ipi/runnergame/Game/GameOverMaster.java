@@ -7,6 +7,8 @@ import android.view.SurfaceHolder;
 
 import iut.ipi.runnergame.Engine.Graphics.Hud.StatisticDistanceFlag;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
+import iut.ipi.runnergame.Game.Level.Background.Background;
+import iut.ipi.runnergame.Game.Level.Background.StarsBackground;
 import iut.ipi.runnergame.R;
 
 public class GameOverMaster extends Thread {
@@ -14,18 +16,20 @@ public class GameOverMaster extends Thread {
 
     private SurfaceHolder holder;
 
+    private Background background;
     private StatisticDistanceFlag distanceFlag;
 
     public GameOverMaster(Context context, SurfaceHolder surfaceHolder, int playerDistance, int levelLength, float amplitude) {
         this.holder = surfaceHolder;
 
+        background = new StarsBackground(context, 30);
         distanceFlag = new StatisticDistanceFlag(context, R.drawable.sprite_flags_1, 3,8, playerDistance, levelLength, amplitude, new PointRelative(25, 50));
     }
 
     @Override
     public void run() {
         while(isRunning) {
-            update();
+            update(1.0f/60.0f);
             draw();
         }
     }
@@ -34,8 +38,8 @@ public class GameOverMaster extends Thread {
         isRunning = false;
     }
 
-    public void update() {
-
+    public void update(float dt) {
+        background.update(dt);
     }
 
     public void draw() {
@@ -43,8 +47,9 @@ public class GameOverMaster extends Thread {
             Canvas canvas = holder.lockCanvas();
             if (canvas == null) return;
 
-            canvas.drawColor(Color.DKGRAY);
+            canvas.drawColor(Color.BLACK);
 
+            background.drawOnCanvas(canvas);
             distanceFlag.drawOnCanvas(canvas);
 
             holder.unlockCanvasAndPost(canvas);

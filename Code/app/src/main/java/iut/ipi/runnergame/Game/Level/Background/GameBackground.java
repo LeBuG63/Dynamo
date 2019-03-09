@@ -1,6 +1,5 @@
-package iut.ipi.runnergame.Game.Level;
+package iut.ipi.runnergame.Game.Level.Background;
 
-import android.app.WallpaperInfo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,23 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
-import iut.ipi.runnergame.Engine.Graphics.Point.PointAdjusted;
-import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
-import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
-import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
-import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.Entity.Translatable;
 import iut.ipi.runnergame.R;
 
-public class Background extends AbstractEntity implements Translatable, Drawable {
+public class GameBackground extends AbstractEntity implements Background {
     private AbstractPoint offset;
 
     private Paint paint = new Paint();
@@ -32,7 +22,7 @@ public class Background extends AbstractEntity implements Translatable, Drawable
 
     private int step = 0;
 
-    public Background(Context context) {
+    public GameBackground(Context context) {
         super(new Point(0,0));
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -62,7 +52,6 @@ public class Background extends AbstractEntity implements Translatable, Drawable
         boolean left = false;
 
         step = (int)(x / -WindowDefinitions.WIDTH);
-        Log.d("step", Integer.toString(step));
 
         if(step != lastStep) {
             lastStep = step;
@@ -75,5 +64,10 @@ public class Background extends AbstractEntity implements Translatable, Drawable
 
         canvas.drawBitmap(backgroundBitmaps[0], x + WindowDefinitions.WIDTH * (step), y, paint);
         canvas.drawBitmap(backgroundBitmaps[1], x + WindowDefinitions.WIDTH * (step + 1), y, paint);
+    }
+
+    @Override
+    public void update(float dt) {
+
     }
 }
