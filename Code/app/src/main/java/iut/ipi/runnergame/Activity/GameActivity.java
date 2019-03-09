@@ -156,7 +156,8 @@ public class GameActivity extends AppCompatActivity {
 
         // si on change d activite, alors celle ci doit finir et le thread du gamemanager doit etre tue pour eviter de surcharger le cpu
         gameManager.stopUpdate();
-        gameManager.kill();instance.finish();
+        gameManager.kill();
+        instance.finish();
 
         Intent loseIntent = new Intent(instance, GameOverActivity.class);
 

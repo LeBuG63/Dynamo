@@ -1,6 +1,7 @@
 package iut.ipi.runnergame.Entity.Player;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -18,15 +19,17 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
+    public static final long FREQ_JUMP_MILLIS = 200;
 
     public static AbstractPoint DEFAULT_POS = new PointRelative(50,0);
 
-    public static final float IMPULSE_MOVEMENT = 2500.0f;
+    public static final float IMPULSE_MOVEMENT = 1000.0f;
     public static final float IMPULSE_JUMP = 40.0f;
 
     public static final int ANIMATION_IDLE = 0;
     public static final int ANIMATION_RUNNING_RIGHT = 1;
     public static final int ANIMATION_RUNNING_LEFT = 2;
+    public boolean hasAnotherJump = true;
 
     private Point impulse = new Point(0.0f,0.0f);
     private AnimationManager animationManager;
@@ -97,13 +100,30 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
         this.impulse = new Point(0, this.impulse.y);
     }
 
+    private long timeEllapsedJump = System.currentTimeMillis();
     @Override
     public void jump(float force) {
-        if (onGround) {
+        if (System.currentTimeMillis() - timeEllapsedJump >= FREQ_JUMP_MILLIS && (onGround || hasAnotherJump)) {
+            if(!onGround && hasAnotherJump)
+                hasAnotherJump = false;
+
             onGround = false;
+
+            Log.d("jump", "jump");
+
+            timeEllapsedJump = System.currentTimeMillis();
+
             setImpulse(new Point(0.0f, -force));
             setPosition(new Point(getPosition().x, getPosition().y - force));
         }
+    }
+
+    public void setHasAnotherJump(boolean value) {
+        hasAnotherJump = value;
+    }
+
+    public boolean getHasAnotherJump() {
+        return hasAnotherJump;
     }
 
     @Override

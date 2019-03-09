@@ -6,10 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.util.StateSet;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
@@ -36,7 +38,8 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameMaster extends Thread {
-    private final int FPS = 30;
+    private final long FPS = 30L;
+    private final long FRAME_PERIOD = 1000L / 30L;
 
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
@@ -113,13 +116,26 @@ public class GameMaster extends Thread {
         isRunning = false;
     }
 
+    private long time = System.currentTimeMillis();
+    public void waitUntilNeededUpdate(long start) {
+        long now = System.currentTimeMillis();
+
+        if(now - time >= 1000L) // 1 seconde
+            time = now;
+
+        long sleepTime = FRAME_PERIOD - (now - start); // il faut endormir le thread si il ne fait rien
+
+        if(sleepTime >= 0L) {
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException ignored) {
+
+            }
+        }
+    }
+
     @Override
     public void run() {
-        long timeBeforeUpdate = 0;
-        long updateDuration = 0;
-        long deltaMillis = 0;
-        long timeAfterUpdate = System.nanoTime();
-
         while(isRunning) {
             synchronized (pauseKey) {
                 if(paused) {
@@ -135,20 +151,12 @@ public class GameMaster extends Thread {
                     }
                 }
 
-                timeBeforeUpdate = System.nanoTime();
-                updateDuration = timeBeforeUpdate - timeAfterUpdate;
-                deltaMillis = updateDuration / 1000000L;
-                update(deltaMillis / 1000.0f);
+                long start = System.currentTimeMillis();
+
+                update(1.0f/FPS);
                 draw();
 
-                // permet de faire une interpolation pour eviter une variance en fps
-                timeAfterUpdate = System.nanoTime();
-                long sleepTime = Math.max(2, 17 - (timeAfterUpdate - timeBeforeUpdate));
-                try {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    break;
-                }
+                waitUntilNeededUpdate(start);
             }
         }
     }
@@ -164,11 +172,14 @@ public class GameMaster extends Thread {
         crossAB.updateArrowPressed(pointFingerPressed);
 
         if(cross.getArrowTop().getIsClicked() || crossAB.getArrowTop().getIsClicked()) {
-            if(player.isOnGround())
+            idle = false;
+
+            if(player.isOnGround()) {
                 sfxPlayer.playUntilFinished("footsteps");
+                player.setHasAnotherJump(true);
+            }
 
             player.jump(Player.IMPULSE_JUMP);
-            idle = false;
         }
         if(cross.getArrowLeft().getIsClicked()) {
             player.moveLeft(Player.IMPULSE_MOVEMENT);
@@ -205,12 +216,6 @@ public class GameMaster extends Thread {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
 
-            Paint paint = new Paint();
-
-            paint.setDither(false);
-            paint.setAntiAlias(false);
-            paint.setFilterBitmap(false);
-
             canvas.drawColor(Color.DKGRAY);
 
             plateformManager.drawPlateformOnCanvas(canvas);
@@ -237,8 +242,6 @@ public class GameMaster extends Thread {
 
         if(points == null) return;
 
-        for(int index = 0; index < points.length; ++index) {
-            pointFingerPressed.add(points[index]);
-        }
+        pointFingerPressed.addAll(Arrays.asList(points));
     }
 }

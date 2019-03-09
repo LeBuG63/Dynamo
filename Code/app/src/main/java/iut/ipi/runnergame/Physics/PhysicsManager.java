@@ -13,16 +13,16 @@ import iut.ipi.runnergame.Util.Point.Point;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class PhysicsManager {
-    public static final float GRAVITY = 9.81f*150.0f;
+    public static final float GRAVITY = 981f/4;
     public static final float FRICTION = 0.99f;
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
     public static void mulVecWithGravity(AbstractPoint point, AbstractPoint dir, float dt) {
-        AbstractPoint oldPoint = dir;
+        AbstractPoint oldPoint = new Point(dir.x, dir.y);
 
-        dir.y += WindowUtil.convertPixelsToDp(GRAVITY * dt);
-        point.y += WindowUtil.convertPixelsToDp(dir.y + (oldPoint.y + dir.y) * 0.5f * dt);
+        dir.y += WindowUtil.convertPixelsToDp(GRAVITY * dt) ;
+        point.y += WindowUtil.convertPixelsToDp(dir.y + (oldPoint.y + dir.y) * dt);
     }
 
     public static void mulVecWithFriction(AbstractPoint point, AbstractPoint dir, float dt) {
