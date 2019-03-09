@@ -38,8 +38,8 @@ import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameMaster extends Thread {
-    private final long FPS = 30L;
-    private final long FRAME_PERIOD = 1000L / 30L;
+    private final long FPS = 60L;
+    private final long FRAME_PERIOD = 1000L / FPS;
 
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);

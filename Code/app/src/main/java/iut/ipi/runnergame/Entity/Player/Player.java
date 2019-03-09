@@ -109,8 +109,6 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
 
             onGround = false;
 
-            Log.d("jump", "jump");
-
             timeEllapsedJump = System.currentTimeMillis();
 
             setImpulse(new Point(0.0f, -force));
