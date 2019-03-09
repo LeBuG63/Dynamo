@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Hud;
+package iut.ipi.runnergame.Engine.Gfx.Hud;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,12 +9,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Engine.Gfx.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
-import iut.ipi.runnergame.Util.Point.PointAdjusted;
-import iut.ipi.runnergame.Util.Point.PointRelative;
 import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public class StatisticDistanceFlag implements Drawable {

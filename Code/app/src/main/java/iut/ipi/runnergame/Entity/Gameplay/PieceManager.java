@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Physics.CollisionManager;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class PieceManager {

@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Animation.SpriteSheetAnimation;
+package iut.ipi.runnergame.Engine.Gfx.Animation.SpriteSheetAnimation;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import iut.ipi.runnergame.Animation.AnimationManager;
-import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Engine.Gfx.Animation.AnimationManager;
+import iut.ipi.runnergame.Engine.Gfx.Spritesheet.Spritesheet;
 
 public class BaseSpriteSheetAnimation implements AnimationManager {
     private HashMap<Integer, Integer> durationMap = new HashMap<>();

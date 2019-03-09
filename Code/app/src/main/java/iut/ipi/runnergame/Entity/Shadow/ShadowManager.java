@@ -8,12 +8,10 @@ import android.graphics.Path;
 
 import iut.ipi.runnergame.Entity.Drawable;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Sensor.Accelerometer;
+import iut.ipi.runnergame.Engine.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Constantes;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.WindowUtil;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 

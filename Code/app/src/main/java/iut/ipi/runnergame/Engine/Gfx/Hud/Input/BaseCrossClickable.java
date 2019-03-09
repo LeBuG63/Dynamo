@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Hud.Input;
+package iut.ipi.runnergame.Engine.Gfx.Hud.Input;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.Hud.ArrowClickable;
-import iut.ipi.runnergame.Hud.AbstractCross;
-import iut.ipi.runnergame.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Engine.Gfx.Hud.ArrowClickable;
+import iut.ipi.runnergame.Engine.Gfx.Hud.AbstractCross;
+import iut.ipi.runnergame.Engine.Gfx.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
 import iut.ipi.runnergame.Util.WindowDefinitions;

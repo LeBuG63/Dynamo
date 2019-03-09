@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 
 import java.io.IOException;
 
-import iut.ipi.runnergame.Animation.Animable;
-import iut.ipi.runnergame.Animation.AnimationManager;
-import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Engine.Gfx.Animation.Animable;
+import iut.ipi.runnergame.Engine.Gfx.Animation.AnimationManager;
+import iut.ipi.runnergame.Engine.Gfx.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;

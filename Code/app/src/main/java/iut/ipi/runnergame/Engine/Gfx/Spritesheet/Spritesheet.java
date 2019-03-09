@@ -1,9 +1,8 @@
-package iut.ipi.runnergame.Spritesheet;
+package iut.ipi.runnergame.Engine.Gfx.Spritesheet;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;

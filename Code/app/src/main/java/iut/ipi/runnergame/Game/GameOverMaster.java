@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.SurfaceHolder;
 
-import iut.ipi.runnergame.Hud.StatisticDistanceFlag;
+import iut.ipi.runnergame.Engine.Gfx.Hud.StatisticDistanceFlag;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.PointRelative;
 

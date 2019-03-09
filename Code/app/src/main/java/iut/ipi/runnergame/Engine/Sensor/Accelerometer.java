@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Sensor;
+package iut.ipi.runnergame.Engine.Sensor;
 
 import android.content.Context;
 import android.hardware.Sensor;

@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Hud;
+package iut.ipi.runnergame.Engine.Gfx.Hud;
 
 import android.graphics.RectF;
 

@@ -1,6 +1,4 @@
-package iut.ipi.runnergame.Physics;
-
-import android.util.Log;
+package iut.ipi.runnergame.Engine.Physics;
 
 import java.util.List;
 

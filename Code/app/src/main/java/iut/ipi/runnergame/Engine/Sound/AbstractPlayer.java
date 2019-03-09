@@ -1,11 +1,9 @@
-package iut.ipi.runnergame.Sound;
+package iut.ipi.runnergame.Engine.Sound;
 
 import android.content.Context;
 import android.media.MediaPlayer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public abstract class AbstractPlayer {
     protected HashMap<String, MediaPlayer> mediaPlayers = new HashMap<>();

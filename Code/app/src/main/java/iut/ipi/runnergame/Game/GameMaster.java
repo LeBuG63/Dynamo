@@ -1,12 +1,9 @@
 package iut.ipi.runnergame.Game;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-import android.util.StateSet;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -15,26 +12,23 @@ import java.util.Arrays;
 import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
-import iut.ipi.runnergame.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Engine.Gfx.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Entity.Gameplay.PieceManager;
 import iut.ipi.runnergame.Entity.Gameplay.PieceType;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
-import iut.ipi.runnergame.Entity.Gameplay.Piece;
-import iut.ipi.runnergame.Hud.AbstractCross;
-import iut.ipi.runnergame.Hud.Input.BaseCrossClickable;
-import iut.ipi.runnergame.Physics.CollisionManager;
-import iut.ipi.runnergame.Physics.PhysicsManager;
+import iut.ipi.runnergame.Engine.Gfx.Hud.AbstractCross;
+import iut.ipi.runnergame.Engine.Gfx.Hud.Input.BaseCrossClickable;
+import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Sound.AbstractPlayer;
-import iut.ipi.runnergame.Sound.SoundEffectPlayer;
+import iut.ipi.runnergame.Engine.Sound.AbstractPlayer;
+import iut.ipi.runnergame.Engine.Sound.SoundEffectPlayer;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.PointAdjusted;
 import iut.ipi.runnergame.Util.Point.PointRelative;
 import iut.ipi.runnergame.Util.TranslateUtil;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameMaster extends Thread {
