@@ -1,5 +1,6 @@
 package iut.ipi.runnergame.Game;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -53,12 +54,13 @@ public class GameMaster extends Thread {
 
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
-
     private PieceManager pieceManager;
 
     private TranslateUtil translateUtil = new TranslateUtil();
 
     private boolean isRunning = true;
+    private boolean paused = false;
+    private Object pauseKey = new Object();
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         plateformManager = new PlateformManager(context);
@@ -66,7 +68,6 @@ public class GameMaster extends Thread {
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
 
         sfxPlayer = new SoundEffectPlayer(context);
-
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
         try {
@@ -86,15 +87,30 @@ public class GameMaster extends Thread {
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
         }
-        catch(IOException e) {
+        catch(IOException ignored) {
 
         }
 
         holder = surfaceHolder;
     }
 
-    public void updatePosition() {
+    public void updatePoolPoints() {
         AbstractPoint.resizePointsInPool();
+    }
+
+    public void pauseUpdate() {
+        paused = true;
+    }
+
+    public void resumeUpdate() {
+        synchronized (pauseKey) {
+            paused = false;
+            pauseKey.notifyAll();
+        }
+    }
+
+    public void stopUpdate() {
+        isRunning = false;
     }
 
     @Override
@@ -105,19 +121,34 @@ public class GameMaster extends Thread {
         long timeAfterUpdate = System.nanoTime();
 
         while(isRunning) {
-            timeBeforeUpdate = System.nanoTime();
-            updateDuration = timeBeforeUpdate - timeAfterUpdate;
-            deltaMillis = updateDuration / 1000000L;
-            Log.d("render", String.valueOf(deltaMillis));
-            update(deltaMillis/1000.0f);
-            draw();
+            synchronized (pauseKey) {
+                if(paused) {
+                    try {
+                        pauseKey.wait();
+                    } catch (InterruptedException e) {
+                        break;
+                    }
 
-            timeAfterUpdate = System.nanoTime();
-            long sleepTime = Math.max(2, 17 - (timeAfterUpdate - timeBeforeUpdate));
-            try {
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                    // en attendant, isRunning peut avoir changé
+                    if(!isRunning) {
+                        break;
+                    }
+                }
+
+                timeBeforeUpdate = System.nanoTime();
+                updateDuration = timeBeforeUpdate - timeAfterUpdate;
+                deltaMillis = updateDuration / 1000000L;
+                update(deltaMillis / 1000.0f);
+                draw();
+
+                // permet de faire une interpolation pour eviter une variance en fps
+                timeAfterUpdate = System.nanoTime();
+                long sleepTime = Math.max(2, 17 - (timeAfterUpdate - timeBeforeUpdate));
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
         }
     }
@@ -174,12 +205,6 @@ public class GameMaster extends Thread {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
 
-            if(canvas.getHeight() != WindowDefinitions.HEIGHT) {
-                WindowDefinitions.HEIGHT = canvas.getHeight();
-                WindowDefinitions.WIDTH = canvas.getWidth();
-                updatePosition();
-            }
-
             Paint paint = new Paint();
 
             paint.setDither(false);
@@ -189,7 +214,6 @@ public class GameMaster extends Thread {
             canvas.drawColor(Color.DKGRAY);
 
             plateformManager.drawPlateformOnCanvas(canvas);
-
             pieceManager.drawPiecesOnCanvas(canvas);
 
             canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());

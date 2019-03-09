@@ -2,6 +2,7 @@ package iut.ipi.runnergame.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -18,6 +19,8 @@ import iut.ipi.runnergame.Game.GameOverDataBundle;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
 import iut.ipi.runnergame.Util.Point.Point;
+import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameActivity extends AppCompatActivity {
     public static String strTimer;
@@ -46,6 +49,9 @@ public class GameActivity extends AppCompatActivity {
 
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
+
+        WindowDefinitions.HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
+        WindowDefinitions.WIDTH = getWindowManager().getDefaultDisplay().getWidth();
 
         gameManager = new GameMaster(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
@@ -79,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_POINTER_UP: {
+                        // permet d eviter une collision accidentel
                         fingerPoints[pointerId].x = -1;
                         fingerPoints[pointerId].y = -1;
 
@@ -115,6 +122,8 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 0, 10);
 
+        gameManager.updatePoolPoints();
+
         instance = this;
     }
 
@@ -122,18 +131,32 @@ public class GameActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         instanceOnPause = true;
+        gameManager.pauseUpdate();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         instanceOnPause = false;
+        gameManager.resumeUpdate();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+            WindowDefinitions.HEIGHT = WindowUtil.convertDpToPixel(newConfig.screenHeightDp);
+            WindowDefinitions.WIDTH = WindowUtil.convertDpToPixel(newConfig.screenWidthDp);
+            gameManager.updatePoolPoints();
+
     }
 
     public static void launchLoseActivity(GameOverDataBundle data) {
         if(instance == null) return;
-        instance.finish();
-        gameManager.kill();
+
+        // si on change d activite, alors celle ci doit finir et le thread du gamemanager doit etre tue pour eviter de surcharger le cpu
+        gameManager.stopUpdate();
+        gameManager.kill();instance.finish();
 
         Intent loseIntent = new Intent(instance, GameOverActivity.class);
 

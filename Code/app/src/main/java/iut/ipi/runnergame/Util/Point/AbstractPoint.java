@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class AbstractPoint {
     // une pool de points, qui peut s averer tres pratique
-    // si les dimensions de la fenetre changent pour une quelquonc raison
+    // si les dimensions de la fenetre changent pour une quelquonque raison
     // grace a ca, tout est automatiquement mise a jour sans passer par des
     // methodes esotheriques toutes moches
     protected static List<AbstractPoint> pointsPool = new ArrayList<>();

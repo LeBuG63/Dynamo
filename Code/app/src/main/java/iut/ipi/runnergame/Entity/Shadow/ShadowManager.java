@@ -11,13 +11,14 @@ import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Sensor.Accelerometer;
 import iut.ipi.runnergame.Util.Constantes;
 import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Util.WindowUtil;
 
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ShadowManager implements Drawable {
-    private final int SHAKE_THRESHOLD = 60;
+    private final int SHAKE_THRESHOLD = 40;
 
     private Player player;
 
@@ -26,8 +27,6 @@ public class ShadowManager implements Drawable {
 
     private Paint circlePaint = new Paint();
     private Paint shadowPaint = new Paint();
-
-    private Random randomGenerator = new Random();
 
     private Path path = new Path();
 
@@ -48,7 +47,7 @@ public class ShadowManager implements Drawable {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-               radiusOffset = (float)Math.cos(System.currentTimeMillis() ) * shadowAmplitude;
+               radiusOffset = WindowUtil.convertPixelsToDp((float)Math.cos(System.currentTimeMillis() ) * shadowAmplitude);
             }
         }, 0, 100);
     }
