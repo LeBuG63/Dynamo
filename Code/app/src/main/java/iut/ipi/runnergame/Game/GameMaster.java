@@ -51,13 +51,13 @@ public class GameMaster extends Thread {
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
-        crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
+        crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 1, defaultPointCrossAB);
 
         sfxPlayer = new SoundEffectPlayer(context);
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
         try {
-            player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
+            player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 5, 4));
 
             levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
 
@@ -145,28 +145,44 @@ public class GameMaster extends Thread {
         cross.updateArrowPressed(pointFingerPressed);
         crossAB.updateArrowPressed(pointFingerPressed);
 
-        if(cross.getArrowTop().getIsClicked() || crossAB.getArrowTop().getIsClicked()) {
+        if(cross.getArrowTop().getIsClicked() || crossAB.getArrowLeft().getIsClicked()) {
             idle = false;
 
-            if(player.isOnGround()) {
+            if (player.isOnGround()) {
                 sfxPlayer.playUntilFinished("footsteps");
                 player.setHasAnotherJump(true);
             }
 
             player.jump(Player.IMPULSE_JUMP);
+
+            if (player.getImpulse().x > 0) {
+                player.getAnimationManager().start(Player.ANIMATION_JUMP_RIGHT);
+            } else {
+                player.getAnimationManager().start(Player.ANIMATION_JUMP_LEFT);
+            }
         }
         if(cross.getArrowLeft().getIsClicked()) {
             player.moveLeft(Player.IMPULSE_MOVEMENT);
-            player.getAnimationManager().start(Player.ANIMATION_RUNNING_LEFT);
+
+            if(player.isOnGround())
+                player.getAnimationManager().start(Player.ANIMATION_RUNNING_LEFT);
+            else
+                player.getAnimationManager().start(Player.ANIMATION_JUMP_LEFT);
             idle = false;
         }
         if(cross.getArrowRight().getIsClicked()) {
             player.moveRight(Player.IMPULSE_MOVEMENT);
-            player.getAnimationManager().start(Player.ANIMATION_RUNNING_RIGHT);
+
+            if(player.isOnGround())
+                player.getAnimationManager().start(Player.ANIMATION_RUNNING_RIGHT);
+            else
+                player.getAnimationManager().start(Player.ANIMATION_JUMP_RIGHT);
+
             idle = false;
         }
         if(idle){
-            player.getAnimationManager().start(Player.ANIMATION_IDLE);
+            if(player.isOnGround())
+                player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
         levelCreator.updateLevel(dt);
@@ -185,11 +201,10 @@ public class GameMaster extends Thread {
         if(holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
-            canvas.drawColor(Color.DKGRAY);
+            canvas.drawColor(Color.BLACK);
+            levelCreator.getLevel().drawOnCanvas(canvas);
 
             canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());
-
-            levelCreator.getLevel().drawOnCanvas(canvas);
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
             // les mettres au dessus et en dessous corrige le probleme

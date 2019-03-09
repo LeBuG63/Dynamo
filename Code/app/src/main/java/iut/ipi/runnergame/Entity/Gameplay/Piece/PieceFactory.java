@@ -13,11 +13,9 @@ public class PieceFactory {
     public static Piece create(Context context, PieceType type, AbstractPoint point) {
         switch (type) {
             case LOW:
-                return new Piece(context, point, R.drawable.sprite_piece_copper_1, type);
+                return new Piece(context, point, R.drawable.sprite_piece_low_1, type);
             case NORMAL:
-                return new Piece(context, point, R.drawable.sprite_piece_silver_1, type);
-            case HIGH:
-                return new Piece(context, point, R.drawable.sprite_piece_gold_1, type);
+                return new Piece(context, point, R.drawable.sprite_piece_normal_1, type);
         }
 
         return null;

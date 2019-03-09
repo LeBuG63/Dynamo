@@ -21,7 +21,6 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
 
     private static int VALUE_LOW = 100;
     private static int VALUE_NORMAL = 250;
-    private static int VALUE_HIGH = 500;
 
     private AnimationManager animationManager;
     private Collision collision;
@@ -40,9 +39,6 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
                 break;
             case NORMAL:
                 this.value = VALUE_NORMAL;
-                break;
-            case HIGH:
-                this.value = VALUE_HIGH;
                 break;
             default:
                 this.value = VALUE_NORMAL;

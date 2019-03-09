@@ -22,14 +22,14 @@ public class Level {
     private PlateformManager plateformManager;
     private PieceManager pieceManager;
 
-    private Player refToPlayer;
+    private Background background;
 
     public Level(Context context, Player player) {
-        refToPlayer = player;
-
         plateformManager = new PlateformManager(context);
         shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
         pieceManager = new PieceManager(context);
+
+        background = new Background(context);
     }
 
     public void addPlateform(PlateformType type, AbstractPoint point, int length) {
@@ -49,6 +49,7 @@ public class Level {
     }
 
     public void drawOnCanvas(Canvas canvas) {
+        background.drawOnCanvas(canvas);
         plateformManager.drawPlateformOnCanvas(canvas);
         pieceManager.drawPiecesOnCanvas(canvas);
     }
@@ -75,5 +76,9 @@ public class Level {
 
     public ShadowManager getShadowManager() {
         return shadowManager;
+    }
+
+    public Background getBackground() {
+        return background;
     }
 }

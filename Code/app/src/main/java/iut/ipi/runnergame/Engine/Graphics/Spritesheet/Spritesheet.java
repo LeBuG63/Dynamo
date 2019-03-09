@@ -38,8 +38,8 @@ public class Spritesheet {
         this.defaultFrameWidth = frameWidth;
         this.defaultFrameHeight = frameHeight;
 
-        this.frameWidth = frameWidth * scale * (int)WindowDefinitions.DENSITY;
-        this.frameHeight = frameHeight * scale * (int)WindowDefinitions.DENSITY;
+        this.frameWidth = (int)(frameWidth * scale * WindowDefinitions.DENSITY);
+        this.frameHeight = (int)(frameHeight * scale * WindowDefinitions.DENSITY);
         this.scale = scale;
 
         Bitmap spritesheet = null;

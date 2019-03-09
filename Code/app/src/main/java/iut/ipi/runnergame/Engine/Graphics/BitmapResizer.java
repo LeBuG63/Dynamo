@@ -1,6 +1,7 @@
 package iut.ipi.runnergame.Engine.Graphics;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class BitmapResizer {
     public static Bitmap bitmapResizerNN(Bitmap bitmap, int newWidth, int newHeight) {

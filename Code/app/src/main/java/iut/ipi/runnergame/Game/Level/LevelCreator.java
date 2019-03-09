@@ -20,6 +20,7 @@ public class LevelCreator {
     public void updateLevel(float dt) {
         translateUtil.translateListObject(level.getPlateforms(), refToPlayer.getPosition().x - Player.DEFAULT_POS.x, 0);
         translateUtil.translateListObject(level.getPieces(), refToPlayer.getPosition().x - Player.DEFAULT_POS.x, 0);
+        translateUtil.translateObject(level.getBackground(), refToPlayer.getPosition().x - Player.DEFAULT_POS.x, 0);
 
         level.getPieceManager().update(refToPlayer);
         level.getShadowManager().update(dt);
