@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Entity.Gameplay;
+package iut.ipi.runnergame.Entity.Gameplay.Piece;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -24,10 +24,14 @@ public class PieceManager {
     public void add(PieceType piece, AbstractPoint point) {
         Piece pieceCreated;
 
-        pieceCreated = PieceFactory.create(context, point, piece);
+        pieceCreated = PieceFactory.create(context, piece, point);
 
         if(pieceCreated != null)
             pieceList.add(pieceCreated);
+    }
+
+    public void add(Piece piece) {
+        pieceList.add(piece);
     }
 
     public void drawPiecesOnCanvas(Canvas canvas) {

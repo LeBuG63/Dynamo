@@ -50,12 +50,12 @@ public class ShadowManager implements Drawable {
         }, 0, 100);
     }
 
-    public void update() {
+    public void update(float dt) {
         if(accelerometer.isShaked()) {
             shadow.addToRadius(accelerometer.getSpeed() / 100);
         }
 
-        shadow.update();
+        shadow.update(dt);
     }
 
     @Override

@@ -16,19 +16,13 @@ import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpr
 import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
-import iut.ipi.runnergame.Engine.Graphics.Point.PointAdjusted;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
 import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
-import iut.ipi.runnergame.Engine.TranslateUtil;
-import iut.ipi.runnergame.Engine.WindowUtil;
-import iut.ipi.runnergame.Entity.Gameplay.PieceManager;
-import iut.ipi.runnergame.Entity.Gameplay.PieceType;
-import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
-import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
+import iut.ipi.runnergame.Game.Level.LevelCreator;
+import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
 
 public class GameMaster extends Thread {
@@ -47,20 +41,15 @@ public class GameMaster extends Thread {
     private AbstractCross cross;
     private AbstractCross crossAB;
 
+    private LevelCreator levelCreator;
+
     private AbstractPlayer sfxPlayer;
-
-    private ShadowManager shadowManager;
-    private PlateformManager plateformManager;
-    private PieceManager pieceManager;
-
-    private TranslateUtil translateUtil = new TranslateUtil();
 
     private boolean isRunning = true;
     private boolean paused = false;
     private Object pauseKey = new Object();
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
-        plateformManager = new PlateformManager(context);
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 2, defaultPointCrossAB);
 
@@ -69,17 +58,8 @@ public class GameMaster extends Thread {
 
         try {
             player = new Player(defaultPointPlayer, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, Player.DEFAULT_SCALE, 4, Player.DEFAULT_FRAME_DURATION, 3, 4));
-            shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(5), WindowUtil.convertPixelsToDp(15), Color.WHITE);
-            pieceManager = new PieceManager(context);
 
-            pieceManager.add(PieceType.LOW, new PointAdjusted(150, 200));
-            pieceManager.add(PieceType.NORMAL, new PointAdjusted(200, 200));
-            pieceManager.add(PieceType.HIGH, new PointAdjusted(250, 200));
-
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(0, 300 ), 6);
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(-100, 200 ), 6);
-            plateformManager.add(PlateformType.SIMPLE, new PointAdjusted(200, 250 ), 10);
-            plateformManager.add(PlateformType.FROZEN, new PointAdjusted(600, 200 ), 10);
+            levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -189,19 +169,15 @@ public class GameMaster extends Thread {
             player.getAnimationManager().start(Player.ANIMATION_IDLE);
         }
 
-        translateUtil.translateListObject(plateformManager.getPlateforms(), player.getPosition().x - Player.DEFAULT_POS.x, 0);
-        translateUtil.translateListObject(pieceManager.getPieces(), player.getPosition().x - Player.DEFAULT_POS.x, 0);
+        levelCreator.updateLevel(dt);
 
-        pieceManager.update(player);
-        shadowManager.update();
-
-        PhysicsManager.updatePlayerPosition(player, plateformManager.getPlateforms(),dt);
+        PhysicsManager.updatePlayerPosition(player, levelCreator.getLevel().getPlateforms(),dt);
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - Player.DEFAULT_POS.x);
             player.setDeath(false);
             player.setPosition(defaultPointPlayer);
-            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, plateformManager.getLevelLength(), player.getScore()));
+            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), player.getScore()));
         }
     }
 
@@ -209,20 +185,18 @@ public class GameMaster extends Thread {
         if(holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
-
             canvas.drawColor(Color.DKGRAY);
 
-            plateformManager.drawPlateformOnCanvas(canvas);
-            pieceManager.drawPiecesOnCanvas(canvas);
-
             canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());
+
+            levelCreator.getLevel().drawOnCanvas(canvas);
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
             // les mettres au dessus et en dessous corrige le probleme
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
 
-            shadowManager.drawOnCanvas(canvas);
+            levelCreator.getLevel().drawShadowOnCanvas(canvas);
 
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);

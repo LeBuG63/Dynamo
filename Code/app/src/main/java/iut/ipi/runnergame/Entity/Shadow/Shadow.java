@@ -24,9 +24,9 @@ public class Shadow extends AbstractEntity {
             radius += value * shadowIncreaseValueRatio;
     }
 
-    public void update() {
+    public void update(float dt) {
         if(radius > defaultRadius)
-            radius -= shadowDecreaseValue;
+            radius -= shadowDecreaseValue * dt;
         else
             radius = defaultRadius;
     }

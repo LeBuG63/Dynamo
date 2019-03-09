@@ -31,6 +31,10 @@ public class PlateformManager {
         } catch (IOException e) {}
     }
 
+    public void add(AbstractPlateform plateform) {
+        plateforms.add(plateform);
+    }
+
     public void drawPlateformOnCanvas(Canvas canvas) {
         for(AbstractPlateform plateform : plateforms) {
             plateform.drawOnCanvas(canvas);

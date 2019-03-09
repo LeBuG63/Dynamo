@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Entity.Gameplay;
+package iut.ipi.runnergame.Entity.Gameplay.Piece;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,9 +19,9 @@ import iut.ipi.runnergame.Entity.Translatable;
 public class Piece extends AbstractEntity implements Collidable, Animable, Translatable {
     private static int DEFAULT_SIZE = 3;
 
-    public static int VALUE_LOW = 100;
-    public static int VALUE_NORMAL = 250;
-    public static int VALUE_HIGH = 500;
+    private static int VALUE_LOW = 100;
+    private static int VALUE_NORMAL = 250;
+    private static int VALUE_HIGH = 500;
 
     private AnimationManager animationManager;
     private Collision collision;
@@ -31,10 +31,22 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
     private int value = 0;
     private boolean needToBeDeleted = false;
 
-    public Piece(Context context, AbstractPoint pos, int resourceId, int value) {
+    public Piece(Context context, AbstractPoint pos, int resourceId, PieceType value) {
         super(pos);
 
-        this.value = value;
+        switch (value) {
+            case LOW:
+                this.value = VALUE_LOW;
+                break;
+            case NORMAL:
+                this.value = VALUE_NORMAL;
+                break;
+            case HIGH:
+                this.value = VALUE_HIGH;
+                break;
+            default:
+                this.value = VALUE_NORMAL;
+        }
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, resourceId, DEFAULT_SIZE, 4, 250, 1, 4);
