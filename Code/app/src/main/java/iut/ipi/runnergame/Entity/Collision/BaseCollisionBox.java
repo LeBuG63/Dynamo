@@ -75,7 +75,6 @@ public class BaseCollisionBox implements Collision {
     @Override
     public boolean isInCollision(Collision other) {
         if (collision(other)) {
-
             if(collision(new BaseCollisionBox(other.getLeft(), other.getTop(), other.getWidth(), -COLLISION_OFFSET))) {
                 collisionOccuredSide = CollisionOccuredSide.TOP;
             }
