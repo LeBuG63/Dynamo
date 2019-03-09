@@ -4,16 +4,16 @@ import android.graphics.Bitmap;
 
 import java.io.IOException;
 
-import iut.ipi.runnergame.Engine.Gfx.Animation.Animable;
-import iut.ipi.runnergame.Engine.Gfx.Animation.AnimationManager;
+import iut.ipi.runnergame.Engine.Graphics.Animation.Animable;
+import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Movable;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.Point;
-import iut.ipi.runnergame.Util.Point.PointRelative;
 
 public class Player extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;

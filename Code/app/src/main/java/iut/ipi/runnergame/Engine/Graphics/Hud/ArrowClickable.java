@@ -1,9 +1,9 @@
-package iut.ipi.runnergame.Engine.Gfx.Hud;
+package iut.ipi.runnergame.Engine.Graphics.Hud;
 
 import android.graphics.RectF;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public interface ArrowClickable extends Collidable {
     RectF getRectangle();

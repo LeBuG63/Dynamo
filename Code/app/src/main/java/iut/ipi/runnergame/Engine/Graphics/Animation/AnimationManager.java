@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Engine.Gfx.Animation;
+package iut.ipi.runnergame.Engine.Graphics.Animation;
 
 import android.graphics.Bitmap;
 

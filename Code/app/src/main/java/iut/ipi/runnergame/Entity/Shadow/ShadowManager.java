@@ -6,14 +6,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Engine.Sensor.Accelerometer;
-import iut.ipi.runnergame.Util.Constantes;
-import iut.ipi.runnergame.Util.WindowUtil;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+import iut.ipi.runnergame.Engine.Sensor.Accelerometer;
+import iut.ipi.runnergame.Engine.WindowUtil;
+import iut.ipi.runnergame.Entity.Drawable;
+import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Util.Constantes;
 
 public class ShadowManager implements Drawable {
     private final int SHAKE_THRESHOLD = 40;

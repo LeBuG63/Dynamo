@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Util.Point;
+package iut.ipi.runnergame.Engine.Graphics.Point;
 
 public class Point extends AbstractPoint {
     public Point() {

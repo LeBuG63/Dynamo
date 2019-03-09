@@ -14,13 +14,13 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Game.GameMaster;
 import iut.ipi.runnergame.Game.GameOverDataBundle;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.Point;
-import iut.ipi.runnergame.Util.WindowDefinitions;
-import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameActivity extends AppCompatActivity {
     public static String strTimer;

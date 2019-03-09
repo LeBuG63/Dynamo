@@ -1,6 +1,6 @@
-package iut.ipi.runnergame.Util.Point;
+package iut.ipi.runnergame.Engine.Graphics.Point;
 
-import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 
 public class PointAdjusted extends AbstractPoint {
     public PointAdjusted() {

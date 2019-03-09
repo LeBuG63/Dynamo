@@ -1,11 +1,11 @@
-package iut.ipi.runnergame.Engine.Gfx.Hud.Input;
+package iut.ipi.runnergame.Engine.Graphics.Hud.Input;
 
+import iut.ipi.runnergame.Engine.Graphics.Hud.ArrowClickable;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
-import iut.ipi.runnergame.Engine.Gfx.Hud.ArrowClickable;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class BaseArrowClickable extends AbstractEntity implements ArrowClickable, Collidable {
     private boolean isClicked = false;

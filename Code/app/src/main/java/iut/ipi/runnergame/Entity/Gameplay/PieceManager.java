@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 import java.util.List;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class PieceManager {
     private List<Piece> pieceList = new ArrayList<>();

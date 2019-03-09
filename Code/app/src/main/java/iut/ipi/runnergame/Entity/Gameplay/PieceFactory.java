@@ -2,8 +2,8 @@ package iut.ipi.runnergame.Entity.Gameplay;
 
 import android.content.Context;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class PieceFactory {
 

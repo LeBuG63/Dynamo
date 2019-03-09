@@ -12,24 +12,24 @@ import java.util.Arrays;
 import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
-import iut.ipi.runnergame.Engine.Gfx.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
+import iut.ipi.runnergame.Engine.Graphics.Hud.Input.BaseCrossClickable;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.PointAdjusted;
+import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
+import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
+import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
+import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
+import iut.ipi.runnergame.Engine.TranslateUtil;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Gameplay.PieceManager;
 import iut.ipi.runnergame.Entity.Gameplay.PieceType;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
-import iut.ipi.runnergame.Engine.Gfx.Hud.AbstractCross;
-import iut.ipi.runnergame.Engine.Gfx.Hud.Input.BaseCrossClickable;
-import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Engine.Sound.AbstractPlayer;
-import iut.ipi.runnergame.Engine.Sound.SoundEffectPlayer;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.PointAdjusted;
-import iut.ipi.runnergame.Util.Point.PointRelative;
-import iut.ipi.runnergame.Util.TranslateUtil;
-import iut.ipi.runnergame.Util.WindowUtil;
 
 public class GameMaster extends Thread {
     private final long FPS = 60L;

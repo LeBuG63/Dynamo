@@ -1,12 +1,12 @@
-package iut.ipi.runnergame.Engine.Gfx.Hud;
+package iut.ipi.runnergame.Engine.Graphics.Hud;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import java.util.List;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public abstract class AbstractCross implements Drawable {
     public abstract ArrowClickable getArrowTop();

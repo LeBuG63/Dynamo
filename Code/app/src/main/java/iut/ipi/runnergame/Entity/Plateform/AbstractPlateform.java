@@ -9,15 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Translatable;
-import iut.ipi.runnergame.Engine.Gfx.Spritesheet.Spritesheet;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.Point;
-import iut.ipi.runnergame.Util.WindowDefinitions;
 
 public abstract class AbstractPlateform extends AbstractEntity implements Collidable, Translatable {
     public static final int BLOCK_SPRITE_START = 0;

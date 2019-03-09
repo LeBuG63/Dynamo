@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Engine.Sound;
+package iut.ipi.runnergame.Engine.Sfx.Sound;
 
 import android.content.Context;
 

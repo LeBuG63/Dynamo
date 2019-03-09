@@ -1,8 +1,8 @@
 package iut.ipi.runnergame.Entity.Shadow;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
-import iut.ipi.runnergame.Util.Point.PointRelative;
-import iut.ipi.runnergame.Util.WindowUtil;
 
 public class Shadow extends AbstractEntity {
     private float defaultRadius = WindowUtil.convertPixelsToDp(800);

@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Engine.Gfx.Hud.Input;
+package iut.ipi.runnergame.Engine.Graphics.Hud.Input;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import iut.ipi.runnergame.Engine.Gfx.Hud.ArrowClickable;
-import iut.ipi.runnergame.Engine.Gfx.Hud.AbstractCross;
-import iut.ipi.runnergame.Engine.Gfx.Spritesheet.Spritesheet;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.Point;
-import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
+import iut.ipi.runnergame.Engine.Graphics.Hud.ArrowClickable;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 
 public class BaseCrossClickable extends AbstractCross {
     public static final int LEFT = 0;

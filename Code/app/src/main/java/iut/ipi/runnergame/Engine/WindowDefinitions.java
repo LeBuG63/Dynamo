@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Util;
+package iut.ipi.runnergame.Engine;
 
 import android.content.res.Resources;
 

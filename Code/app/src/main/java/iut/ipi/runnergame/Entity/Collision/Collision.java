@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Entity.Collision;
 
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 
 public interface Collision {
     void setLeft(float x);

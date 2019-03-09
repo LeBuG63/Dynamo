@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.SurfaceHolder;
 
-import iut.ipi.runnergame.Engine.Gfx.Hud.StatisticDistanceFlag;
+import iut.ipi.runnergame.Engine.Graphics.Hud.StatisticDistanceFlag;
+import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Util.Point.PointRelative;
 
 public class GameOverMaster extends Thread {
     private boolean isRunning = true;

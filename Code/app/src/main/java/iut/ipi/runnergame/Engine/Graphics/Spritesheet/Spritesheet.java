@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Engine.Gfx.Spritesheet;
+package iut.ipi.runnergame.Engine.Graphics.Spritesheet;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import iut.ipi.runnergame.Util.BitmapResizer;
-import iut.ipi.runnergame.Util.WindowDefinitions;
+import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 
 public class Spritesheet {
     public static final int DEFAULT_SPRITE_SIZE = 16;

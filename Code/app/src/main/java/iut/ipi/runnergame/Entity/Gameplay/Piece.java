@@ -5,16 +5,16 @@ import android.graphics.Bitmap;
 
 import java.io.IOException;
 
-import iut.ipi.runnergame.Engine.Gfx.Animation.Animable;
-import iut.ipi.runnergame.Engine.Gfx.Animation.AnimationManager;
-import iut.ipi.runnergame.Engine.Gfx.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Engine.Graphics.Animation.Animable;
+import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
+import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Translatable;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
-import iut.ipi.runnergame.Util.Point.Point;
 
 public class Piece extends AbstractEntity implements Collidable, Animable, Translatable {
     private static int DEFAULT_SIZE = 3;

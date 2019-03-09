@@ -4,9 +4,9 @@ import android.content.Context;
 
 import java.io.IOException;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.Plateform.TypesPlateform.SimplePlateform;
 import iut.ipi.runnergame.R;
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
 
 public class PlateformFactory {
 

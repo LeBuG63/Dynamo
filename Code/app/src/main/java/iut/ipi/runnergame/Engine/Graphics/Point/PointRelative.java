@@ -1,9 +1,6 @@
-package iut.ipi.runnergame.Util.Point;
+package iut.ipi.runnergame.Engine.Graphics.Point;
 
-import iut.ipi.runnergame.Util.WindowDefinitions;
-import iut.ipi.runnergame.Util.WindowUtil;
-
-import static iut.ipi.runnergame.Util.WindowDefinitions.RATIO_DPI;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 
 public class PointRelative extends AbstractPoint {
     public PointRelative(float percentX, float percentY) {

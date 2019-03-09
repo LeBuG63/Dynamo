@@ -1,4 +1,4 @@
-package iut.ipi.runnergame.Util.Point;
+package iut.ipi.runnergame.Engine.Graphics.Point;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package iut.ipi.runnergame.Entity;
 
-import iut.ipi.runnergame.Util.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 
 public interface Translatable {
     AbstractPoint getOffset();
