@@ -16,15 +16,17 @@ public abstract class AbstractPoint {
     public float x;
     public float y;
 
-    public static void resizePointsInPool() {
+    public static synchronized  void resizePointsInPool() {
         if(pointsPool.isEmpty()) return;
 
-        for(int i = 0; i < pointsPool.size(); i++) {
-            AbstractPoint point = pointsPool.get(i);
+        try {
+            for (int i = 0; i < pointsPool.size(); i++) {
+                AbstractPoint point = pointsPool.get(i);
 
-            if(point != null)
-                point.setPoint(point.paramX, point.paramY);
-        }
+                if (point != null)
+                    point.setPoint(point.paramX, point.paramY);
+            }
+        } catch (IndexOutOfBoundsException ignore) {}
     }
 
     public static void clearPoolPoints() {
