@@ -17,7 +17,7 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Translatable;
 
 public class Piece extends AbstractEntity implements Collidable, Animable, Translatable {
-    private static int DEFAULT_SIZE = 3;
+    private static int DEFAULT_SIZE = 1;
 
     private static int VALUE_LOW = 100;
     private static int VALUE_NORMAL = 250;

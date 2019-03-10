@@ -43,7 +43,7 @@ public class StarsBackground implements Background {
         this.context = context;
 
         try {
-            player = new BasePlayer(context, new PointRelative(40, 40), Player.DEFAULT_SCALE * 4);
+            player = new BasePlayer(context, new PointRelative(45, 40), Player.DEFAULT_SCALE * 4);
         } catch (IOException ignore) { }
 
         AbstractPoint.resizePointsInPool();
@@ -94,6 +94,6 @@ public class StarsBackground implements Background {
             canvas.drawRect(star.position.x, star.position.y, star.position.x + 10, star.position.y + star.length, paint);
         }
 
-        canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, paint);
+        canvas.drawBitmap(player.getSprite(), player.getPosition().x, player.getPosition().y, paint);
     }
 }

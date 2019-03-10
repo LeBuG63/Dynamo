@@ -20,7 +20,7 @@ public class BaseCrossClickable extends AbstractCross {
     public static final int TOP = 1;
     public static final int RIGHT = 2;
     public static final int BOTTOM = 3;
-    public static final int DEFAULT_SCALE = 1;
+    public static final float DEFAULT_SCALE = 1.5f;
 
     private int nArrow = 0;
     private float scale;

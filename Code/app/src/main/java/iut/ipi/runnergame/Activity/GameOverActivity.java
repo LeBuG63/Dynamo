@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
@@ -44,15 +45,15 @@ public class GameOverActivity extends AppCompatActivity {
 
         Button mainMenuButton = findViewById(R.id.button_gameover_mainmenu);
 
-        timer.setText(dataBundle.getTimer());
-        score.setText(Integer.toString(dataBundle.getScore()));
-
         float percentage = (float)dataBundle.getDistance() / dataBundle.getLevelLength() * 100.0f;
 
         if(percentage < 0)
             percentage = 0.0f;
         else if(percentage > 100)
             percentage = 100.0f;
+
+        timer.setText(dataBundle.getTimer());
+        score.setText(String.valueOf((int)(dataBundle.getScore() * (percentage + 1))));
 
         distance.setText(String.format("%s%%", Util.roundFloatNDigits(percentage, 2)));
 
