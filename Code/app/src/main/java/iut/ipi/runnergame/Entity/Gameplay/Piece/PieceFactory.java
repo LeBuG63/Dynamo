@@ -6,7 +6,6 @@ import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.R;
 
 public class PieceFactory {
-
     // comme ca instanciation impossible
     private PieceFactory() {}
 

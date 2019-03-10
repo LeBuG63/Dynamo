@@ -94,7 +94,7 @@ def save(event = None):
     file.write("PIECES\n");
     for p in piecesNormList:
         file.write("LOW " + str(p[0]) + " " + str(p[1]) + "\n")
-    for p in piecesNormList:
+    for p in piecesHighList:
         file.write("NORMAL " + str(p[0]) + " " + str(p[1]) + "\n")
 
 
