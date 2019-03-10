@@ -33,4 +33,7 @@ public class Shadow extends AbstractEntity {
     public float getRadius() {
         return radius;
     }
+    public float getMinRadius() {
+        return defaultRadius;
+    }
 }

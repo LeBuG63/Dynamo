@@ -78,4 +78,12 @@ public class ShadowManager implements Drawable {
         else
             canvas.drawColor(Color.parseColor("#FF000000"));
     }
+
+    public float getShadowRadius() {
+        return shadow.getRadius();
+    }
+
+    public float getShadowMinRadius() {
+        return shadow.getMinRadius();
+    }
 }

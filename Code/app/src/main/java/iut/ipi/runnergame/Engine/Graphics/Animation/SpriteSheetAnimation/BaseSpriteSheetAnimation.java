@@ -19,8 +19,6 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
 
     private final int row;
     private final int col;
-    private final int scale;
-
     private boolean isPlaying = false;
 
     private int actualFrame = 0;
@@ -31,16 +29,15 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
     private Spritesheet spritesheet;
     private boolean firstTimeLaunched = true;
 
-    public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int totalFrames, int frameDuration, int row, int col) throws IOException {
+    public BaseSpriteSheetAnimation(Context context, int resourceId, float scale, int totalFrames, int frameDuration, int row, int col) throws IOException {
         this(context, resourceId, scale, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, totalFrames, frameDuration, row, col);
     }
 
-    public BaseSpriteSheetAnimation(Context context, int resourceId, int scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
+    public BaseSpriteSheetAnimation(Context context, int resourceId, float scale, int frameWidth, int frameHeight, int totalFrames, int frameDuration, int row, int col) throws IOException {
         this.totalFrames = totalFrames;
         this.frameDuration = frameDuration;
         this.row = row;
         this.col = col;
-        this.scale = scale;
 
         spritesheet = new Spritesheet(context, resourceId, row, col, frameWidth, frameHeight, scale);
         timer = new Timer();

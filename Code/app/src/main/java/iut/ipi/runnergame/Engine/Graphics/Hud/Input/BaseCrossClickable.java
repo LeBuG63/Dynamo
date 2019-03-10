@@ -23,12 +23,12 @@ public class BaseCrossClickable extends AbstractCross {
     public static final int DEFAULT_SCALE = 1;
 
     private int nArrow = 0;
-    private int scale;
+    private float scale;
     private Spritesheet spritesheet;
 
     private List<ArrowClickable> arrow = new ArrayList<>();
 
-    public BaseCrossClickable(Context context, int resource, int scale, int nArrow, AbstractPoint center) {
+    public BaseCrossClickable(Context context, int resource, float scale, int nArrow, AbstractPoint center) {
         this.scale = scale;
         this.nArrow = nArrow;
 

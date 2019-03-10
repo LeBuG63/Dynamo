@@ -24,14 +24,14 @@ public class Spritesheet {
     private final int defaultFrameWidth;
     private final int frameHeight;
     private final int defaultFrameHeight;
-    private final int scale;
+    private final float scale;
 
     private Map<Integer, List<Bitmap>> bitmapMap = new HashMap<>();
 
-    public Spritesheet(Context context, int resourceId, int row, int col, int scale) throws IOException {
+    public Spritesheet(Context context, int resourceId, int row, int col, float scale) throws IOException {
         this(context, resourceId, row, col, DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE, scale);
     }
-    public Spritesheet(Context context, int resourceId, int row, int col, int frameWidth, int frameHeight, int scale) throws IOException {
+    public Spritesheet(Context context, int resourceId, int row, int col, int frameWidth, int frameHeight, float scale) throws IOException {
         this.row = row;
         this.col = col;
 
@@ -122,7 +122,7 @@ public class Spritesheet {
         return frameHeight;
     }
 
-    public int getScale() {
+    public float getScale() {
         return scale;
     }
 

@@ -153,6 +153,10 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+
+        WindowDefinitions.HEIGHT = WindowUtil.convertDpToPixel(newConfig.screenHeightDp) / WindowDefinitions.RESOLUTION_FACTOR;
+        WindowDefinitions.WIDTH = WindowUtil.convertDpToPixel(newConfig.screenWidthDp) / WindowDefinitions.RESOLUTION_FACTOR;
+
         gameManager.updatePoolPoints();
     }
 

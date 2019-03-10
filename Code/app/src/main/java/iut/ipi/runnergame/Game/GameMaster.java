@@ -14,6 +14,8 @@ import java.util.List;
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
+import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.AbstractHint;
+import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.ShakeHint;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
@@ -21,8 +23,10 @@ import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
 import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Shadow.Shadow;
 import iut.ipi.runnergame.Game.Level.LevelCreator;
 import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
@@ -30,6 +34,8 @@ import iut.ipi.runnergame.R;
 public class GameMaster extends Thread {
     private final long FPS = 60L;
     private final long FRAME_PERIOD = 1000L / FPS;
+
+    private final float SHAKE_HINT_OFFSET = WindowUtil.convertPixelsToDp(50);
 
     private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
@@ -46,6 +52,8 @@ public class GameMaster extends Thread {
     private LevelCreator levelCreator;
 
     private AbstractPlayer sfxPlayer;
+
+    private AbstractHint shakeHint;
 
     private boolean isRunning = true;
     private boolean paused = false;
@@ -64,6 +72,9 @@ public class GameMaster extends Thread {
             player = new BasePlayer(context, defaultPointPlayer, Player.DEFAULT_SCALE);
 
             levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
+
+            shakeHint = new ShakeHint(context, 0.5f, 4, 200, new PointRelative(45, 20));
+            shakeHint.show();
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
@@ -193,6 +204,12 @@ public class GameMaster extends Thread {
 
         levelCreator.updateLevel(dt);
 
+        if(levelCreator.getLevel().getShadowManager().getShadowRadius() < levelCreator.getLevel().getShadowManager().getShadowMinRadius() + SHAKE_HINT_OFFSET) {
+            shakeHint.show();
+        } else {
+            shakeHint.hide();
+        }
+
         PhysicsManager.updatePlayerPosition(player, levelCreator.getLevel().getPlateforms(),dt);
 
         if(player.isDead()) {
@@ -216,6 +233,7 @@ public class GameMaster extends Thread {
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
             // les mettres au dessus et en dessous corrige le probleme
+            shakeHint.drawOnCanvas(canvas);
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
 
@@ -223,6 +241,8 @@ public class GameMaster extends Thread {
 
             cross.drawOnCanvas(canvas);
             crossAB.drawOnCanvas(canvas);
+
+            shakeHint.drawOnCanvas(canvas);
 
             holder.unlockCanvasAndPost(canvas);
         }
