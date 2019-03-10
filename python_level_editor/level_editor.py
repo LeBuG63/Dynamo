@@ -1,5 +1,7 @@
 from tkinter import *
 
+import pickle
+
 RATIO = 2
 WIN_WIDTH = 2560/RATIO
 WIN_HEIGHT = 1440/RATIO 
@@ -43,6 +45,7 @@ def clicked(event):
 
 def save(event = None):
     file = open("level.txt", "w")
+    filesave = open("save_level", "wb")
 
     plateformsList = []
     piecesNormList = []
@@ -82,6 +85,8 @@ def save(event = None):
                 elif n == NUM_PIECE_HIGH: 
                     piecesHighList.append([finX, finY])
 
+    pickle.dump(map, filesave)
+
     file.write("PLATEFORMS\n");
     for p in plateformsList:
         file.write("SIMPLE " + str(p[0]) + " " + str(p[1]) + " " + str(p[2]) + "\n")
@@ -95,7 +100,20 @@ def save(event = None):
 
     print("sauvegarde fini")
 
+    filesave.close()
     file.close()
+
+def read(e = None):
+    global map 
+    global PAGE
+
+    page = 0
+
+    filesave = open("save_level", "rb")
+    map = pickle.load(filesave)
+    filesave.close()
+
+    update_canvas()
 
 def select_plateform(e = None):
     global OBJECT_SELECTED
@@ -142,9 +160,10 @@ canvas.bind('s', save)
 canvas.bind('q', select_plateform)
 canvas.bind('w', select_piece_norm)
 canvas.bind('e', select_piece_high)
-canvas.bind('r', select_piece_high)
+canvas.bind('t', select_void)
 canvas.bind('a', minus_page)
 canvas.bind('d', plus_page)
+canvas.bind('r', read)
 canvas.bind("<Button-1>", clicked)
 
 canvas.pack()
