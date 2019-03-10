@@ -9,12 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Game.GameOverDataBundle;
 import iut.ipi.runnergame.Game.GameOverMaster;
 import iut.ipi.runnergame.R;
 import iut.ipi.runnergame.Util.Util;
 
 public class GameOverActivity extends AppCompatActivity {
+    // ici, on peut se permettre de remettre la resolution de base, car il n y a rien qui puisse ralentir considerablement le telephone
+    private final float resolutionFactor = 1f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,8 @@ public class GameOverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gameover);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getSupportActionBar().hide();
+
+        WindowUtil.changeResolutionFactor(resolutionFactor);
 
         Intent parentIntent = getIntent();
         GameOverDataBundle dataBundle = parentIntent.getParcelableExtra("loseDataBundle");

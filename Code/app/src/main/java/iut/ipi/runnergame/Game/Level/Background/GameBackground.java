@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 
 import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
@@ -28,7 +30,6 @@ public class GameBackground extends AbstractEntity implements Background {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
 
-        // TODO: utiliser un spritesheet
         backgroundBitmaps[0] = BitmapResizer.bitmapResizerNN(BitmapFactory.decodeResource(context.getResources(), R.drawable.background_1, options), (int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         backgroundBitmaps[1] = BitmapResizer.bitmapResizerNN(BitmapFactory.decodeResource(context.getResources(), R.drawable.background_1, options), (int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
     }
@@ -56,7 +57,6 @@ public class GameBackground extends AbstractEntity implements Background {
         if(step != lastStep) {
             lastStep = step;
 
-            left = true;
             Bitmap tmp = backgroundBitmaps[0];
             backgroundBitmaps[0] = backgroundBitmaps[1];
             backgroundBitmaps[1] = tmp;

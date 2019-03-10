@@ -24,6 +24,13 @@ import iut.ipi.runnergame.R;
 
 public class GameActivity extends AppCompatActivity {
     public static String strTimer;
+
+    // l avantage en faisant du pixel art, c est que meme si la resolution est basse, le jeu rend toujours aussi bien
+    // c est tres utile car l affichage des bitmaps prend un temps FOU, reduire la resolution permet donc de gagner enormement de temps
+    // et donc d images par secondes.
+    // Les telephones ayant une grosses resolutions par defaut mettent 2 a 3x plus de temps qu un telephone avec une resolution "normale"
+    private final float resolutionFactor = 2f;
+
     private static GameActivity instance = null;
 
     private static GameMaster gameManager;
@@ -47,11 +54,13 @@ public class GameActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        WindowDefinitions.DEFAULT_HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
+        WindowDefinitions.DEFAULT_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
+
+        WindowUtil.changeResolutionFactor(resolutionFactor);
+
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
-
-        WindowDefinitions.HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
-        WindowDefinitions.WIDTH = getWindowManager().getDefaultDisplay().getWidth();
 
         gameManager = new GameMaster(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
@@ -77,8 +86,8 @@ public class GameActivity extends AppCompatActivity {
                         try {
                             event.getPointerCoords(pointerId, pointerCoords);
 
-                            fingerPoints[pointerId].x = pointerCoords.x;
-                            fingerPoints[pointerId].y = pointerCoords.y;
+                            fingerPoints[pointerId].x = pointerCoords.x / WindowDefinitions.RESOLUTION_FACTOR;
+                            fingerPoints[pointerId].y = pointerCoords.y / WindowDefinitions.RESOLUTION_FACTOR;
                         } catch (Exception e) {}
                         gameManager.setPointsFingerPressed(fingerPoints);
                         break;
@@ -144,11 +153,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-            WindowDefinitions.HEIGHT = WindowUtil.convertDpToPixel(newConfig.screenHeightDp);
-            WindowDefinitions.WIDTH = WindowUtil.convertDpToPixel(newConfig.screenWidthDp);
-            gameManager.updatePoolPoints();
-
+        gameManager.updatePoolPoints();
     }
 
     public static void launchLoseActivity(GameOverDataBundle data) {

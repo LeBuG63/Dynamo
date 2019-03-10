@@ -6,7 +6,7 @@ import android.graphics.RectF;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 
 public abstract class AbstractEntity {
-    public static int DEFAULT_SCALE = 2;
+    public static int DEFAULT_SCALE = 1;
     private AbstractPoint position;
 
     private RectF rectangle;

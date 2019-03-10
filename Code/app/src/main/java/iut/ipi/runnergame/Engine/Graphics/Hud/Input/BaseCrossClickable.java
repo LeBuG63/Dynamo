@@ -20,7 +20,7 @@ public class BaseCrossClickable extends AbstractCross {
     public static final int TOP = 1;
     public static final int RIGHT = 2;
     public static final int BOTTOM = 3;
-    public static final int DEFAULT_SCALE = 3;
+    public static final int DEFAULT_SCALE = 1;
 
     private int nArrow = 0;
     private int scale;
@@ -32,10 +32,9 @@ public class BaseCrossClickable extends AbstractCross {
         this.scale = scale;
         this.nArrow = nArrow;
 
-        setPosition(center);
-
         try {
             spritesheet = new Spritesheet(context, resource, 1, nArrow, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, scale);
+            setPosition(center);
         }
         catch (IOException e) {}
     }
@@ -44,7 +43,7 @@ public class BaseCrossClickable extends AbstractCross {
         float centerX = center.x;
         float centerY = center.y;
 
-        int size =  Spritesheet.DEFAULT_SPRITE_SIZE * scale * (int) WindowDefinitions.DENSITY;
+        int size =  spritesheet.getFrameWidth();
 
         arrow.clear();
 

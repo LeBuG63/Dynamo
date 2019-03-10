@@ -10,6 +10,8 @@ import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Game.Level.Loader.LevelLoader;
 
 public class LevelCreator {
+    private final int PARALLAX_VALUE = 4; // plus c est haut moins le background bougera
+
     private Level level;
     private Player refToPlayer;
 
@@ -29,7 +31,7 @@ public class LevelCreator {
                 public void run() {
                     translateUtil.translateListObject(level.getPlateforms(), refToPlayer.getPosition().x - Player.DEFAULT_POS.x, 0);
                     translateUtil.translateListObject(level.getPieces(), refToPlayer.getPosition().x - Player.DEFAULT_POS.x, 0);
-                    translateUtil.translateObject(level.getBackground(), refToPlayer.getPosition().x - Player.DEFAULT_POS.x, 0);
+                    translateUtil.translateObject(level.getBackground(), (refToPlayer.getPosition().x - Player.DEFAULT_POS.x) / PARALLAX_VALUE, 0);
                 }
             });
 

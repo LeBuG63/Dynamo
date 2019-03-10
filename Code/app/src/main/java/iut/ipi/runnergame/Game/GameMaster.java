@@ -20,6 +20,7 @@ import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
 import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Entity.Player.Player;
 import iut.ipi.runnergame.Game.Level.LevelCreator;
@@ -51,6 +52,8 @@ public class GameMaster extends Thread {
     private Object pauseKey = new Object();
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
+        updatePoolPoints();
+
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 1, defaultPointCrossAB);
 
@@ -69,6 +72,7 @@ public class GameMaster extends Thread {
 
         }
 
+        surfaceHolder.setFixedSize((int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         holder = surfaceHolder;
     }
 
@@ -98,9 +102,9 @@ public class GameMaster extends Thread {
         if(now - time >= 1000L) // 1 seconde
             time = now;
 
-        long sleepTime = FRAME_PERIOD - (now - start); // il faut endormir le thread si il ne fait rien
+        long sleepTime = (FRAME_PERIOD/2) - (now - start); // il faut endormir le thread si il ne fait rien
 
-        if(sleepTime >= 0L) {
+        if(sleepTime > 0L) {
             try {
                 Thread.sleep(sleepTime);
             } catch (InterruptedException ignored) {
@@ -109,6 +113,7 @@ public class GameMaster extends Thread {
         }
     }
 
+    private boolean update = true;
     @Override
     public void run() {
         while(isRunning) {
@@ -198,14 +203,16 @@ public class GameMaster extends Thread {
         }
     }
 
+    private Paint paint = new Paint();
     public void draw() {
         if(holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if(canvas == null) return;
+
             canvas.drawColor(Color.BLACK);
             levelCreator.getLevel().drawOnCanvas(canvas);
 
-            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, new Paint());
+            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, paint);
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
             // les mettres au dessus et en dessous corrige le probleme

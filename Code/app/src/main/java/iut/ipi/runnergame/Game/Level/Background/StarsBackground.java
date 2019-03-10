@@ -43,8 +43,10 @@ public class StarsBackground implements Background {
         this.context = context;
 
         try {
-            player = new BasePlayer(context, new PointRelative(40, 40), Player.DEFAULT_SCALE * 2);
+            player = new BasePlayer(context, new PointRelative(40, 40), Player.DEFAULT_SCALE * 4);
         } catch (IOException ignore) { }
+
+        AbstractPoint.resizePointsInPool();
 
         for(int i = 0;i < starCount; ++i) {
             float x = random.nextFloat() * 100;
