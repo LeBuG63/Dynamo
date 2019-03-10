@@ -51,6 +51,9 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         if(animationIndex != actualRow || firstTimeLaunched) {
             firstTimeLaunched = false;
 
+            timer.cancel();
+            timer.purge();
+
             actualRow = animationIndex;
             actualFrame = 0;
 
@@ -94,6 +97,7 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
 
     public void end() {
         timer.cancel();
+        timer.purge();
     }
 
     public void pause() {

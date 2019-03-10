@@ -1,5 +1,6 @@
 package iut.ipi.runnergame.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -38,12 +39,13 @@ public class GameActivity extends AppCompatActivity {
     private SurfaceView surfaceView;
     private TextView textViewTimer;
 
-    private AbstractPoint[] fingerPoints = new Point[10]; // comme les 10 doigts de la main
+    private AbstractPoint[] fingerPoints; // comme les 10 doigts de la main
 
-    private Timer timerUpdateScore = new Timer();
+    private static Timer timerUpdateScore;
 
     private boolean instanceOnPause = false;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -62,8 +64,12 @@ public class GameActivity extends AppCompatActivity {
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
 
+        timerUpdateScore = new Timer();
+
         gameManager = new GameMaster(getApplicationContext(), surfaceView.getHolder());
         gameManager.start();
+
+        fingerPoints = new Point[10]; // comme les 10 doigts de la main
 
         for(int i = 0; i < fingerPoints.length; ++i) {
             fingerPoints[i] = new Point();
@@ -131,8 +137,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 0, 10);
 
-        gameManager.updatePoolPoints();
-
         instance = this;
     }
 
@@ -163,9 +167,20 @@ public class GameActivity extends AppCompatActivity {
     public static void launchLoseActivity(GameOverDataBundle data) {
         if(instance == null) return;
 
+        timerUpdateScore.cancel();
+        timerUpdateScore.purge();
+
         // si on change d activite, alors celle ci doit finir et le thread du gamemanager doit etre tue pour eviter de surcharger le cpu
         gameManager.stopUpdate();
         gameManager.kill();
+
+        try {
+            gameManager.interrupt();
+            gameManager.join();
+        } catch (InterruptedException e) {
+
+        }
+
         instance.finish();
 
         Intent loseIntent = new Intent(instance, GameOverActivity.class);

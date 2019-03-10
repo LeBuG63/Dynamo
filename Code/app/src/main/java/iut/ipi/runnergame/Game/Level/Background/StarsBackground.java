@@ -46,8 +46,6 @@ public class StarsBackground implements Background {
             player = new BasePlayer(context, new PointRelative(45, 40), Player.DEFAULT_SCALE * 4);
         } catch (IOException ignore) { }
 
-        AbstractPoint.resizePointsInPool();
-
         for(int i = 0;i < starCount; ++i) {
             float x = random.nextFloat() * 100;
             float y = random.nextFloat() * 100;
@@ -76,6 +74,8 @@ public class StarsBackground implements Background {
 
     @Override
     public void update(float dt) {
+        AbstractPoint.clearPoolPoints();
+
         for(Star star : stars) {
             star.position.y += Star.SPEED * dt;
 

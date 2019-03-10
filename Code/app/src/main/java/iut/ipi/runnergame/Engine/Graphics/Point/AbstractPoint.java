@@ -17,9 +17,18 @@ public abstract class AbstractPoint {
     public float y;
 
     public static void resizePointsInPool() {
-        for(AbstractPoint point : pointsPool) {
-            point.setPoint(point.paramX, point.paramY);
+        if(pointsPool.isEmpty()) return;
+
+        for(int i = 0; i < pointsPool.size(); i++) {
+            AbstractPoint point = pointsPool.get(i);
+
+            if(point != null)
+                point.setPoint(point.paramX, point.paramY);
         }
+    }
+
+    public static void clearPoolPoints() {
+        pointsPool.clear();
     }
 
     protected void addToPool(AbstractPoint point) {

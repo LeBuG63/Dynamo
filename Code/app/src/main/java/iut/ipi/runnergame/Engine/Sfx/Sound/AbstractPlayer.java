@@ -19,6 +19,12 @@ public abstract class AbstractPlayer {
         mediaPlayers.put(soundName, MediaPlayer.create(context, resourcesId));
     }
 
+    public void release() {
+        for(MediaPlayer mediaPlayer : mediaPlayers.values()) {
+            mediaPlayer.release();
+        }
+    }
+
     public void play(String soundName) {
         if(mediaPlayers.containsKey(soundName)) {
             soundNamePlaying = soundName;

@@ -60,8 +60,14 @@ public class GameOverActivity extends AppCompatActivity {
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 gameOverMaster.kill();
+                try {
+                    gameOverMaster.interrupt();
+                    gameOverMaster.join();
+                } catch (InterruptedException ignore) {
+                }
+
+                finish();
             }
         });
     }

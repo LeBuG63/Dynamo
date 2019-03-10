@@ -62,6 +62,7 @@ public class GameMaster extends Thread {
     private Object pauseKey = new Object();
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
+        AbstractPoint.clearPoolPoints();
         updatePoolPoints();
 
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
@@ -84,10 +85,6 @@ public class GameMaster extends Thread {
         catch(IOException ignored) {
 
         }
-        //return px / (WindowDefinitions.DENSITY_DPI / DisplayMetrics.DENSITY_DEFAULT);
-
-        Log.d("window",  String.valueOf(WindowDefinitions.DENSITY_DPI));
-        Log.d("window",  String.valueOf(DisplayMetrics.DENSITY_DEFAULT));
 
         surfaceHolder.setFixedSize((int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         holder = surfaceHolder;
@@ -124,8 +121,8 @@ public class GameMaster extends Thread {
         if(sleepTime > 0L) {
             try {
                 Thread.sleep(sleepTime);
-            } catch (InterruptedException ignored) {
-
+            } catch (InterruptedException e) {
+                isRunning = false;
             }
         }
     }
@@ -160,6 +157,8 @@ public class GameMaster extends Thread {
 
     public void kill() {
         isRunning = false;
+        sfxPlayer.release();
+        AbstractPoint.clearPoolPoints();
     }
 
     public void update(float dt) {
@@ -220,8 +219,6 @@ public class GameMaster extends Thread {
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - Player.DEFAULT_POS.x);
-            player.setDeath(false);
-            player.setPosition(defaultPointPlayer);
             GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), player.getScore()));
         }
     }

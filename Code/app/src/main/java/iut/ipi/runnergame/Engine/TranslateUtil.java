@@ -6,7 +6,7 @@ import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Entity.Translatable;
 
 public class TranslateUtil<T extends Translatable> {
-    public void translateObject(T object, float offsetx, float offsety) {
+    public synchronized void translateObject(T object, float offsetx, float offsety) {
         object.setOffset(new Point(offsetx, offsety));
     }
 
