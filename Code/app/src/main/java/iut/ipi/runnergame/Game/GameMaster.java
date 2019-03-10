@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -14,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
-import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.AbstractHint;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.ShakeHint;
@@ -23,12 +20,12 @@ import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
 import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
+import iut.ipi.runnergame.Engine.Sfx.Sound.MusicPlayer;
 import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Entity.Player.Player;
-import iut.ipi.runnergame.Entity.Shadow.Shadow;
 import iut.ipi.runnergame.Game.Level.LevelCreator;
 import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
@@ -54,6 +51,7 @@ public class GameMaster extends Thread {
     private LevelCreator levelCreator;
 
     private AbstractPlayer sfxPlayer;
+    private AbstractPlayer musicPlayer;
 
     private AbstractHint shakeHint;
 
@@ -63,13 +61,16 @@ public class GameMaster extends Thread {
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         AbstractPoint.clearPoolPoints();
-        updatePoolPoints();
 
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 1, defaultPointCrossAB);
 
         sfxPlayer = new SoundEffectPlayer(context);
+        musicPlayer = new MusicPlayer(context);
+
+        musicPlayer.add("mercury", R.raw.mercury, true);
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
+
 
         try {
             player = new BasePlayer(context, defaultPointPlayer, Player.DEFAULT_SCALE);
@@ -81,10 +82,13 @@ public class GameMaster extends Thread {
 
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
+
         }
         catch(IOException ignored) {
 
         }
+
+        updatePoolPoints();
 
         surfaceHolder.setFixedSize((int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         holder = surfaceHolder;
@@ -96,11 +100,17 @@ public class GameMaster extends Thread {
 
     public void pauseUpdate() {
         paused = true;
+        musicPlayer.stop();
     }
 
     public void resumeUpdate() {
         synchronized (pauseKey) {
             paused = false;
+
+            musicPlayer.release();
+
+            musicPlayer.add("mercury", R.raw.mercury, true);
+            musicPlayer.playLast();
             pauseKey.notifyAll();
         }
     }
@@ -130,6 +140,8 @@ public class GameMaster extends Thread {
     private boolean update = true;
     @Override
     public void run() {
+        musicPlayer.play("mercury");
+
         while(isRunning) {
             synchronized (pauseKey) {
                 if(paused) {
@@ -158,6 +170,7 @@ public class GameMaster extends Thread {
     public void kill() {
         isRunning = false;
         sfxPlayer.release();
+        musicPlayer.release();
         AbstractPoint.clearPoolPoints();
     }
 
