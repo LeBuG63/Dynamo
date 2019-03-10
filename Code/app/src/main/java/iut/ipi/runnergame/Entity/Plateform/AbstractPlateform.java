@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +24,9 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     public static final int BLOCK_SPRITE_START = 0;
     public static final int BLOCK_SPRITE_INBETWEEN = 1;
     public static final int BLOCK_SPRITE_END = 2;
+    public static final int BLOCK_SPRITE_ONLY = 3;
 
-    public static final int N_COL_SPRITESHEET = 3;
+    public static final int N_COL_SPRITESHEET = 4;
     public static final int N_ROW_SPRITESHEET = 1;
 
     private Collision collision;
@@ -58,7 +60,11 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
             Bitmap sprite = spritesheet.getSprite(0, BLOCK_SPRITE_INBETWEEN);
 
             if (blockId == 0) {
-                sprite = spritesheet.getSprite(0, BLOCK_SPRITE_START);
+                if (length == 1) {
+                    sprite = spritesheet.getSprite(0, BLOCK_SPRITE_ONLY);
+                } else {
+                    sprite = spritesheet.getSprite(0, BLOCK_SPRITE_START);
+                }
             }
             else if (blockId == length - 1) {
                 sprite = spritesheet.getSprite(0, BLOCK_SPRITE_END);

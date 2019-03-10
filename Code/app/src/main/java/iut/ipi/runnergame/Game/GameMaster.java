@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -82,6 +84,10 @@ public class GameMaster extends Thread {
         catch(IOException ignored) {
 
         }
+        //return px / (WindowDefinitions.DENSITY_DPI / DisplayMetrics.DENSITY_DEFAULT);
+
+        Log.d("window",  String.valueOf(WindowDefinitions.DENSITY_DPI));
+        Log.d("window",  String.valueOf(DisplayMetrics.DENSITY_DEFAULT));
 
         surfaceHolder.setFixedSize((int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         holder = surfaceHolder;
