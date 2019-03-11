@@ -9,20 +9,22 @@ import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Movable;
 
-public class Player extends AbstractEntity implements Collidable, Movable, Animable {
+public abstract class AbstractPlayer extends AbstractEntity implements Collidable, Movable, Animable {
     public static final int DEFAULT_FRAME_DURATION = 1000;
     public static final long FREQ_JUMP_MILLIS = 200;
 
     public static AbstractPoint DEFAULT_POS = new PointRelative(50,0);
 
-    public static final float IMPULSE_MOVEMENT = 500.0f;
-    public static final float IMPULSE_JUMP = 20.0f;
+    public static final float IMPULSE_MOVEMENT = WindowUtil.convertPixelsToDp(600.0f);
+    public static final float IMPULSE_JUMP = WindowUtil.convertPixelsToDp(40.0f);
 
     public static final int ANIMATION_IDLE = 0;
     public static final int ANIMATION_RUNNING_RIGHT = 1;
@@ -42,7 +44,7 @@ public class Player extends AbstractEntity implements Collidable, Movable, Anima
 
     private int score = 0;
 
-    public Player(AbstractPoint pos, AnimationManager animationManager) throws IOException {
+    public AbstractPlayer(AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
         setAnimationManager(animationManager);

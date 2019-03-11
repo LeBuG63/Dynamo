@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,7 +15,7 @@ import iut.ipi.runnergame.Entity.Gameplay.Piece.PieceType;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Plateform.PlateformFactory;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Game.Level.Level;
 
 public class LevelLoaderText implements LevelLoader {
@@ -27,10 +26,10 @@ public class LevelLoaderText implements LevelLoader {
     private String actualObject = OBJECT_UNKNOWN;
 
     private Context context;
-    private Player player;
+    private AbstractPlayer player;
     private int fileId;
 
-    public LevelLoaderText(Context context, Player player, int fileId) {
+    public LevelLoaderText(Context context, AbstractPlayer player, int fileId) {
         this.context = context;
         this.player = player;
         this.fileId = fileId;

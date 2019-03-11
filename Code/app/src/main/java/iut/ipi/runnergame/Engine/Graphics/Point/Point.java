@@ -9,6 +9,10 @@ public class Point extends AbstractPoint {
         setPoint(x, y);
     }
 
+    public Point(AbstractPoint position) {
+        setPoint(position.x, position.y);
+    }
+
     @Override
     protected void setPoint(float x, float y) {
         this.x = x;

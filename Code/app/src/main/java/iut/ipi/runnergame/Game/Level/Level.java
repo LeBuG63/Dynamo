@@ -14,7 +14,7 @@ import iut.ipi.runnergame.Entity.Gameplay.Piece.PieceType;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Plateform.PlateformManager;
 import iut.ipi.runnergame.Entity.Plateform.PlateformType;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
 import iut.ipi.runnergame.Game.Level.Background.GameBackground;
 
@@ -25,7 +25,7 @@ public class Level {
 
     private GameBackground background;
 
-    public Level(Context context, Player player) {
+    public Level(Context context, AbstractPlayer player) {
         plateformManager = new PlateformManager(context);
         shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(500), WindowUtil.convertPixelsToDp(50), Color.WHITE);
         pieceManager = new PieceManager(context);

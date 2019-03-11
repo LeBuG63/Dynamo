@@ -12,10 +12,9 @@ import java.util.Random;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
-import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Player.BasePlayer;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class StarsBackground implements Background {
     private class Star {
@@ -32,7 +31,7 @@ public class StarsBackground implements Background {
     private AbstractPoint offset;
     private List<Star> stars = new ArrayList<>();
 
-    private Player player;
+    private AbstractPlayer player;
 
     private Context context;
     private Random random = new Random();
@@ -43,7 +42,7 @@ public class StarsBackground implements Background {
         this.context = context;
 
         try {
-            player = new BasePlayer(context, new PointRelative(45, 40), Player.DEFAULT_SCALE * 4);
+            player = new BasePlayer(context, new PointRelative(45, 40), AbstractPlayer.DEFAULT_SCALE * 4);
         } catch (IOException ignore) { }
 
         for(int i = 0;i < starCount; ++i) {
@@ -55,8 +54,8 @@ public class StarsBackground implements Background {
             stars.add(new Star(new PointRelative(x, y), radius));
         }
 
-        player.getAnimationManager().setDurationFrame(Player.ANIMATION_FALLING, 100);
-        player.getAnimationManager().start(Player.ANIMATION_FALLING);
+        player.getAnimationManager().setDurationFrame(AbstractPlayer.ANIMATION_FALLING, 100);
+        player.getAnimationManager().start(AbstractPlayer.ANIMATION_FALLING);
 
         paint = new Paint();
         paint.setColor(Color.WHITE);

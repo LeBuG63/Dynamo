@@ -8,7 +8,7 @@ import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class PhysicsManager {
     public static final float GRAVITY = 981f/4;
@@ -38,7 +38,7 @@ public class PhysicsManager {
         mulVecWithFriction(point, dir, dt);
     }
 
-    public static void updatePlayerPosition(Player player, List<AbstractPlateform> plateforms, float dt) {
+    public static void updatePlayerPosition(AbstractPlayer player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 
         // pour faire une bonne collision, il faut prevoir au moins une etape en avance
@@ -46,7 +46,7 @@ public class PhysicsManager {
         // pour ca, une projection est faite pour permettre d'avoir ou potentiellement le joueur sera a la prochaine frame
         // ensuite, il faut faire les calculs sur les projections pour savoir si il y a collision
 
-        AbstractPoint pointProjection = new Point(Player.DEFAULT_POS.x, player.getPosition().y);
+        AbstractPoint pointProjection = new Point(AbstractPlayer.DEFAULT_POS.x, player.getPosition().y);
         AbstractPoint impulseProjection = new Point(player.getImpulse().x, player.getImpulse().y);
 
         mulVecWithGravity(pointProjection, impulseProjection, dt);
@@ -99,6 +99,6 @@ public class PhysicsManager {
             player.setDeath(true);
         }
 
-        player.setCollision(new BaseCollisionBox(Player.DEFAULT_POS.x, player.getPosition().y, playerWidth, playerHeight));
+        player.setCollision(new BaseCollisionBox(AbstractPlayer.DEFAULT_POS.x, player.getPosition().y, playerWidth, playerHeight));
     }
 }

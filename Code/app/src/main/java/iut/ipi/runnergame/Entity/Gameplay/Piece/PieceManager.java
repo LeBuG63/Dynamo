@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class PieceManager {
     private List<Piece> pieceList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class PieceManager {
         }
     }
 
-    public void update(Player player) {
+    public void update(AbstractPlayer player) {
         List<Piece> tmp = new ArrayList<>(pieceList);
 
         for(Piece piece : pieceList) {

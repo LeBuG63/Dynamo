@@ -19,13 +19,15 @@ import iut.ipi.runnergame.Engine.Graphics.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
-import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractPlayer;
-import iut.ipi.runnergame.Engine.Sfx.Sound.MusicPlayer;
-import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectPlayer;
+import iut.ipi.runnergame.Engine.Sfx.Sound.AbstractAudioPlayer;
+import iut.ipi.runnergame.Engine.Sfx.Sound.MusicAudioPlayer;
+import iut.ipi.runnergame.Engine.Sfx.Sound.SoundEffectAudioPlayer;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
+import iut.ipi.runnergame.Entity.Boss.Boss;
+import iut.ipi.runnergame.Entity.Boss.BossDragon;
 import iut.ipi.runnergame.Entity.Player.BasePlayer;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Game.Level.LevelCreator;
 import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
@@ -35,29 +37,33 @@ public class GameMaster extends Thread {
     private final long FRAME_PERIOD = 1000L / FPS;
 
     private final float SHAKE_HINT_OFFSET = WindowUtil.convertPixelsToDp(50);
+    private final int BOSS_APPEAR_SEC = 30;
 
-    private final AbstractPoint defaultPointCross = new PointRelative(10, 50);
-    private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 50);
+    private final AbstractPoint defaultPointCross = new PointRelative(10, 70);
+    private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 70);
     private final AbstractPoint defaultPointPlayer = new PointRelative(50, 0);
 
     private List<AbstractPoint> pointFingerPressed = new ArrayList<>();
 
     private SurfaceHolder holder = null;
 
-    private Player player;
+    private AbstractPlayer player;
+    private Boss boss;
+
     private AbstractCross cross;
     private AbstractCross crossAB;
 
     private LevelCreator levelCreator;
 
-    private AbstractPlayer sfxPlayer;
-    private AbstractPlayer musicPlayer;
+    private AbstractAudioPlayer sfxPlayer;
+    private AbstractAudioPlayer musicPlayer;
 
     private AbstractHint shakeHint;
 
     private boolean isRunning = true;
     private boolean paused = false;
     private Object pauseKey = new Object();
+    private int secondsEllapsed = 0;
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         AbstractPoint.clearPoolPoints();
@@ -65,23 +71,23 @@ public class GameMaster extends Thread {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 1, defaultPointCrossAB);
 
-        sfxPlayer = new SoundEffectPlayer(context);
-        musicPlayer = new MusicPlayer(context);
+        sfxPlayer = new SoundEffectAudioPlayer(context);
+        musicPlayer = new MusicAudioPlayer(context);
 
         musicPlayer.add("mercury", R.raw.mercury, true);
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
 
         try {
-            player = new BasePlayer(context, defaultPointPlayer, Player.DEFAULT_SCALE);
-
+            player = new BasePlayer(context, defaultPointPlayer, AbstractPlayer.DEFAULT_SCALE);
+            boss = new BossDragon(context, new PointRelative(80, 50), 2000, player);
             levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
 
             shakeHint = new ShakeHint(context, 0.5f, 4, 200, new PointRelative(45, 20));
             shakeHint.show();
 
-            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_LEFT, 100);
-            player.getAnimationManager().setDurationFrame(Player.ANIMATION_RUNNING_RIGHT, 100);
+            player.getAnimationManager().setDurationFrame(AbstractPlayer.ANIMATION_RUNNING_LEFT, 100);
+            player.getAnimationManager().setDurationFrame(AbstractPlayer.ANIMATION_RUNNING_RIGHT, 100);
 
         }
         catch(IOException ignored) {
@@ -123,8 +129,10 @@ public class GameMaster extends Thread {
     public void waitUntilNeededUpdate(long start) {
         long now = System.currentTimeMillis();
 
-        if(now - time >= 1000L) // 1 seconde
+        if(now - time >= 1000L) {// 1 seconde
+            secondsEllapsed += 1;
             time = now;
+        }
 
         long sleepTime = (FRAME_PERIOD/2) - (now - start); // il faut endormir le thread si il ne fait rien
 
@@ -177,6 +185,11 @@ public class GameMaster extends Thread {
     public void update(float dt) {
         boolean idle = true;
 
+        if(secondsEllapsed > BOSS_APPEAR_SEC) {
+            boss.setAppeared(true);
+            boss.update(dt);
+        }
+
         cross.updateArrowPressed(pointFingerPressed);
         crossAB.updateArrowPressed(pointFingerPressed);
 
@@ -188,36 +201,36 @@ public class GameMaster extends Thread {
                 player.setHasAnotherJump(true);
             }
 
-            player.jump(Player.IMPULSE_JUMP);
+            player.jump(AbstractPlayer.IMPULSE_JUMP);
 
             if (player.getImpulse().x >= 0) {
-                player.getAnimationManager().start(Player.ANIMATION_JUMP_RIGHT);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_RIGHT);
             } else {
-                player.getAnimationManager().start(Player.ANIMATION_JUMP_LEFT);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_LEFT);
             }
         }
         if(cross.getArrowLeft().getIsClicked()) {
-            player.moveLeft(Player.IMPULSE_MOVEMENT);
+            player.moveLeft(AbstractPlayer.IMPULSE_MOVEMENT);
 
             if(player.isOnGround())
-                player.getAnimationManager().start(Player.ANIMATION_RUNNING_LEFT);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_RUNNING_LEFT);
             else
-                player.getAnimationManager().start(Player.ANIMATION_JUMP_LEFT);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_LEFT);
             idle = false;
         }
         if(cross.getArrowRight().getIsClicked()) {
-            player.moveRight(Player.IMPULSE_MOVEMENT);
+            player.moveRight(AbstractPlayer.IMPULSE_MOVEMENT);
 
             if(player.isOnGround())
-                player.getAnimationManager().start(Player.ANIMATION_RUNNING_RIGHT);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_RUNNING_RIGHT);
             else
-                player.getAnimationManager().start(Player.ANIMATION_JUMP_RIGHT);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_RIGHT);
 
             idle = false;
         }
         if(idle){
             if(player.isOnGround())
-                player.getAnimationManager().start(Player.ANIMATION_IDLE);
+                player.getAnimationManager().start(AbstractPlayer.ANIMATION_IDLE);
         }
 
         levelCreator.updateLevel(dt);
@@ -231,7 +244,7 @@ public class GameMaster extends Thread {
         PhysicsManager.updatePlayerPosition(player, levelCreator.getLevel().getPlateforms(),dt);
 
         if(player.isDead()) {
-            int distance = (int)(player.getPosition().x - Player.DEFAULT_POS.x);
+            int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);
             GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), player.getScore()));
         }
     }
@@ -245,7 +258,11 @@ public class GameMaster extends Thread {
             canvas.drawColor(Color.BLACK);
             levelCreator.getLevel().drawOnCanvas(canvas);
 
-            canvas.drawBitmap(player.getSprite(), Player.DEFAULT_POS.x, player.getPosition().y, paint);
+            if(secondsEllapsed > BOSS_APPEAR_SEC) {
+                boss.drawOnCanvas(canvas);
+            }
+
+            canvas.drawBitmap(player.getSprite(), AbstractPlayer.DEFAULT_POS.x, player.getPosition().y, paint);
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
             // les mettres au dessus et en dessous corrige le probleme

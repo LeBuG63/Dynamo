@@ -12,13 +12,13 @@ import java.util.TimerTask;
 import iut.ipi.runnergame.Engine.Sensor.Accelerometer;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.Entity.Player.Player;
+import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Util.Constantes;
 
 public class ShadowManager implements Drawable {
     private final int SHAKE_THRESHOLD = 40;
 
-    private Player player;
+    private AbstractPlayer player;
 
     private Accelerometer accelerometer;
     private Shadow shadow;
@@ -31,7 +31,7 @@ public class ShadowManager implements Drawable {
     private float radiusOffset = 1.0f;
     private float shadowAmplitude = 10.0f;
 
-    public ShadowManager(Context context, Player player, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
+    public ShadowManager(Context context, AbstractPlayer player, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
         shadow = new Shadow(shadowDecreaseValue, shadowIncreaseValueRatio);
         accelerometer = new Accelerometer(context, SHAKE_THRESHOLD);
 
@@ -45,7 +45,7 @@ public class ShadowManager implements Drawable {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-               radiusOffset = WindowUtil.convertPixelsToDp((float)Math.cos(System.currentTimeMillis() ) * shadowAmplitude);
+               radiusOffset = WindowUtil.convertPixelsToDp((float)Math.cos(System.currentTimeMillis()) * shadowAmplitude);
             }
         }, 0, 100);
     }

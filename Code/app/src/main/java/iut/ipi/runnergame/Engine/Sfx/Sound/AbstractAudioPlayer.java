@@ -6,7 +6,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-public abstract class AbstractPlayer {
+public abstract class AbstractAudioPlayer {
     protected HashMap<String, MediaPlayer> mediaPlayers = new HashMap<>();
     protected String soundNamePlaying;
 
