@@ -37,7 +37,7 @@ public class GameMaster extends Thread {
     private final long FRAME_PERIOD = 1000L / FPS;
 
     private final float SHAKE_HINT_OFFSET = WindowUtil.convertPixelsToDp(50);
-    private final int BOSS_APPEAR_SEC = 5;
+    private final int BOSS_APPEAR_SEC = 30;
 
     private final AbstractPoint defaultPointCross = new PointRelative(10, 70);
     private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 70);
