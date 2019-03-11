@@ -38,6 +38,7 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, resourceId, scale, 4, 200, 1, 4);
+            animationManager.start(0);
         } catch (IOException ignore) {
         }
     }
@@ -71,7 +72,7 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
         getPosition().x += Math.cos(angle) * getSpeed();
         getPosition().y += Math.sin(angle) * getSpeed();
 
-        setCollision(new BaseCollisionBox(getPosition().x, getPosition().y, animationManager.getFrame().getWidth(), animationManager.getFrame().getHeight()));
+        setCollision(new BaseCollisionBox(getPosition().x - getOffset().x, getPosition().y - getOffset().y, animationManager.getFrame().getWidth(), animationManager.getFrame().getHeight()));
     }
 
     @Override
