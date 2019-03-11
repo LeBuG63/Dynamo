@@ -53,7 +53,7 @@ public class GameOverActivity extends AppCompatActivity {
             percentage = 100.0f;
 
         timer.setText(dataBundle.getTimer());
-        score.setText(String.valueOf((int)(dataBundle.getScore() * (percentage + 1))));
+        score.setText(String.valueOf(dataBundle.getScore()));
 
         distance.setText(String.format("%s%%", Util.roundFloatNDigits(percentage, 2)));
 

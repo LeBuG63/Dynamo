@@ -245,7 +245,10 @@ public class GameMaster extends Thread {
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);
-            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), player.getScore()));
+
+            int score = ((((distance / levelCreator.getLevel().getLength()) * 100) + 1) * player.getScore()) / Float.valueOf(GameActivity.strTimer).intValue();
+
+            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), score));
         }
     }
 
