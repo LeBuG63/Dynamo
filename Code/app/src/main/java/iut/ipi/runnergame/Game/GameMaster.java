@@ -59,10 +59,12 @@ public class GameMaster extends Thread {
     private AbstractAudioPlayer musicPlayer;
 
     private AbstractHint shakeHint;
+    private AbstractPoint posHideHud = new PointRelative(0, 10);
 
     private boolean isRunning = true;
     private boolean paused = false;
     private Object pauseKey = new Object();
+
     private int secondsEllapsed = 0;
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
@@ -184,6 +186,10 @@ public class GameMaster extends Thread {
 
     public void update(float dt) {
         boolean idle = true;
+
+        if(player.getPosition().x > posHideHud.x) {
+            shakeHint.hide();
+        }
 
         if(secondsEllapsed > BOSS_APPEAR_SEC) {
             boss.setAppeared(true);
