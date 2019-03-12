@@ -1,6 +1,7 @@
 package iut.ipi.runnergame.Game;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,8 +14,10 @@ import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
+import iut.ipi.runnergame.Engine.Graphics.Hud.BaseHud;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.AbstractHint;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.ShakeHint;
+import iut.ipi.runnergame.Engine.Graphics.Hud.Hud;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
@@ -39,27 +42,21 @@ public class GameMaster extends Thread {
     private final float SHAKE_HINT_OFFSET = WindowUtil.convertPixelsToDp(50);
     private final int BOSS_APPEAR_SEC = 30;
 
-    private final AbstractPoint defaultPointCross = new PointRelative(10, 70);
-    private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 70);
     private final AbstractPoint defaultPointPlayer = new PointRelative(50, 0);
 
     private List<AbstractPoint> pointFingerPressed = new ArrayList<>();
 
     private SurfaceHolder holder = null;
 
+    private Hud hud;
+
     private AbstractPlayer player;
     private Boss boss;
-
-    private AbstractCross cross;
-    private AbstractCross crossAB;
 
     private LevelCreator levelCreator;
 
     private AbstractAudioPlayer sfxPlayer;
     private AbstractAudioPlayer musicPlayer;
-
-    private AbstractHint shakeHint;
-    private AbstractPoint posHideHud = new PointRelative(0, 10);
 
     private boolean isRunning = true;
     private boolean paused = false;
@@ -67,11 +64,13 @@ public class GameMaster extends Thread {
 
     private int secondsEllapsed = 0;
 
+    private Context context;
+
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         AbstractPoint.clearPoolPoints();
 
-        cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
-        crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 1, defaultPointCrossAB);
+        this.context = context;
+
 
         sfxPlayer = new SoundEffectAudioPlayer(context);
         musicPlayer = new MusicAudioPlayer(context);
@@ -79,14 +78,10 @@ public class GameMaster extends Thread {
         musicPlayer.add("mercury", R.raw.mercury, true);
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
-
         try {
             player = new BasePlayer(context, defaultPointPlayer, AbstractPlayer.DEFAULT_SCALE);
             boss = new BossDragon(context, new PointRelative(80, 50), 2000, player);
             levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
-
-            shakeHint = new ShakeHint(context, 0.5f, 4, 200, new PointRelative(45, 20));
-            shakeHint.show();
 
             player.getAnimationManager().setDurationFrame(AbstractPlayer.ANIMATION_RUNNING_LEFT, 100);
             player.getAnimationManager().setDurationFrame(AbstractPlayer.ANIMATION_RUNNING_RIGHT, 100);
@@ -96,10 +91,30 @@ public class GameMaster extends Thread {
 
         }
 
+        hud = new BaseHud(context, player, pointFingerPressed);
+
         updatePoolPoints();
 
         surfaceHolder.setFixedSize((int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         holder = surfaceHolder;
+    }
+
+    private void reset() {
+        secondsEllapsed = 0;
+
+        player.setDeath(false);
+
+        player.setPosition(defaultPointPlayer);
+        player.stopX();
+        player.stopY();
+
+        levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
+        boss.setAppeared(false);
+        GameActivity.timerStarted = System.currentTimeMillis();
+
+        updatePoolPoints();
+
+        System.gc(); // on veut dire au gc de bien vouloir supprimer toutes references inutiles
     }
 
     public void updatePoolPoints() {
@@ -187,19 +202,14 @@ public class GameMaster extends Thread {
     public void update(float dt) {
         boolean idle = true;
 
-        if(player.getPosition().x > posHideHud.x) {
-            shakeHint.hide();
-        }
-
         if(secondsEllapsed > BOSS_APPEAR_SEC) {
             boss.setAppeared(true);
             boss.update(dt);
         }
 
-        cross.updateArrowPressed(pointFingerPressed);
-        crossAB.updateArrowPressed(pointFingerPressed);
+        hud.update(dt);
 
-        if(cross.getArrowTop().getIsClicked() || crossAB.getArrowLeft().getIsClicked()) {
+        if(hud.getCross().getArrowTop().getIsClicked() || hud.getCrossAB().getArrowLeft().getIsClicked()) {
             idle = false;
 
             if (player.isOnGround()) {
@@ -215,7 +225,7 @@ public class GameMaster extends Thread {
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_LEFT);
             }
         }
-        if(cross.getArrowLeft().getIsClicked()) {
+        if(hud.getCross().getArrowLeft().getIsClicked()) {
             player.moveLeft(AbstractPlayer.IMPULSE_MOVEMENT);
 
             if(player.isOnGround())
@@ -224,7 +234,7 @@ public class GameMaster extends Thread {
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_LEFT);
             idle = false;
         }
-        if(cross.getArrowRight().getIsClicked()) {
+        if(hud.getCross().getArrowRight().getIsClicked()) {
             player.moveRight(AbstractPlayer.IMPULSE_MOVEMENT);
 
             if(player.isOnGround())
@@ -242,19 +252,20 @@ public class GameMaster extends Thread {
         levelCreator.updateLevel(dt);
 
         if(levelCreator.getLevel().getShadowManager().getShadowRadius() < levelCreator.getLevel().getShadowManager().getShadowMinRadius() + SHAKE_HINT_OFFSET) {
-            shakeHint.show();
+            hud.getHint().show();
         } else {
-            shakeHint.hide();
+            hud.getHint().hide();
         }
 
         PhysicsManager.updatePlayerPosition(player, levelCreator.getLevel().getPlateforms(),dt);
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);
-
             int score = ((((distance / levelCreator.getLevel().getLength()) * 100) + 1) * player.getScore()) / Float.valueOf(GameActivity.strTimer).intValue();
 
-            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), score));
+            reset();
+
+            //GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), score));
         }
     }
 
@@ -275,16 +286,11 @@ public class GameMaster extends Thread {
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
             // les mettres au dessus et en dessous corrige le probleme
-            shakeHint.drawOnCanvas(canvas);
-            cross.drawOnCanvas(canvas);
-            crossAB.drawOnCanvas(canvas);
+            hud.drawOnCanvas(canvas);
 
             levelCreator.getLevel().drawShadowOnCanvas(canvas);
 
-            cross.drawOnCanvas(canvas);
-            crossAB.drawOnCanvas(canvas);
-
-            shakeHint.drawOnCanvas(canvas);
+            hud.drawOnCanvas(canvas);
 
             holder.unlockCanvasAndPost(canvas);
         }

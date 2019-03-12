@@ -30,7 +30,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     public static final int N_ROW_SPRITESHEET = 1;
 
     private Collision collision;
-    private AbstractPoint offset;
+    private AbstractPoint offset = new Point();
 
     private Spritesheet spritesheet;
     private List<Block> blocks = new ArrayList<>();

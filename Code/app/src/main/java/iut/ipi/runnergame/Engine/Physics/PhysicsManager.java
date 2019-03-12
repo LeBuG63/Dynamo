@@ -4,6 +4,7 @@ import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
@@ -13,6 +14,7 @@ import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 public class PhysicsManager {
     public static final float GRAVITY = 981f/4;
     public static final float FRICTION = 0.99f;
+    public static final float Y_PLAYER_CONSIDERED_DEAD = WindowDefinitions.HEIGHT/1.5f;
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
@@ -95,7 +97,7 @@ public class PhysicsManager {
 
         mulVecWithFriction(player.getPosition(), player.getImpulse(), dt);
 
-        if(player.getPosition().y > 5000) {
+        if(player.getPosition().y > Y_PLAYER_CONSIDERED_DEAD) {
             player.setDeath(true);
         }
 

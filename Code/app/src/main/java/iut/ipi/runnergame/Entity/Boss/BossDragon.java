@@ -121,6 +121,8 @@ public class BossDragon extends AbstractEntity implements Boss {
 
     @Override
     public void setAppeared(boolean b) {
-        appeared = true;
+        if(false)
+            bullets.clear();
+        appeared = b;
     }
 }

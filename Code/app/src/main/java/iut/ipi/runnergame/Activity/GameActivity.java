@@ -45,6 +45,8 @@ public class GameActivity extends AppCompatActivity {
 
     private boolean instanceOnPause = false;
 
+    public static long timerStarted = System.currentTimeMillis();
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -72,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
         fingerPoints = new Point[10]; // comme les 10 doigts de la main
 
         for(int i = 0; i < fingerPoints.length; ++i) {
-            fingerPoints[i] = new Point();
+            fingerPoints[i] = new Point(-1, -1);
         }
 
         surfaceView.setOnTouchListener(new  View.OnTouchListener() {
@@ -112,7 +114,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        final long timerStarted = System.currentTimeMillis();
         timerUpdateScore.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -136,6 +137,8 @@ public class GameActivity extends AppCompatActivity {
                 });
             }
         }, 0, 10);
+
+        timerStarted = System.currentTimeMillis();
 
         instance = this;
     }

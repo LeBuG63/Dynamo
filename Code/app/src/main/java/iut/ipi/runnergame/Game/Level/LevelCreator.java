@@ -17,8 +17,12 @@ public class LevelCreator {
 
     private TranslateUtil translateUtil = new TranslateUtil();
 
+    private Level saveState;
+
     public LevelCreator(Context context, AbstractPlayer player, LevelLoader levelLoader) {
         level = levelLoader.load();
+        saveState = levelLoader.load();
+
         refToPlayer = player;
     }
 

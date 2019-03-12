@@ -17,7 +17,7 @@ import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.R;
 
 public class GameBackground extends AbstractEntity implements Background {
-    private AbstractPoint offset;
+    private AbstractPoint offset = new Point();
 
     private Paint paint = new Paint();
     private Bitmap[] backgroundBitmaps = new Bitmap[2];

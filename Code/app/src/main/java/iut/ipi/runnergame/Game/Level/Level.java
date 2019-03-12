@@ -18,7 +18,7 @@ import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Entity.Shadow.ShadowManager;
 import iut.ipi.runnergame.Game.Level.Background.GameBackground;
 
-public class Level {
+public class Level implements Cloneable {
     private ShadowManager shadowManager;
     private PlateformManager plateformManager;
     private PieceManager pieceManager;
@@ -31,6 +31,10 @@ public class Level {
         pieceManager = new PieceManager(context);
 
         background = new GameBackground(context);
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public void addPlateform(PlateformType type, AbstractPoint point, int length) {
