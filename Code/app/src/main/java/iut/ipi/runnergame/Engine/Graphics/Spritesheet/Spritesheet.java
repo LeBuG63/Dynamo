@@ -100,10 +100,16 @@ public class Spritesheet {
     }
 
     public Bitmap getSprite(int row, int col) {
-        if(col > 0)
-            return bitmapMap.get(row).get(col);
+        if(bitmapMap.get(row).isEmpty()) return null;
 
-        return bitmapMap.get(row).get(0);
+        try {
+            if (col > 0)
+                return bitmapMap.get(row).get(col);
+
+            return bitmapMap.get(row).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public int getDefaultFrameWidth() {

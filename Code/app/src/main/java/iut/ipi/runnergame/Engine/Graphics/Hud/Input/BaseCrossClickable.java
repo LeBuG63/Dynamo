@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
-import iut.ipi.runnergame.Engine.Graphics.Hud.ArrowClickable;
+import iut.ipi.runnergame.Engine.Graphics.Hud.RectangleClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
-import iut.ipi.runnergame.Engine.WindowDefinitions;
 
 public class BaseCrossClickable extends AbstractCross {
     public static final int LEFT = 0;
@@ -26,9 +25,13 @@ public class BaseCrossClickable extends AbstractCross {
     private float scale;
     private Spritesheet spritesheet;
 
-    private List<ArrowClickable> arrow = new ArrayList<>();
+    private List<RectangleButton> arrow = new ArrayList<>();
+
+    private Context context;
 
     public BaseCrossClickable(Context context, int resource, float scale, int nArrow, AbstractPoint center) {
+        this.context = context;
+
         this.scale = scale;
         this.nArrow = nArrow;
 
@@ -47,31 +50,31 @@ public class BaseCrossClickable extends AbstractCross {
 
         arrow.clear();
 
-        arrow.add(new BaseArrowClickable(new Point(centerX - size, centerY), size, size));
-        arrow.add(new BaseArrowClickable(new Point(centerX, centerY - size), size, size));
-        arrow.add(new BaseArrowClickable(new Point(centerX + size, centerY), size, size));
-        arrow.add(new BaseArrowClickable(new Point(centerX, centerY + size), size, size));
+        for(int i = 0; i < nArrow; ++i) {
+
+        }
+        arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 0), scale, new Point(centerX - size, centerY)));
+        arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 1), scale, new Point(centerX, centerY - size)));
+        arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 2), scale, new Point(centerX + size, centerY)));
+        arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 3), scale, new Point(centerX, centerY + size)));
     }
 
-    public ArrowClickable getArrowTop() {
+    public RectangleButton getArrowTop() {
         return arrow.get(TOP);
     }
-
-    public ArrowClickable getArrowBottom() {
+    public RectangleButton getArrowBottom() {
         return arrow.get(BOTTOM);
     }
-
-    public ArrowClickable getArrowLeft() {
+    public RectangleButton getArrowLeft() {
         return arrow.get(LEFT);
     }
-
-    public ArrowClickable getArrowRight() {
+    public RectangleButton getArrowRight() {
         return arrow.get(RIGHT);
     }
 
     public void drawRectOnCanvas(Canvas canvas, Paint paintNonClicked, Paint paintClicked) {
         int i = 0;
-        for(ArrowClickable arrowClickable : arrow) {
+        for(RectangleClickable arrowClickable : arrow) {
             if(i >= nArrow) break;
             ++i;
 
@@ -88,33 +91,23 @@ public class BaseCrossClickable extends AbstractCross {
 
         Paint paint = new Paint();
 
-        for(ArrowClickable arrowClickable : arrow) {
+        for(RectangleButton arrowClickable : arrow) {
             if(i >= nArrow) return;
 
-            float x = arrowClickable.getPosition().x;
-            float y = arrowClickable.getPosition().y;
-
-            canvas.drawBitmap(spritesheet.getSprite(0, i),  x, y, paint);
+            arrowClickable.drawOnCanvas(canvas);
             i++;
         }
     }
 
     public void updateArrowPressed(List<AbstractPoint> points) {
-        for(ArrowClickable arrowClickable : arrow) {
-            boolean clicked = false;
+        int i = 0;
 
-            if(!points.isEmpty()) {
-                for (int index = 0; index < points.size(); ++index) {
-                    // si au moins 1 est clique
-                    if (arrowClickable.pointInside(points.get(index))) {
-                        clicked = true;
-                        arrowClickable.setIsClicked(clicked);
-                        break;
-                    }
-                }
-            }
+        for(RectangleClickable arrowClickable : arrow) {
+            if(i >= nArrow) return;
 
-            arrowClickable.setIsClicked(clicked);
+            arrowClickable.updatePressed(points);
+
+            i++;
         }
     }
 }

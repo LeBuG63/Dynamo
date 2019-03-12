@@ -8,4 +8,5 @@ public interface Hud extends Updatable, Drawable {
     AbstractHint getHint();
     AbstractCross getCross();
     AbstractCross getCrossAB();
+    RectangleClickable getExit();
 }

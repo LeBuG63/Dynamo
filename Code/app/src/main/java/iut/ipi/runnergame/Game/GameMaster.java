@@ -65,12 +65,13 @@ public class GameMaster extends Thread {
     private int secondsEllapsed = 0;
 
     private Context context;
+    private int bestScore = 0;
+    private int bestDistance = 0;
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         AbstractPoint.clearPoolPoints();
 
         this.context = context;
-
 
         sfxPlayer = new SoundEffectAudioPlayer(context);
         musicPlayer = new MusicAudioPlayer(context);
@@ -263,9 +264,14 @@ public class GameMaster extends Thread {
             int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);
             int score = ((((distance / levelCreator.getLevel().getLength()) * 100) + 1) * player.getScore()) / Float.valueOf(GameActivity.strTimer).intValue();
 
-            reset();
+            if(distance > bestDistance) bestDistance = distance;
+            if(score > bestScore) bestScore = score;
 
-            //GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, distance, levelCreator.getLevel().getLength(), score));
+            reset();
+        }
+
+        if(hud.getExit().getIsClicked()) {
+            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, bestDistance, levelCreator.getLevel().getLength(), bestScore));
         }
     }
 

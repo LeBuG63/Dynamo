@@ -9,10 +9,10 @@ import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.Drawable;
 
 public abstract class AbstractCross implements Drawable {
-    public abstract ArrowClickable getArrowTop();
-    public abstract ArrowClickable getArrowBottom();
-    public abstract ArrowClickable getArrowLeft();
-    public abstract ArrowClickable getArrowRight();
+    public abstract RectangleClickable getArrowTop();
+    public abstract RectangleClickable getArrowBottom();
+    public abstract RectangleClickable getArrowLeft();
+    public abstract RectangleClickable getArrowRight();
 
     public abstract void setPosition(AbstractPoint point);
 
