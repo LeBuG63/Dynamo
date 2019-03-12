@@ -5,7 +5,7 @@ import android.graphics.RectF;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 
 public class BaseCollisionBox implements Collision {
-    private static final float COLLISION_OFFSET = 2.0f;
+    private static final float COLLISION_OFFSET = 1.0f;
 
     private float left;
     private float top;
@@ -25,7 +25,7 @@ public class BaseCollisionBox implements Collision {
         this(rectangle.left, rectangle.top, rectangle.width(), rectangle.height());
     }
 
-        @Override
+    @Override
     public float getWidth() {
         return width;
     }
@@ -81,12 +81,13 @@ public class BaseCollisionBox implements Collision {
             else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop(), -COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide = CollisionOccuredSide.LEFT;
             }
-            else if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth(), other.getTop() - COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
-                collisionOccuredSide = CollisionOccuredSide.RIGHT;
-            }
             else if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + other.getHeight(), other.getWidth(), COLLISION_OFFSET))) {
                 collisionOccuredSide = CollisionOccuredSide.DOWN;
             }
+            else if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth(), other.getTop() - COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
+                collisionOccuredSide = CollisionOccuredSide.RIGHT;
+            }
+
             return true;
         }
 

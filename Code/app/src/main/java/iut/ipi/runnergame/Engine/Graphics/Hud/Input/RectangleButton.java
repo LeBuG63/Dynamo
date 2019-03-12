@@ -54,14 +54,15 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
     }
 
     @Override
-    public synchronized void updatePressed(List<AbstractPoint> points) {
+    public synchronized void updatePressed(final List<AbstractPoint> points) {
         boolean clicked = false;
 
-        for(AbstractPoint p : points) {
-            clicked = pointInside(p);
+        for(int i = 0; i < points.size(); ++i) {
+            clicked = pointInside(points.get(i));
 
             if(clicked) break;
         }
+
         setIsClicked(clicked);
     }
 

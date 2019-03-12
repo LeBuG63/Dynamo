@@ -16,8 +16,8 @@ import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
 
 public class BaseCrossClickable extends AbstractCross {
     public static final int LEFT = 0;
-    public static final int TOP = 1;
-    public static final int RIGHT = 2;
+    public static final int TOP = 2;
+    public static final int RIGHT = 1;
     public static final int BOTTOM = 3;
     public static final float DEFAULT_SCALE = 1.5f;
 
@@ -54,8 +54,8 @@ public class BaseCrossClickable extends AbstractCross {
 
         }
         arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 0), scale, new Point(centerX - size, centerY)));
-        arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 1), scale, new Point(centerX, centerY - size)));
         arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 2), scale, new Point(centerX + size, centerY)));
+        arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 1), scale, new Point(centerX, centerY - size)));
         arrow.add(new RectangleButton(context, spritesheet.getSprite(0, 3), scale, new Point(centerX, centerY + size)));
     }
 

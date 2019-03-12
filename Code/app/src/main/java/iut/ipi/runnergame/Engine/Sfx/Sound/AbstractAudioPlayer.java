@@ -29,7 +29,7 @@ public abstract class AbstractAudioPlayer {
 
     public void release() {
         for(MediaPlayer mediaPlayer : mediaPlayers.values()) {
-            mediaPlayer.stop();
+//          mediaPlayer.stop();
             mediaPlayer.release();
         }
     }

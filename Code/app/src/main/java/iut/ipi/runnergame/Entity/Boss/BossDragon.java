@@ -19,6 +19,9 @@ import iut.ipi.runnergame.Engine.TranslateUtil;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
+import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
+import iut.ipi.runnergame.Entity.Collision.Collision;
+import iut.ipi.runnergame.Entity.Collision.CollisionOccuredSide;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Entity.Translatable;
 import iut.ipi.runnergame.R;
@@ -26,7 +29,7 @@ import iut.ipi.runnergame.R;
 public class BossDragon extends AbstractEntity implements Boss {
     private final int SIZE_SPRITE_WIDTH = 152;
     private final int SIZE_SPRITE_HEIGHT = 129;
-    private final int BULLET_SPEED = 2;
+    private final float BULLET_SPEED = 1.8f;
 
     private final double SPEED = WindowUtil.convertPixelsToDp(10);
 
@@ -72,6 +75,8 @@ public class BossDragon extends AbstractEntity implements Boss {
                 }
             }
         }, 0, shotRateMs);
+
+        bullets.clear();
     }
 
     @Override
@@ -92,12 +97,19 @@ public class BossDragon extends AbstractEntity implements Boss {
         translateUtil.translateObject(this, refPlayer.getPosition().x - AbstractPlayer.DEFAULT_POS.x, 0);
         translateUtil.translateListObject(bullets, refPlayer.getPosition().x - AbstractPlayer.DEFAULT_POS.x, 0);
 
+        Collision collision = refPlayer.getCollision();
+
+        collision.setHeight(collision.getHeight()/2);
+        collision.setWidth(collision.getWidth()/2f);
+
+        collision.setTop(collision.getTop() + collision.getHeight());
+
         for(int i = 0; i < bullets.size(); ++i){
             Bullet bullet = bullets.get(i);
 
             bullet.update(dt);
 
-            if(bullet.getCollision().isInCollision(refPlayer.getCollision())) {
+            if(bullet.getCollision().isInCollision(collision)) {
                 refPlayer.setDeath(true);
             }
 

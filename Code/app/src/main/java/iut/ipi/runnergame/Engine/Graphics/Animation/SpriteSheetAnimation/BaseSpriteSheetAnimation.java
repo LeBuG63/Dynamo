@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,6 +14,8 @@ import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
 import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
 
 public class BaseSpriteSheetAnimation implements AnimationManager {
+    private static List<Timer> poolTimers = new ArrayList<>();
+
     private HashMap<Integer, Integer> durationMap = new HashMap<>();
 
     private final int totalFrames;
@@ -67,6 +71,15 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
                     setNextFrameIndex();
                 }
             }, 0, durationMap.get(actualRow));
+
+            poolTimers.add(timer);
+        }
+    }
+
+    public static void destroyTimer() {
+        for(Timer t : poolTimers) {
+            t.cancel();
+            t.purge();
         }
     }
 

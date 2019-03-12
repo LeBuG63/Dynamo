@@ -23,8 +23,8 @@ public class BaseHud implements Hud {
 
     private RectangleButton exitButton;
 
-    private final AbstractPoint defaultPointCross = new PointRelative(10, 70);
-    private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 70);
+    private final AbstractPoint defaultPointCross = new PointRelative(10, 60);
+    private final AbstractPoint defaultPointCrossAB = new PointRelative(90, 60);
 
     private AbstractPlayer refPlayer;
     private List<AbstractPoint> refPointFingerPressed;

@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
+import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
 import iut.ipi.runnergame.Engine.Graphics.Hud.BaseHud;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.AbstractHint;
@@ -81,7 +82,7 @@ public class GameMaster extends Thread {
 
         try {
             player = new BasePlayer(context, defaultPointPlayer, AbstractPlayer.DEFAULT_SCALE);
-            boss = new BossDragon(context, new PointRelative(80, 50), 2000, player);
+            boss = new BossDragon(context, new PointRelative(80, 50), 2500, player);
             levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
 
             player.getAnimationManager().setDurationFrame(AbstractPlayer.ANIMATION_RUNNING_LEFT, 100);
@@ -103,11 +104,15 @@ public class GameMaster extends Thread {
     private void reset() {
         secondsEllapsed = 0;
 
+        BaseSpriteSheetAnimation.destroyTimer();
+
         player.setDeath(false);
 
         player.setPosition(defaultPointPlayer);
         player.stopX();
         player.stopY();
+
+        player.getAnimationManager().start(0);
 
         levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
         boss.setAppeared(false);
