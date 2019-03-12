@@ -12,7 +12,7 @@ import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class PhysicsManager {
-    public static final float GRAVITY = 981f/4;
+    public static final float GRAVITY = WindowUtil.convertPixelsToDp(981f);
     public static final float FRICTION = 0.99f;
     public static final float Y_PLAYER_CONSIDERED_DEAD = WindowDefinitions.HEIGHT/1.5f;
 
@@ -21,8 +21,11 @@ public class PhysicsManager {
     public static void mulVecWithGravity(AbstractPoint point, AbstractPoint dir, float dt) {
         AbstractPoint oldPoint = new Point(dir.x, dir.y);
 
-        dir.y += WindowUtil.convertPixelsToDp(GRAVITY * dt) ;
-        point.y += WindowUtil.convertPixelsToDp(dir.y + (oldPoint.y + dir.y) * dt);
+        dir.y += GRAVITY * dt;
+        point.y += dir.y * dt + (0.5 * GRAVITY * dt * dt);
+
+        //dir.y += GRAVITY * dt;
+        //point.y += WindowUtil.convertPixelsToDp(dir.y + (oldPoint.y + dir.y)) * dt;
     }
 
     public static void mulVecWithFriction(AbstractPoint point, AbstractPoint dir, float dt) {

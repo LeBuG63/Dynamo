@@ -116,6 +116,7 @@ public class GameMaster extends Thread {
 
         levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
         boss.setAppeared(false);
+
         GameActivity.timerStarted = System.currentTimeMillis();
 
         updatePoolPoints();
