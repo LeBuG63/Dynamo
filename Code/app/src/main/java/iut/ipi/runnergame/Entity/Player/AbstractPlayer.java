@@ -23,8 +23,8 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     public static AbstractPoint DEFAULT_POS = new PointRelative(50,0);
 
-    public static final float IMPULSE_MOVEMENT = WindowUtil.convertPixelsToDp(400.0f);
-    public static final float IMPULSE_JUMP = WindowUtil.convertPixelsToDp(420.0f);
+    public static final float IMPULSE_MOVEMENT = WindowUtil.convertPixelsToDp(450.0f);
+    public static final float IMPULSE_JUMP = WindowUtil.convertPixelsToDp(640.0f);
 
     public static final int ANIMATION_IDLE = 0;
     public static final int ANIMATION_RUNNING_RIGHT = 1;

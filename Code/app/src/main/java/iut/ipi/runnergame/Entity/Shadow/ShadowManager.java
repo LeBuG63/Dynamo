@@ -29,7 +29,7 @@ public class ShadowManager implements Drawable {
     private Path path = new Path();
 
     private float radiusOffset = 1.0f;
-    private float shadowAmplitude = 10.0f;
+    private float shadowAmplitude = WindowUtil.convertPixelsToDp(10.0f);
 
     public ShadowManager(Context context, AbstractPlayer player, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
         shadow = new Shadow(shadowDecreaseValue, shadowIncreaseValueRatio);

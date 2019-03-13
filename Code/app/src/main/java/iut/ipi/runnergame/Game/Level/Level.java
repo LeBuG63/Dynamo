@@ -27,7 +27,7 @@ public class Level {
 
     public Level(Context context, AbstractPlayer player) {
         plateformManager = new PlateformManager(context);
-        shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(60), WindowUtil.convertPixelsToDp(50), Color.WHITE);
+        shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(50), WindowUtil.convertPixelsToDp(20), Color.WHITE);
         pieceManager = new PieceManager(context);
 
         background = new GameBackground(context);

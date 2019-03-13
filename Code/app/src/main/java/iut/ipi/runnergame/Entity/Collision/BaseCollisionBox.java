@@ -3,9 +3,11 @@ package iut.ipi.runnergame.Entity.Collision;
 import android.graphics.RectF;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
+import iut.ipi.runnergame.Engine.WindowUtil;
 
 public class BaseCollisionBox implements Collision {
-    private static final float COLLISION_OFFSET = 1.0f;
+    private static final float COLLISION_OFFSET = WindowUtil.convertPixelsToDp(2.0f);
 
     private float left;
     private float top;
@@ -72,6 +74,7 @@ public class BaseCollisionBox implements Collision {
                 || ((other.getTop() + other.getHeight()) <= this.getTop()));
     }
 
+    // retourner collisionoccuredside
     @Override
     public boolean isInCollision(Collision other) {
         if (collision(other)) {

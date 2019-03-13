@@ -12,9 +12,9 @@ import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class PhysicsManager {
-    public static final float GRAVITY = WindowUtil.convertPixelsToDp(981f);
+    public static final float GRAVITY = WindowUtil.convertPixelsToDp(981f*2.5f);
     public static final float FRICTION = 1f ;
-    public static final float Y_PLAYER_CONSIDERED_DEAD = WindowDefinitions.HEIGHT;
+    public static final float Y_PLAYER_CONSIDERED_DEAD = WindowDefinitions.HEIGHT*1.2f;
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
