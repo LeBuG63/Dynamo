@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "727808561047-rh038jip7iil5jf5r8jiv2qo5u1n085t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iut.ipi.runnergame",
+            "certificate_hash": "760939980fa9b7deb4f66dcd44687f05cb99b7d0"
+          }
+        },
+        {
           "client_id": "727808561047-o5d37vbmc7k1ofbhl5nf7a95355tk8fr.apps.googleusercontent.com",
           "client_type": 3
         }

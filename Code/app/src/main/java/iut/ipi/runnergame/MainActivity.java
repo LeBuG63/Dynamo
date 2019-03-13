@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Intent gameIntent = new Intent(this, GameActivity.class);
+        final Intent scoreIntent = new Intent(this, SettingsActivity.class);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Score");
+        myRef.setValue("SLT 52");
 
         //loadingText = findViewById(R.id.textview_loading);
         //loadingText.setText("");
@@ -58,11 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-               SettingsActivity settingsActivity = new SettingsActivity();
-
-               setContentView(R.layout.settings_activity);
-            }
+            public void onClick(View v) { startActivity(scoreIntent);           }
         });
     }
 }
