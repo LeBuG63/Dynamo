@@ -1,5 +1,7 @@
 package iut.ipi.runnergame.Entity.Collision;
 
+import java.util.List;
+
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 
 public interface Collision {
@@ -17,5 +19,5 @@ public interface Collision {
 
     boolean isInCollision(Collision other);
     boolean isInCollisionWithPoint(AbstractPoint point);
-    CollisionOccuredSide getCollisionSide();
+    List<CollisionOccuredSide> getCollisionSide();
 }

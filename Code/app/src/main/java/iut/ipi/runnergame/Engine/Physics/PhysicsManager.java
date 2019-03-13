@@ -8,6 +8,7 @@ import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
+import iut.ipi.runnergame.Entity.Collision.CollisionOccuredSide;
 import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
@@ -33,11 +34,6 @@ public class PhysicsManager {
         }
 
         point.x += dir.x;
-    }
-
-    public static void mulVecWithWorldsPhysic(AbstractPoint point, AbstractPoint dir, float dt) {
-        mulVecWithGravity(point, dir, dt);
-        mulVecWithFriction(point, dir, dt);
     }
 
     public static void updatePlayerPosition(AbstractPlayer player, List<AbstractPlateform> plateforms, float dt) {
@@ -67,26 +63,30 @@ public class PhysicsManager {
                 float plateformX = plateform.getPosition().x;
                 float plateformY = plateform.getPosition().y;
 
-                if(collisionProjection.getCollisionSide() == null) break;
+                List<CollisionOccuredSide> collisionOccuredSides = collisionProjection.getCollisionSide();
 
-                switch(collisionProjection.getCollisionSide()) {
-                    case NONE:
-                        break;
-                    case TOP:
+                boolean cancelRight = false;
+                boolean cancelLeft = false;
+
+                for(CollisionOccuredSide c : collisionOccuredSides) {
+                    if(c == CollisionOccuredSide.TOP) {
+                        cancelLeft = true;
+                        cancelRight = true;
+
                         player.setOnGround(true);
-                        player.setPosition(new Point(playerX, (int)(plateformY - playerHeight)));
-                        break;
-                    case DOWN:
+                        player.setPosition(new Point(playerX, (int) (plateformY - playerHeight)));
+                    }
+                    if(c == CollisionOccuredSide.DOWN) {
                         player.stopY();
-                        break;
-                    case RIGHT:
+                    }
+                    if(!cancelRight && c == CollisionOccuredSide.RIGHT) {
                         player.stopX();
                         player.setPosition(new Point(playerX, playerY));
-                        break;
-                    case LEFT:
+                    }
+                    if(!cancelLeft &&c == CollisionOccuredSide.LEFT) {
                         player.stopX();
                         player.setPosition(new Point(playerX, playerY));
-                        break;
+                    }
                 }
             }
         }

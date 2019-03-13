@@ -18,6 +18,8 @@ import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Drawable;
 
 public class RectangleButton extends AbstractEntity implements RectangleClickable, Collidable, Drawable {
+    private long delayRepressed;
+
     private boolean isClicked = false;
 
     public Collision collision;
@@ -25,8 +27,12 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
     private Bitmap bitmap;
     private Paint paint = new Paint();
 
-    public RectangleButton(Context context, int resourceId, float size, AbstractPoint pos) {
+    private long lastTimePressed = System.currentTimeMillis();
+
+    public RectangleButton(Context context, int resourceId, float size, AbstractPoint pos, long  delayRepressed) {
         super(pos);
+
+        this.delayRepressed = delayRepressed;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
@@ -56,14 +62,22 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
     @Override
     public synchronized void updatePressed(final List<AbstractPoint> points) {
         boolean clicked = false;
+        long now = System.currentTimeMillis();
 
-        for(int i = 0; i < points.size(); ++i) {
-            clicked = pointInside(points.get(i));
+        setIsClicked(false);
 
-            if(clicked) break;
+        if(now - lastTimePressed > delayRepressed) {
+            for (int i = 0; i < points.size(); ++i) {
+                clicked = pointInside(points.get(i));
+
+                if (clicked) {
+                    lastTimePressed = now;
+                    break;
+                }
+            }
+
+            setIsClicked(clicked);
         }
-
-        setIsClicked(clicked);
     }
 
     @Override

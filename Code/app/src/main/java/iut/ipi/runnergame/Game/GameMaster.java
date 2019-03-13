@@ -276,8 +276,12 @@ public class GameMaster extends Thread {
             reset();
         }
 
-        if(hud.getExit().getIsClicked()) {
+        if(hud.getButton(BaseHud.BUT_EXIT).getIsClicked()) {
             GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, bestDistance, levelCreator.getLevel().getLength(), bestScore));
+        }
+
+        if(hud.getButton(BaseHud.BUT_MUTE).getIsClicked()) {
+            musicPlayer.pause();
         }
     }
 

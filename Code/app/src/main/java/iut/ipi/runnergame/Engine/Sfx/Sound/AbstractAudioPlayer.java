@@ -6,6 +6,8 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+
 public abstract class AbstractAudioPlayer {
     protected HashMap<String, MediaPlayer> mediaPlayers = new HashMap<>();
     protected String soundNamePlaying;
@@ -44,6 +46,16 @@ public abstract class AbstractAudioPlayer {
         if(mediaPlayers.containsKey(soundName)) {
             soundNamePlaying = soundName;
             mediaPlayers.get(soundName).start();
+        }
+    }
+
+    public void pause() {
+        MediaPlayer player = mediaPlayers.get(soundNamePlaying);
+
+        if (player.isPlaying()) {
+            mediaPlayers.get(soundNamePlaying).pause();
+        } else {
+            mediaPlayers.get(soundNamePlaying).start();
         }
     }
 
