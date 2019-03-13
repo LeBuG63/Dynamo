@@ -26,8 +26,6 @@ public class GameOverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_gameover);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        getSupportActionBar().hide();
 
         WindowUtil.changeResolutionFactor(resolutionFactor);
 

@@ -53,11 +53,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_game);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
-        getSupportActionBar().hide();
-
         WindowDefinitions.DEFAULT_HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
         WindowDefinitions.DEFAULT_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
 
