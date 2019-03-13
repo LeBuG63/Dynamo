@@ -1,5 +1,7 @@
 package iut.ipi.runnergame.Engine.Physics;
 
+import android.content.Context;
+
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
@@ -13,9 +15,14 @@ import iut.ipi.runnergame.Entity.Plateform.AbstractPlateform;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class PhysicsManager {
-    public static final float GRAVITY = WindowUtil.convertPixelsToDp(981f*2.5f);
+    public static float GRAVITY;
     public static final float FRICTION = 1f ;
     public static final float Y_PLAYER_CONSIDERED_DEAD = WindowDefinitions.HEIGHT*1.2f;
+
+
+    // NEXUS 5: 407.40356 px en hauteur max pour un saut
+    // J5: 314.13593 px en hauteur max pour un saut
+
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
@@ -36,7 +43,7 @@ public class PhysicsManager {
         point.x += dir.x;
     }
 
-    public static void updatePlayerPosition(AbstractPlayer player, List<AbstractPlateform> plateforms, float dt) {
+    public static void updatePlayerPosition(Context context, AbstractPlayer player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 
         // pour faire une bonne collision, il faut prevoir au moins une etape en avance
@@ -56,7 +63,7 @@ public class PhysicsManager {
         float playerX = player.getPosition().x;
         float playerY = player.getPosition().y;
 
-        Collision collisionProjection = new BaseCollisionBox(pointProjection.x, pointProjection.y, playerWidth, playerHeight);
+        Collision collisionProjection = new BaseCollisionBox(context, pointProjection.x, pointProjection.y, playerWidth, playerHeight);
 
         for(AbstractPlateform plateform : plateforms) {
             if(collisionProjection.isInCollision(plateform.getCollision())) {
@@ -76,14 +83,14 @@ public class PhysicsManager {
                         player.setOnGround(true);
                         player.setPosition(new Point(playerX, (int) (plateformY - playerHeight)));
                     }
-                    if(c == CollisionOccuredSide.DOWN) {
+                    else if(c == CollisionOccuredSide.DOWN) {
                         player.stopY();
                     }
                     if(!cancelRight && c == CollisionOccuredSide.RIGHT) {
                         player.stopX();
                         player.setPosition(new Point(playerX, playerY));
                     }
-                    if(!cancelLeft &&c == CollisionOccuredSide.LEFT) {
+                    else if(!cancelLeft && c == CollisionOccuredSide.LEFT) {
                         player.stopX();
                         player.setPosition(new Point(playerX, playerY));
                     }
@@ -101,6 +108,6 @@ public class PhysicsManager {
             player.setDeath(true);
         }
 
-        player.setCollision(new BaseCollisionBox(AbstractPlayer.DEFAULT_POS.x, player.getPosition().y, playerWidth, playerHeight));
+        player.setCollision(new BaseCollisionBox(context, AbstractPlayer.DEFAULT_POS.x, player.getPosition().y, playerWidth, playerHeight));
     }
 }

@@ -10,6 +10,6 @@ import iut.ipi.runnergame.R;
 
 public class BasePlayer extends AbstractPlayer {
     public BasePlayer(Context context, AbstractPoint pos, float scale) throws IOException {
-        super(pos, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, scale, 4, AbstractPlayer.DEFAULT_FRAME_DURATION, 6, 4));
+        super(context, pos, new BaseSpriteSheetAnimation(context, R.drawable.sprite_player_1, scale, 4, AbstractPlayer.DEFAULT_FRAME_DURATION, 6, 4));
     }
 }

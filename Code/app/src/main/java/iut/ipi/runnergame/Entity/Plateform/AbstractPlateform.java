@@ -39,11 +39,14 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     private int width;
     private int height;
 
+    private final Context context;
+
     public AbstractPlateform(Context context, int resourceId, AbstractPoint pos, int length) throws IOException {
         super(pos, length * AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE);
 
         //setPosition(new Point(WindowUtil.ScaleFloatToWindow(pos.x), WindowUtil.ScaleFloatToWindow(pos.y)));
 
+        this.context = context;
         this.length = length;
 
         spritesheet = new Spritesheet(context, resourceId, N_ROW_SPRITESHEET, N_COL_SPRITESHEET, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE);
@@ -51,7 +54,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
         width = length * spritesheet.getFrameWidth();
         height = spritesheet.getFrameHeight();
 
-        setCollision(new BaseCollisionBox(pos.x, pos.y, width, height));
+        setCollision(new BaseCollisionBox(context, pos.x, pos.y, width, height));
 
         for(int blockId = 0; blockId < length; blockId++) {
             float x = pos.x + (float) (blockId * spritesheet.getFrameWidth());
@@ -113,7 +116,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
         float y = getPosition().y;
 
         // il faut recalculer la hitbox a chaque modification de l offset
-        setCollision(new BaseCollisionBox(x, y, width, height));
+        setCollision(new BaseCollisionBox(context, x, y, width, height));
     }
 
     public int getWidth() {

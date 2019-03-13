@@ -8,8 +8,6 @@ public class WindowDefinitions {
     public static final float DENSITY_DPI = Resources.getSystem().getDisplayMetrics().densityDpi;
     public static final float DENSITY = Resources.getSystem().getDisplayMetrics().density;
 
-    public static final float HEIGHT_DPI = WindowUtil.convertPixelsToDp(Resources.getSystem().getDisplayMetrics().heightPixels);
-    public static final float WIDTH_DPI = WindowUtil.convertPixelsToDp(Resources.getSystem().getDisplayMetrics().widthPixels);
     public static final float SCALED_DPI = Resources.getSystem().getDisplayMetrics().scaledDensity;
 
     public static float DEFAULT_WIDTH;

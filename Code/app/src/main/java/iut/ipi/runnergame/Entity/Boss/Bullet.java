@@ -29,10 +29,12 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
     private float angle;
 
     private Collision collision;
+    private final Context context;
 
     public Bullet(Context context, int resourceId, AbstractPoint pos, float scale, float speed, float angle) {
         super(pos);
 
+        this.context = context;
         this.speed = speed;
         this.angle = angle;
 
@@ -72,7 +74,7 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
         getPosition().x += Math.cos(angle) * getSpeed();
         getPosition().y += Math.sin(angle) * getSpeed();
 
-        setCollision(new BaseCollisionBox(getPosition().x - getOffset().x, getPosition().y - getOffset().y, animationManager.getFrame().getWidth(), animationManager.getFrame().getHeight()));
+        setCollision(new BaseCollisionBox(context,getPosition().x - getOffset().x, getPosition().y - getOffset().y, animationManager.getFrame().getWidth(), animationManager.getFrame().getHeight()));
     }
 
     @Override

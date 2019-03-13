@@ -30,8 +30,12 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
     private int value = 0;
     private boolean needToBeDeleted = false;
 
+    private final Context context;
+
     public Piece(Context context, AbstractPoint pos, int resourceId, PieceType value) {
         super(pos);
+
+        this.context = context;
 
         switch (value) {
             case LOW:
@@ -48,7 +52,7 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
             animationManager = new BaseSpriteSheetAnimation(context, resourceId, DEFAULT_SIZE, 4, 250, 1, 4);
             animationManager.start(0);
 
-            setCollision(new BaseCollisionBox(pos.x, pos.y, getSprite().getWidth(), getSprite().getHeight()));
+            setCollision(new BaseCollisionBox(context, pos.x, pos.y, getSprite().getWidth(), getSprite().getHeight()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +78,7 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
         float x = getPosition().x;
         float y = getPosition().y;
 
-        setCollision(new BaseCollisionBox(x - offset.x, y - offset.y, getSprite().getWidth(), getSprite().getHeight()));
+        setCollision(new BaseCollisionBox(context, x - offset.x, y - offset.y, getSprite().getWidth(), getSprite().getHeight()));
     }
 
     @Override

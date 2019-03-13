@@ -29,13 +29,15 @@ public class ShadowManager implements Drawable {
     private Path path = new Path();
 
     private float radiusOffset = 1.0f;
-    private float shadowAmplitude = WindowUtil.convertPixelsToDp(10.0f);
+    private float shadowAmplitude;
 
-    public ShadowManager(Context context, AbstractPlayer player, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
-        shadow = new Shadow(shadowDecreaseValue, shadowIncreaseValueRatio);
+    public ShadowManager(final Context context, AbstractPlayer player, float shadowDecreaseValue, float shadowIncreaseValueRatio, int color) {
+        shadow = new Shadow(context, shadowDecreaseValue, shadowIncreaseValueRatio);
         accelerometer = new Accelerometer(context, SHAKE_THRESHOLD);
 
         this.player = player;
+
+        shadowAmplitude = WindowUtil.convertPixelsToDp(context,10.0f);
 
         circlePaint.setColor(Color.TRANSPARENT);
         shadowPaint.setColor(Color.TRANSPARENT);
@@ -45,7 +47,7 @@ public class ShadowManager implements Drawable {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-               radiusOffset = WindowUtil.convertPixelsToDp((float)Math.cos(System.currentTimeMillis()) * shadowAmplitude);
+               radiusOffset = WindowUtil.convertPixelsToDp(context,(float)Math.cos(System.currentTimeMillis()) * shadowAmplitude);
             }
         }, 0, 100);
     }

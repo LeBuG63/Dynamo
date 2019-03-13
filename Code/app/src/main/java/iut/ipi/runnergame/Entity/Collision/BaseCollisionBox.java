@@ -1,5 +1,6 @@
 package iut.ipi.runnergame.Entity.Collision;
 
+import android.content.Context;
 import android.graphics.RectF;
 import android.util.Log;
 
@@ -11,24 +12,30 @@ import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 
 public class BaseCollisionBox implements Collision {
-    private static final float COLLISION_OFFSET = WindowUtil.convertPixelsToDp(9.5f);
+    private final float COLLISION_OFFSET;
 
     private float left;
     private float top;
     private float width;
     private float height;
 
+    private final Context context;
+
     public List<CollisionOccuredSide> collisionOccuredSide = new ArrayList<>();
 
-    public BaseCollisionBox(float left, float top, float width, float height) {
+    public BaseCollisionBox(Context context, float left, float top, float width, float height) {
         this.left = left;
         this.top = top;
         this.width = width ;
         this.height = height;
+
+        this.context = context;
+
+        COLLISION_OFFSET = WindowUtil.convertPixelsToDp(context, 9.5f);
     }
 
-    public BaseCollisionBox(RectF rectangle) {
-        this(rectangle.left, rectangle.top, rectangle.width(), rectangle.height());
+    public BaseCollisionBox(Context context, RectF rectangle) {
+        this(context, rectangle.left, rectangle.top, rectangle.width(), rectangle.height());
     }
 
     @Override
@@ -84,16 +91,16 @@ public class BaseCollisionBox implements Collision {
         collisionOccuredSide.clear();
 
         if (collision(other)) {
-            if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() - COLLISION_OFFSET, other.getWidth(), -COLLISION_OFFSET))) {
+            if(collision(new BaseCollisionBox(context, other.getLeft(), other.getTop() - COLLISION_OFFSET, other.getWidth(), -COLLISION_OFFSET))) {
                 collisionOccuredSide.add(CollisionOccuredSide.TOP);
             }
-            if(collision(new BaseCollisionBox(other.getLeft() - COLLISION_OFFSET, other.getTop(), -COLLISION_OFFSET, other.getHeight()))) {
+            if(collision(new BaseCollisionBox(context,other.getLeft() - COLLISION_OFFSET, other.getTop(), -COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide.add(CollisionOccuredSide.LEFT);
             }
-            if(collision(new BaseCollisionBox(other.getLeft() + other.getWidth() + COLLISION_OFFSET, other.getTop() - COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
+            if(collision(new BaseCollisionBox(context,other.getLeft() + other.getWidth() + COLLISION_OFFSET, other.getTop() - COLLISION_OFFSET, COLLISION_OFFSET, other.getHeight()))) {
                 collisionOccuredSide.add(CollisionOccuredSide.RIGHT);
             }
-            if(collision(new BaseCollisionBox(other.getLeft(), other.getTop() + other.getHeight() + COLLISION_OFFSET, other.getWidth(), COLLISION_OFFSET))) {
+            if(collision(new BaseCollisionBox(context, other.getLeft(), other.getTop() + other.getHeight() + COLLISION_OFFSET, other.getWidth(), COLLISION_OFFSET))) {
                 collisionOccuredSide.add(CollisionOccuredSide.DOWN);
             }
 

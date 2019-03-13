@@ -1,19 +1,24 @@
 package iut.ipi.runnergame.Entity.Shadow;
 
+import android.content.Context;
+
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 
 public class Shadow extends AbstractEntity {
-    private float defaultRadius = WindowUtil.convertPixelsToDp(100);
-    private float maxRadius = WindowUtil.convertPixelsToDp(1000);
+    private float defaultRadius;
+    private float maxRadius;
     private float radius = maxRadius;
 
     private float shadowDecreaseValue;
     private float shadowIncreaseValueRatio;
 
-    public Shadow(float shadowDecreaseValue, float shadowIncreaseValueRatio) {
+    public Shadow(Context context, float shadowDecreaseValue, float shadowIncreaseValueRatio) {
         super(new PointRelative(50.0f, 50.0f));
+
+        defaultRadius = WindowUtil.convertPixelsToDp(context,100);
+        maxRadius = WindowUtil.convertPixelsToDp(context,1000);
 
         this.shadowDecreaseValue = shadowDecreaseValue;
         this.shadowIncreaseValueRatio = shadowIncreaseValueRatio;

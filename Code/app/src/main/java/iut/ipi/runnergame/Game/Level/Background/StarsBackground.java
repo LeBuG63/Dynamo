@@ -49,7 +49,7 @@ public class StarsBackground implements Background {
             float x = random.nextFloat() * 100;
             float y = random.nextFloat() * 100;
 
-            int radius = (int)WindowUtil.convertPixelsToDp(250);
+            int radius = (int)WindowUtil.convertPixelsToDp(context,250);
 
             stars.add(new Star(new PointRelative(x, y), radius));
         }

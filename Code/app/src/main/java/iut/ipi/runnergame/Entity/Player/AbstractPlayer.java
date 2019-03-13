@@ -1,5 +1,6 @@
 package iut.ipi.runnergame.Entity.Player;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
-import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
@@ -23,8 +23,8 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     public static AbstractPoint DEFAULT_POS = new PointRelative(50,0);
 
-    public static final float IMPULSE_MOVEMENT = WindowUtil.convertPixelsToDp(450.0f);
-    public static final float IMPULSE_JUMP = WindowUtil.convertPixelsToDp(640.0f);
+    private float impulseMovement;
+    private float impulseJump;
 
     public static final int ANIMATION_IDLE = 0;
     public static final int ANIMATION_RUNNING_RIGHT = 1;
@@ -44,11 +44,14 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     private int score = 0;
 
-    public AbstractPlayer(AbstractPoint pos, AnimationManager animationManager) throws IOException {
+    public AbstractPlayer(Context context, AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
+        impulseMovement = WindowUtil.convertPixelsToDp(context,250.0f);
+        impulseJump = WindowUtil.convertPixelsToDp(context, 620.0f);
+
         setAnimationManager(animationManager);
-        setCollision(new BaseCollisionBox(pos.x, pos.y, getAnimationManager().getFrame().getWidth(), getAnimationManager().getFrame().getHeight()));
+        setCollision(new BaseCollisionBox(context, pos.x, pos.y, getAnimationManager().getFrame().getWidth(), getAnimationManager().getFrame().getHeight()));
 
         animationManager.start(0);
     }
@@ -170,5 +173,13 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public float getImpulseMovement() {
+        return impulseMovement;
+    }
+
+    public float getImpulseJump() {
+        return impulseJump;
     }
 }

@@ -1,10 +1,10 @@
 package iut.ipi.runnergame.Game;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -14,12 +14,8 @@ import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
-import iut.ipi.runnergame.Engine.Graphics.Hud.AbstractCross;
 import iut.ipi.runnergame.Engine.Graphics.Hud.BaseHud;
-import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.AbstractHint;
-import iut.ipi.runnergame.Engine.Graphics.Hud.Hint.ShakeHint;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hud;
-import iut.ipi.runnergame.Engine.Graphics.Hud.Input.BaseCrossClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.Physics.PhysicsManager;
@@ -37,10 +33,10 @@ import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
 
 public class GameMaster extends Thread {
-    private final long FPS = 60L;
+    private final long FPS = 30L;
     private final long FRAME_PERIOD = 1000L / FPS;
 
-    private final float SHAKE_HINT_OFFSET = WindowUtil.convertPixelsToDp(50);
+    private final float SHAKE_HINT_OFFSET;
     private final int BOSS_APPEAR_SEC = 30;
 
     private final AbstractPoint defaultPointPlayer = new PointRelative(50, 0);
@@ -74,6 +70,8 @@ public class GameMaster extends Thread {
 
         this.context = context;
 
+        SHAKE_HINT_OFFSET = WindowUtil.convertPixelsToDp(context, 50);
+
         sfxPlayer = new SoundEffectAudioPlayer(context);
         musicPlayer = new MusicAudioPlayer(context);
 
@@ -99,6 +97,9 @@ public class GameMaster extends Thread {
 
         surfaceHolder.setFixedSize((int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         holder = surfaceHolder;
+
+        PhysicsManager.GRAVITY = WindowUtil.convertPixelsToDp(context,981f*1.5f);
+        GameActivity.timerStarted = System.currentTimeMillis();
     }
 
     private void reset() {
@@ -191,7 +192,7 @@ public class GameMaster extends Thread {
 
                 long start = System.currentTimeMillis();
 
-                update(1.0f/FPS);
+                update(1.0f/(float)FPS);
                 draw();
 
                 waitUntilNeededUpdate(start);
@@ -224,7 +225,7 @@ public class GameMaster extends Thread {
                 player.setHasAnotherJump(true);
             }
 
-            player.jump(AbstractPlayer.IMPULSE_JUMP);
+            player.jump(player.getImpulseJump());
 
             if (player.getImpulse().x >= 0) {
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_RIGHT);
@@ -233,7 +234,7 @@ public class GameMaster extends Thread {
             }
         }
         if(hud.getCross().getArrowLeft().getIsClicked()) {
-            player.moveLeft(AbstractPlayer.IMPULSE_MOVEMENT);
+            player.moveLeft(player.getImpulseMovement());
 
             if(player.isOnGround())
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_RUNNING_LEFT);
@@ -242,7 +243,7 @@ public class GameMaster extends Thread {
             idle = false;
         }
         if(hud.getCross().getArrowRight().getIsClicked()) {
-            player.moveRight(AbstractPlayer.IMPULSE_MOVEMENT);
+            player.moveRight(player.getImpulseMovement());
 
             if(player.isOnGround())
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_RUNNING_RIGHT);
@@ -264,7 +265,7 @@ public class GameMaster extends Thread {
             hud.getHint().hide();
         }
 
-        PhysicsManager.updatePlayerPosition(player, levelCreator.getLevel().getPlateforms(),dt);
+        PhysicsManager.updatePlayerPosition(context, player, levelCreator.getLevel().getPlateforms(),dt);
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);

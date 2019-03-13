@@ -42,7 +42,7 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
         int w = (int)(tmp.getWidth() * size);
         int h = (int)(tmp.getHeight() * size);
 
-        collision = new BaseCollisionBox(getPosition().x, getPosition().y, w, h);
+        collision = new BaseCollisionBox(context, getPosition().x, getPosition().y, w, h);
 
         bitmap = BitmapResizer.bitmapResizerNN(tmp, w, h);
     }
@@ -55,7 +55,7 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
         int w = (int)(bitmap.getWidth() * size);
         int h = (int)(bitmap.getHeight() * size);
 
-        collision = new BaseCollisionBox(getPosition().x, getPosition().y, w, h);
+        collision = new BaseCollisionBox(context, getPosition().x, getPosition().y, w, h);
         this.bitmap = bitmap;
     }
 

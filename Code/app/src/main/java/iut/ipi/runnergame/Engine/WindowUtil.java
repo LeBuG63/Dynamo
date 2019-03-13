@@ -1,15 +1,16 @@
 package iut.ipi.runnergame.Engine;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 public abstract class WindowUtil {
-    public static float convertDpToPixel(float dp){
-        return dp * (WindowDefinitions.DENSITY_DPI / DisplayMetrics.DENSITY_DEFAULT);
+    public static float convertDpToPixel(final Context context, float dp){
+        return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
-    public static float convertPixelsToDp(float px){
-        return px / (WindowDefinitions.DENSITY_DPI / DisplayMetrics.DENSITY_DEFAULT);
+    public static float convertPixelsToDp(final Context context, float px){
+        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     public static void changeResolutionFactor(float resolutionFactor) {

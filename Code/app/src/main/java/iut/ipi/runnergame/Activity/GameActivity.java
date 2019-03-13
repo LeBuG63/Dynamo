@@ -33,13 +33,12 @@ public class GameActivity extends AppCompatActivity {
     private final float resolutionFactor = 2f;
 
     private static GameActivity instance = null;
-
     private static GameMaster gameManager;
 
     private SurfaceView surfaceView;
     private TextView textViewTimer;
 
-    private AbstractPoint[] fingerPoints; // comme les 10 doigts de la main
+    private AbstractPoint[] fingerPoints;
 
     private static Timer timerUpdateScore;
 
@@ -133,8 +132,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 0, 10);
 
-        timerStarted = System.currentTimeMillis();
-
         instance = this;
     }
 
@@ -156,8 +153,8 @@ public class GameActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        WindowDefinitions.HEIGHT = WindowUtil.convertDpToPixel(newConfig.screenHeightDp) / WindowDefinitions.RESOLUTION_FACTOR;
-        WindowDefinitions.WIDTH = WindowUtil.convertDpToPixel(newConfig.screenWidthDp) / WindowDefinitions.RESOLUTION_FACTOR;
+        WindowDefinitions.HEIGHT = WindowUtil.convertDpToPixel(getApplicationContext(), newConfig.screenHeightDp) / WindowDefinitions.RESOLUTION_FACTOR;
+        WindowDefinitions.WIDTH = WindowUtil.convertDpToPixel(getApplicationContext(), newConfig.screenWidthDp) / WindowDefinitions.RESOLUTION_FACTOR;
 
         gameManager.updatePoolPoints();
     }

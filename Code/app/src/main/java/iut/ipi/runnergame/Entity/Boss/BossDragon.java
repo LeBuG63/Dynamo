@@ -31,7 +31,7 @@ public class BossDragon extends AbstractEntity implements Boss {
     private final int SIZE_SPRITE_HEIGHT = 129;
     private final float BULLET_SPEED = 1.8f;
 
-    private final double SPEED = WindowUtil.convertPixelsToDp(10);
+    private final double SPEED;
 
     private AnimationManager animationManager;
     private Timer timer;
@@ -49,6 +49,8 @@ public class BossDragon extends AbstractEntity implements Boss {
         super(pos);
 
         refPlayer = player;
+
+        SPEED =  WindowUtil.convertPixelsToDp(context, 10);
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, R.drawable.boss_dragon_1, 1, SIZE_SPRITE_WIDTH, SIZE_SPRITE_HEIGHT, 4, 200, 1, 4);
@@ -70,7 +72,7 @@ public class BossDragon extends AbstractEntity implements Boss {
                         x += getOffset().x;
                         y -= getOffset().y;
 
-                        bullets.add(new Bullet(context, R.drawable.sprite_bullet_1, new Point(x, y), 0.5f, WindowUtil.convertDpToPixel(BULLET_SPEED), angle));
+                        bullets.add(new Bullet(context, R.drawable.sprite_bullet_1, new Point(x, y), 0.5f, WindowUtil.convertDpToPixel(context, BULLET_SPEED), angle));
                     }
                 }
             }
