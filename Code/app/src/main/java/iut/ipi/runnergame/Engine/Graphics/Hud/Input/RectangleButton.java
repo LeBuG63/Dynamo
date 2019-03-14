@@ -11,6 +11,7 @@ import java.util.List;
 import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
 import iut.ipi.runnergame.Engine.Graphics.Hud.RectangleClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
@@ -40,8 +41,8 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
 
         Bitmap tmp = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
 
-        int w = (int)(WindowUtil.convertPixelsToDp(context, tmp.getWidth()) * size);
-        int h = (int)(WindowUtil.convertPixelsToDp(context, tmp.getHeight()) * size);
+        int w = (int)(WindowUtil.convertPixelsToDp(context, tmp.getWidth()) * size * WindowDefinitions.SCALED_DPI);
+        int h = (int)(WindowUtil.convertPixelsToDp(context, tmp.getHeight()) * size * WindowDefinitions.SCALED_DPI);
 
         collision = new BaseCollisionBox(context, getPosition().x, getPosition().y, w, h);
 

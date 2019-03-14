@@ -46,7 +46,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         float percentage = (float)dataBundle.getDistance() / dataBundle.getLevelLength() * 100.0f;
 
-        if(percentage < 0)
+        if(percentage < 0 || Float.isNaN(percentage))
             percentage = 0.0f;
         else if(percentage > 100)
             percentage = 100.0f;

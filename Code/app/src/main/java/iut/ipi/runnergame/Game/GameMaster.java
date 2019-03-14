@@ -33,6 +33,8 @@ import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
 
 public class GameMaster extends Thread {
+    public static GameOverDataBundle registerDataBundle = new GameOverDataBundle("0:00", 0,0,0);
+
     private final long FPS = 30L;
     private final long FRAME_PERIOD = 1000L / FPS;
 
@@ -74,9 +76,6 @@ public class GameMaster extends Thread {
 
         sfxPlayer = new SoundEffectAudioPlayer(context);
         musicPlayer = new MusicAudioPlayer(context);
-
-        Log.d("window", String.valueOf(WindowDefinitions.WIDTH));
-        Log.d("window", String.valueOf(WindowDefinitions.HEIGHT));
 
         musicPlayer.add("mercury", R.raw.mercury, true);
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
@@ -272,14 +271,18 @@ public class GameMaster extends Thread {
             int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);
             int score = ((((distance / levelCreator.getLevel().getLength()) * 100) + 1) * player.getScore()) / Float.valueOf(GameActivity.strTimer).intValue();
 
-            if(distance > bestDistance) bestDistance = distance;
-            if(score > bestScore) bestScore = score;
+            if(score > bestScore) {
+                bestScore = score;
+                bestDistance = distance;
+            }
+
+            registerDataBundle = new GameOverDataBundle(GameActivity.strTimer, bestDistance, levelCreator.getLevel().getLength(), bestScore);
 
             reset();
         }
 
         if(hud.getButton(BaseHud.BUT_EXIT).getIsClicked()) {
-            GameActivity.launchLoseActivity(new GameOverDataBundle(GameActivity.strTimer, bestDistance, levelCreator.getLevel().getLength(), bestScore));
+            GameActivity.launchLoseActivity(registerDataBundle);
         }
 
         if(hud.getButton(BaseHud.BUT_MUTE).getIsClicked()) {
@@ -306,7 +309,7 @@ public class GameMaster extends Thread {
             //les mettres au dessus et en dessous corrige le probleme
             hud.drawOnCanvas(canvas);
 
-            //      levelCreator.getLevel().drawShadowOnCanvas(canvas);
+            levelCreator.getLevel().drawShadowOnCanvas(canvas);
 
             hud.drawOnCanvas(canvas);
 

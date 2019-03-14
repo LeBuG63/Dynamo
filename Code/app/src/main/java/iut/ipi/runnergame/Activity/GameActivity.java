@@ -136,6 +136,25 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        // si on change d activite, alors celle ci doit finir et le thread du gamemanager doit etre tue pour eviter de surcharger le cpu
+        gameManager.stopUpdate();
+        gameManager.kill();
+
+        try {
+            gameManager.interrupt();
+            gameManager.join();
+        } catch (InterruptedException e) {
+
+        }
+
+        instance.finish();
+
+        launchLoseActivity(GameMaster.registerDataBundle);
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         instanceOnPause = true;
@@ -164,19 +183,6 @@ public class GameActivity extends AppCompatActivity {
 
         timerUpdateScore.cancel();
         timerUpdateScore.purge();
-
-        // si on change d activite, alors celle ci doit finir et le thread du gamemanager doit etre tue pour eviter de surcharger le cpu
-        gameManager.stopUpdate();
-        gameManager.kill();
-
-        try {
-            gameManager.interrupt();
-            gameManager.join();
-        } catch (InterruptedException e) {
-
-        }
-
-        instance.finish();
 
         Intent loseIntent = new Intent(instance, GameOverActivity.class);
 
