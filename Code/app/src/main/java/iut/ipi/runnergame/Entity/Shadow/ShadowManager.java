@@ -16,7 +16,7 @@ import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Util.Constantes;
 
 public class ShadowManager implements Drawable {
-    private final int SHAKE_THRESHOLD = 40;
+    private final int SHAKE_THRESHOLD = 20;
 
     private AbstractPlayer player;
 

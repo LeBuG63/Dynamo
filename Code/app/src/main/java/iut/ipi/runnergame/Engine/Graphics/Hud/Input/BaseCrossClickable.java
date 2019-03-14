@@ -27,7 +27,7 @@ public class BaseCrossClickable extends AbstractCross {
 
     private List<RectangleButton> arrow = new ArrayList<>();
 
-    private Context context;
+    private final Context context;
 
     public BaseCrossClickable(Context context, int resource, float scale, int nArrow, AbstractPoint center) {
         this.context = context;
@@ -36,7 +36,7 @@ public class BaseCrossClickable extends AbstractCross {
         this.nArrow = nArrow;
 
         try {
-            spritesheet = new Spritesheet(context, resource, 1, nArrow, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, scale);
+            spritesheet = new Spritesheet(context, resource, 1, nArrow, scale);
             setPosition(center);
         }
         catch (IOException e) {}

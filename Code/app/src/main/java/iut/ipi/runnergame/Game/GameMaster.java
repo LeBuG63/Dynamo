@@ -75,6 +75,9 @@ public class GameMaster extends Thread {
         sfxPlayer = new SoundEffectAudioPlayer(context);
         musicPlayer = new MusicAudioPlayer(context);
 
+        Log.d("window", String.valueOf(WindowDefinitions.WIDTH));
+        Log.d("window", String.valueOf(WindowDefinitions.HEIGHT));
+
         musicPlayer.add("mercury", R.raw.mercury, true);
         sfxPlayer.add("footsteps", R.raw.sfx_jump);
 
@@ -104,8 +107,6 @@ public class GameMaster extends Thread {
 
     private void reset() {
         secondsEllapsed = 0;
-
-        BaseSpriteSheetAnimation.destroyTimer();
 
         player.setDeath(false);
 
@@ -173,7 +174,7 @@ public class GameMaster extends Thread {
     private boolean update = true;
     @Override
     public void run() {
-        musicPlayer.play("mercury");
+//        musicPlayer.play("mercury");
 
         while(isRunning) {
             synchronized (pauseKey) {
@@ -302,10 +303,10 @@ public class GameMaster extends Thread {
             canvas.drawBitmap(player.getSprite(), AbstractPlayer.DEFAULT_POS.x, player.getPosition().y, paint);
 
             // oblige de les afficher 2x, car le calcul de l ombre empeche de mettre des elements soit au dessus soit en dessous
-            // les mettres au dessus et en dessous corrige le probleme
+            //les mettres au dessus et en dessous corrige le probleme
             hud.drawOnCanvas(canvas);
 
-            levelCreator.getLevel().drawShadowOnCanvas(canvas);
+            //      levelCreator.getLevel().drawShadowOnCanvas(canvas);
 
             hud.drawOnCanvas(canvas);
 

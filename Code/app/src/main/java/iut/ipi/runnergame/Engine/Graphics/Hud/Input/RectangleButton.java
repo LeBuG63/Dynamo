@@ -11,6 +11,7 @@ import java.util.List;
 import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
 import iut.ipi.runnergame.Engine.Graphics.Hud.RectangleClickable;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
@@ -39,8 +40,8 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
 
         Bitmap tmp = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
 
-        int w = (int)(tmp.getWidth() * size);
-        int h = (int)(tmp.getHeight() * size);
+        int w = (int)(WindowUtil.convertPixelsToDp(context, tmp.getWidth()) * size);
+        int h = (int)(WindowUtil.convertPixelsToDp(context, tmp.getHeight()) * size);
 
         collision = new BaseCollisionBox(context, getPosition().x, getPosition().y, w, h);
 
@@ -68,8 +69,11 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
 
         if(now - lastTimePressed > delayRepressed) {
             for (int i = 0; i < points.size(); ++i) {
-                clicked = pointInside(points.get(i));
-
+                try {
+                    clicked = pointInside(points.get(i));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
                 if (clicked) {
                     lastTimePressed = now;
                     break;

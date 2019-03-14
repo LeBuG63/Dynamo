@@ -8,7 +8,7 @@ import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 
 public abstract class AbstractEntity {
-    public static int DEFAULT_SCALE = 1;
+    public static float DEFAULT_SCALE = 1.0f;
     private AbstractPoint position;
 
     private RectF rectangle;

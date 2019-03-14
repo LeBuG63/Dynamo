@@ -1,6 +1,7 @@
 package iut.ipi.runnergame.Engine.Physics;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -20,14 +21,20 @@ public class PhysicsManager {
     public static final float Y_PLAYER_CONSIDERED_DEAD = WindowDefinitions.HEIGHT*1.2f;
 
 
-    // NEXUS 5: 407.40356 px en hauteur max pour un saut
-    // J5: 314.13593 px en hauteur max pour un saut
 
+
+    // NEXUS 5: 393 - 350.8438 = 43 px en hauteur max pour un saut
+    // J5:  300 - 244.67  = 54 px en hauteur max pour un saut
+
+    private static float max = 9999;
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
     public static void mulVecWithGravity(AbstractPoint point, AbstractPoint dir, float dt) {
         AbstractPoint oldPoint = new Point(dir.x, dir.y);
+
+        if(point.y < max)
+            max = point.y;
 
         dir.y += GRAVITY * dt;
         point.y += dir.y * dt + (0.5 * GRAVITY * dt * dt);
@@ -79,6 +86,9 @@ public class PhysicsManager {
                     if(c == CollisionOccuredSide.TOP) {
                         cancelLeft = true;
                         cancelRight = true;
+                        Log.d("physics", String.valueOf(max));
+
+                        max = 9999;
 
                         player.setOnGround(true);
                         player.setPosition(new Point(playerX, (int) (plateformY - playerHeight)));

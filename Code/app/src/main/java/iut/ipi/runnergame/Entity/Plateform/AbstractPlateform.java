@@ -42,14 +42,14 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     private final Context context;
 
     public AbstractPlateform(Context context, int resourceId, AbstractPoint pos, int length) throws IOException {
-        super(pos, length * AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE);
+        super(pos, (int)(length * AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE), (int)(AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE));
 
         //setPosition(new Point(WindowUtil.ScaleFloatToWindow(pos.x), WindowUtil.ScaleFloatToWindow(pos.y)));
 
         this.context = context;
         this.length = length;
 
-        spritesheet = new Spritesheet(context, resourceId, N_ROW_SPRITESHEET, N_COL_SPRITESHEET, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE);
+        spritesheet = new Spritesheet(context, resourceId, N_ROW_SPRITESHEET, N_COL_SPRITESHEET, Spritesheet.DEFAULT_SPRITE_SIZE, Spritesheet.DEFAULT_SPRITE_SIZE, AbstractEntity.DEFAULT_SCALE, false);
 
         width = length * spritesheet.getFrameWidth();
         height = spritesheet.getFrameHeight();

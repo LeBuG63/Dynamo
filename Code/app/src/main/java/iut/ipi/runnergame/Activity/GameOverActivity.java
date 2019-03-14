@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Game.GameOverDataBundle;
@@ -62,6 +63,8 @@ public class GameOverActivity extends AppCompatActivity {
                 try {
                     gameOverMaster.interrupt();
                     gameOverMaster.join();
+
+                    BaseSpriteSheetAnimation.destroyTimer();
                 } catch (InterruptedException ignore) {
                 }
 

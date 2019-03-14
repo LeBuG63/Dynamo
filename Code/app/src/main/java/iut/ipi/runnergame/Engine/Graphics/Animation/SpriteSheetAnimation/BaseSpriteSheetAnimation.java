@@ -43,7 +43,7 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         this.row = row;
         this.col = col;
 
-        spritesheet = new Spritesheet(context, resourceId, row, col, frameWidth, frameHeight, scale);
+        spritesheet = new Spritesheet(context, resourceId, row, col, frameWidth, frameHeight, scale, true);
         timer = new Timer();
 
         for(int i = 0; i < row; ++i) {

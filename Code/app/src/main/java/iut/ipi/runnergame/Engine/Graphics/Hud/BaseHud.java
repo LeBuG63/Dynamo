@@ -36,8 +36,8 @@ public class BaseHud implements Hud {
         cross = new BaseCrossClickable(context, R.drawable.sprite_cross_1, BaseCrossClickable.DEFAULT_SCALE, 4, defaultPointCross);
         crossAB = new BaseCrossClickable(context, R.drawable.sprite_cross_ab, BaseCrossClickable.DEFAULT_SCALE, 1, defaultPointCrossAB);
 
-        buttons.add(new RectangleButton(context, R.drawable.sprite_close, 2, new PointRelative(0,0), 400));
-        buttons.add(new RectangleButton(context, R.drawable.sprite_music_on, 2, new PointRelative(90,0), 400));
+        buttons.add(new RectangleButton(context, R.drawable.sprite_close, 4, new PointRelative(0,0), 400));
+        buttons.add(new RectangleButton(context, R.drawable.sprite_music_on, 4, new PointRelative(90,0), 400));
 
         shakeHint = new ShakeHint(context, 0.5f, 4, 200, new PointRelative(45, 20));
         shakeHint.show();

@@ -14,9 +14,13 @@ import java.util.concurrent.Executors;
 
 import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
+import iut.ipi.runnergame.Engine.WindowUtil;
 
 public class Spritesheet {
     public static final int DEFAULT_SPRITE_SIZE = 16;
+
+    private static final int N_BLOCK_WIDTH = 23;
+    private static final int N_BLOCK_HEIGHT = 10;
 
     private final int row;
     private final int col;
@@ -29,17 +33,23 @@ public class Spritesheet {
     private Map<Integer, List<Bitmap>> bitmapMap = new HashMap<>();
 
     public Spritesheet(Context context, int resourceId, int row, int col, float scale) throws IOException {
-        this(context, resourceId, row, col, DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE, scale);
+        this(context, resourceId, row, col, DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE, scale, true);
     }
-    public Spritesheet(Context context, int resourceId, int row, int col, int frameWidth, int frameHeight, float scale) throws IOException {
+
+    public Spritesheet(Context context, int resourceId, int row, int col, int frameWidth, int frameHeight, float scale, boolean useFrameProp) throws IOException {
         this.row = row;
         this.col = col;
 
         this.defaultFrameWidth = frameWidth;
         this.defaultFrameHeight = frameHeight;
 
-        this.frameWidth = (int)(frameWidth * scale * WindowDefinitions.SCALED_DPI);
-        this.frameHeight = (int)(frameHeight * scale * WindowDefinitions.SCALED_DPI);
+        if(useFrameProp) {
+            this.frameWidth = (int) (frameWidth * scale * WindowDefinitions.SCALED_DPI);
+            this.frameHeight = (int) (frameHeight * scale * WindowDefinitions.SCALED_DPI);
+        } else {
+            this.frameWidth = (int)(WindowUtil.convertPixelsToDp(context, (int)(WindowDefinitions.WIDTH / N_BLOCK_WIDTH)) * WindowDefinitions.SCREEN_ADJUST);
+            this.frameHeight = (int)(WindowUtil.convertPixelsToDp(context, (int)(WindowDefinitions.HEIGHT / N_BLOCK_HEIGHT)) * WindowDefinitions.SCREEN_ADJUST);
+        }
         this.scale = scale;
 
         Bitmap spritesheet = null;
@@ -54,7 +64,6 @@ public class Spritesheet {
 
         cutSpritesheet(spritesheet);
     }
-
 
     private Object key = new Object();
     private void cutSpritesheet(Bitmap spritesheet) {
