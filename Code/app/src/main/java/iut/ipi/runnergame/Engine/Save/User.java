@@ -3,13 +3,21 @@ package iut.ipi.runnergame.Engine.Save;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    private String id;
     private String pseudo;
-    private int score;
+    private String score;
 
-    public User(String pseudo, int score) {
+
+    public User(String pseudo, String score, String id) {
         this.pseudo = pseudo;
         this.score = score;
+        this.id=id;
     }
+
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getPseudo() {
         return pseudo;
@@ -19,11 +27,11 @@ public class User implements Serializable {
         this.pseudo = pseudo;
     }
 
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
 

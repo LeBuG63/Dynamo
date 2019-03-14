@@ -3,6 +3,7 @@ package iut.ipi.runnergame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Activity.SettingsActivity;
+import iut.ipi.runnergame.Engine.Save.DbLoader;
+import iut.ipi.runnergame.Engine.Save.DbSaver;
+import iut.ipi.runnergame.Engine.Save.Loader;
+import iut.ipi.runnergame.Engine.Save.Saver;
+import iut.ipi.runnergame.Engine.Save.User;
 
 public class MainActivity extends AppCompatActivity {
     private Button gameButton;
@@ -27,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
         final Intent gameIntent = new Intent(this, GameActivity.class);
         final Intent scoreIntent = new Intent(this, SettingsActivity.class);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Score");
-        myRef.setValue("SLT 52");
+        User u=new User("TIB","25","123456789");
+        Saver s = new DbSaver();
+        s.saveByUser(u);
+        Loader l = new DbLoader();
+        l.load();
 
         //loadingText = findViewById(R.id.textview_loading);
         //loadingText.setText("");
