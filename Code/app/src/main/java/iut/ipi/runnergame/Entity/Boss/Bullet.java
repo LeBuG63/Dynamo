@@ -74,7 +74,7 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
         getPosition().x += Math.cos(angle) * getSpeed();
         getPosition().y += Math.sin(angle) * getSpeed();
 
-        setCollision(new BaseCollisionBox(context,getPosition().x - getOffset().x, getPosition().y - getOffset().y, animationManager.getFrame().getWidth(), animationManager.getFrame().getHeight()));
+        collision.set(getPosition().x - getOffset().x, getPosition().y - getOffset().y, animationManager.getFrame().getWidth(), animationManager.getFrame().getHeight());
     }
 
     @Override

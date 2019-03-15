@@ -78,7 +78,7 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
         float x = getPosition().x;
         float y = getPosition().y;
 
-        setCollision(new BaseCollisionBox(context, x - offset.x, y - offset.y, getSprite().getWidth(), getSprite().getHeight()));
+        collision.set(x - offset.x, y - offset.y, getSprite().getWidth(), getSprite().getHeight());
     }
 
     @Override

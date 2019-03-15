@@ -282,7 +282,7 @@ public class GameMaster extends Thread {
         }
 
         if(hud.getButton(BaseHud.BUT_EXIT).getIsClicked()) {
-            GameActivity.launchLoseActivity(registerDataBundle);
+            GameActivity.endActivity();
         }
 
         if(hud.getButton(BaseHud.BUT_MUTE).getIsClicked()) {

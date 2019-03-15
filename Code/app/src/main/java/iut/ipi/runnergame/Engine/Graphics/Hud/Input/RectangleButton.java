@@ -41,8 +41,8 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
 
         Bitmap tmp = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
 
-        int w = (int)(WindowUtil.convertPixelsToDp(context, tmp.getWidth()) * size * WindowDefinitions.SCALED_DPI);
-        int h = (int)(WindowUtil.convertPixelsToDp(context, tmp.getHeight()) * size * WindowDefinitions.SCALED_DPI);
+        int w = (int)(WindowUtil.convertPixelsToDp(context, tmp.getWidth() * size) * WindowDefinitions.SCALED_DPI);
+        int h = (int)(WindowUtil.convertPixelsToDp(context, tmp.getHeight() * size) * WindowDefinitions.SCALED_DPI);
 
         collision = new BaseCollisionBox(context, getPosition().x, getPosition().y, w, h);
 

@@ -31,6 +31,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     private Collision collision;
     private AbstractPoint offset = new Point();
+    private AbstractPoint pointWithOffset = new Point();
 
     private Spritesheet spritesheet;
     private List<Block> blocks = new ArrayList<>();
@@ -43,8 +44,6 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     public AbstractPlateform(Context context, int resourceId, AbstractPoint pos, int length) throws IOException {
         super(pos, (int)(length * AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE), (int)(AbstractEntity.DEFAULT_SCALE * Spritesheet.DEFAULT_SPRITE_SIZE));
-
-        //setPosition(new Point(WindowUtil.ScaleFloatToWindow(pos.x), WindowUtil.ScaleFloatToWindow(pos.y)));
 
         this.context = context;
         this.length = length;
@@ -100,7 +99,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
 
     @Override
     public AbstractPoint getPosition() {
-        return new Point(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
+        return pointWithOffset;
     }
 
     @Override
@@ -115,8 +114,10 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
         float x = getPosition().x;
         float y = getPosition().y;
 
+        pointWithOffset.set(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
+
         // il faut recalculer la hitbox a chaque modification de l offset
-        setCollision(new BaseCollisionBox(context, x, y, width, height));
+        collision.set(x, y, width, height);
     }
 
     public int getWidth() {

@@ -29,6 +29,11 @@ public abstract class AbstractPoint {
         } catch (IndexOutOfBoundsException ignore) {}
     }
 
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public static void clearPoolPoints() {
         pointsPool.clear();
     }

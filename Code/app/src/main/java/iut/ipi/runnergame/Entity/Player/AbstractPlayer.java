@@ -48,7 +48,7 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
     public AbstractPlayer(Context context, AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
-        impulseMovement = WindowUtil.convertPixelsToDp(context,200.0f) * WindowDefinitions.SCREEN_ADJUST;
+        impulseMovement = WindowUtil.convertPixelsToDp(context,150.0f) * WindowDefinitions.SCREEN_ADJUST;
         impulseJump = WindowUtil.convertPixelsToDp(context, 250.0f) * WindowDefinitions.SCREEN_ADJUST;
 
         setAnimationManager(animationManager);

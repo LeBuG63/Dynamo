@@ -149,8 +149,6 @@ public class GameActivity extends AppCompatActivity {
 
         }
 
-        instance.finish();
-
         launchLoseActivity(GameMaster.registerDataBundle);
     }
 
@@ -176,6 +174,10 @@ public class GameActivity extends AppCompatActivity {
         WindowDefinitions.WIDTH = WindowUtil.convertDpToPixel(getApplicationContext(), newConfig.screenWidthDp) / WindowDefinitions.RESOLUTION_FACTOR;
 
         gameManager.updatePoolPoints();
+    }
+
+    public static void endActivity() {
+        instance.finish();
     }
 
     public static void launchLoseActivity(GameOverDataBundle data) {

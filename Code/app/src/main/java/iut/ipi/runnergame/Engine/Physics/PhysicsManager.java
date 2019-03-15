@@ -26,7 +26,7 @@ public class PhysicsManager {
         AbstractPoint oldPoint = new Point(dir.x, dir.y);
 
         dir.y += GRAVITY * dt;
-        point.y += dir.y * dt + (0.5 * GRAVITY * dt * dt);
+        point.y += dir.y * dt + (0.5f * GRAVITY * dt * dt);
     }
 
     public static void mulVecWithFriction(AbstractPoint point, AbstractPoint dir, float dt) {

@@ -17,6 +17,10 @@ public interface Collision {
     void setWidth(float width);
     void setHeight(float height);
 
+    void set(float x, float y, float w, float h);
+
+    RectCollision getRect();
+
     boolean isInCollision(Collision other);
     boolean isInCollisionWithPoint(AbstractPoint point);
     List<CollisionOccuredSide> getCollisionSide();
