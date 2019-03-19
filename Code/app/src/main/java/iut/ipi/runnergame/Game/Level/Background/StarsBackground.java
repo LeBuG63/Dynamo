@@ -13,8 +13,8 @@ import java.util.Random;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
 import iut.ipi.runnergame.Engine.WindowUtil;
-import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
+import iut.ipi.runnergame.Entity.Player.BasePlayer;
 
 public class StarsBackground implements Background {
     private class Star {

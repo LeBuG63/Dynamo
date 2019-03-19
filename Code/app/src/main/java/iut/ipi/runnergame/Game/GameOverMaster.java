@@ -8,7 +8,6 @@ import android.view.SurfaceHolder;
 import iut.ipi.runnergame.Engine.Graphics.Hud.StatisticDistanceFlag;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
-import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Game.Level.Background.Background;
 import iut.ipi.runnergame.Game.Level.Background.StarsBackground;
 import iut.ipi.runnergame.R;

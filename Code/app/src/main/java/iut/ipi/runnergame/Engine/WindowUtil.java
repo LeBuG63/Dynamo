@@ -1,7 +1,6 @@
 package iut.ipi.runnergame.Engine;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 public abstract class WindowUtil {

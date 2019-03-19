@@ -6,12 +6,10 @@ import android.graphics.Paint;
 
 import java.io.IOException;
 
-import iut.ipi.runnergame.Engine.Graphics.Animation.Animable;
 import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
 import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Entity.AbstractEntity;
-import iut.ipi.runnergame.Entity.Drawable;
 
 public abstract class AbstractHint extends AbstractEntity implements Hint {
     private static int DEFAULT_FRAME_WIDTH = 64;

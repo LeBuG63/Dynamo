@@ -5,9 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.util.Log;
 
 import iut.ipi.runnergame.Engine.Graphics.BitmapResizer;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;

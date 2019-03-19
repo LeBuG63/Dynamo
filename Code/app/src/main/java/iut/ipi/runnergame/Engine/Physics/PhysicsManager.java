@@ -1,14 +1,12 @@
 package iut.ipi.runnergame.Engine.Physics;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
-import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
 import iut.ipi.runnergame.Entity.Collision.CollisionOccuredSide;

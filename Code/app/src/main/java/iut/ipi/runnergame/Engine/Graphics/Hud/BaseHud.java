@@ -2,6 +2,8 @@ package iut.ipi.runnergame.Engine.Graphics.Hud;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.List;

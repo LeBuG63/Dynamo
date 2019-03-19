@@ -33,6 +33,7 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
     public static final int ANIMATION_JUMP_RIGHT = 3;
     public static final int ANIMATION_JUMP_LEFT = 4;
     public static final int ANIMATION_FALLING = 5;
+    public static final int ANIMATION_CROUCH = 6;
 
     public boolean hasAnotherJump = true;
 
@@ -48,8 +49,8 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
     public AbstractPlayer(Context context, AbstractPoint pos, AnimationManager animationManager) throws IOException {
         super(pos);
 
-        impulseMovement = WindowUtil.convertPixelsToDp(context,150.0f) * WindowDefinitions.SCREEN_ADJUST;
-        impulseJump = WindowUtil.convertPixelsToDp(context, 250.0f) * WindowDefinitions.SCREEN_ADJUST;
+        impulseMovement = WindowUtil.convertPixelsToDp(context,130.0f) * WindowDefinitions.SCREEN_ADJUST;
+        impulseJump = WindowUtil.convertPixelsToDp(context, 280.0f) * WindowDefinitions.SCREEN_ADJUST;
 
         setAnimationManager(animationManager);
         setCollision(new BaseCollisionBox(context, pos.x, pos.y, getAnimationManager().getFrame().getWidth(), getAnimationManager().getFrame().getHeight()));

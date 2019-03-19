@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -19,11 +18,8 @@ import iut.ipi.runnergame.Engine.TranslateUtil;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.AbstractEntity;
-import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collision;
-import iut.ipi.runnergame.Entity.Collision.CollisionOccuredSide;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
-import iut.ipi.runnergame.Entity.Translatable;
 import iut.ipi.runnergame.R;
 
 public class BossDragon extends AbstractEntity implements Boss {

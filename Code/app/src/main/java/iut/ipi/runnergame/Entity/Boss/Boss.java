@@ -1,7 +1,6 @@
 package iut.ipi.runnergame.Entity.Boss;
 
 import iut.ipi.runnergame.Entity.Drawable;
-import iut.ipi.runnergame.Entity.Movable;
 import iut.ipi.runnergame.Entity.Translatable;
 import iut.ipi.runnergame.Entity.Updatable;
 

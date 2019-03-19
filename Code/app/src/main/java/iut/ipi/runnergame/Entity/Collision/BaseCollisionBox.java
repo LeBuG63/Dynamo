@@ -2,13 +2,11 @@ package iut.ipi.runnergame.Entity.Collision;
 
 import android.content.Context;
 import android.graphics.RectF;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
-import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 
 public class BaseCollisionBox implements Collision {
@@ -32,6 +30,10 @@ public class BaseCollisionBox implements Collision {
 
     public BaseCollisionBox(Context context, RectF rectangle) {
         this(context, rectangle.left, rectangle.top, rectangle.width(), rectangle.height());
+    }
+
+    public BaseCollisionBox(Context context) {
+        this(context, 0,0,0,0);
     }
 
     @Override

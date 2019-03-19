@@ -1,7 +1,5 @@
 package iut.ipi.runnergame.Entity.Collision;
 
-import android.content.Context;
-
 public class RectCollision {
     public float left;
     public float top;

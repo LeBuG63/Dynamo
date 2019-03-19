@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import iut.ipi.runnergame.Activity.GameActivity;
-import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Hud.BaseHud;
 import iut.ipi.runnergame.Engine.Graphics.Hud.Hud;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
@@ -26,8 +24,8 @@ import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Boss.Boss;
 import iut.ipi.runnergame.Entity.Boss.BossDragon;
-import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
+import iut.ipi.runnergame.Entity.Player.BasePlayer;
 import iut.ipi.runnergame.Game.Level.LevelCreator;
 import iut.ipi.runnergame.Game.Level.Loader.LevelLoaderText;
 import iut.ipi.runnergame.R;
@@ -66,6 +64,7 @@ public class GameMaster extends Thread {
     private Context context;
     private int bestScore = 0;
     private int bestDistance = 0;
+    private String bestTime;
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         AbstractPoint.clearPoolPoints();
@@ -252,6 +251,10 @@ public class GameMaster extends Thread {
 
             idle = false;
         }
+        if(hud.getCross().getArrowBottom().getIsClicked()) {
+            player.getAnimationManager().start(AbstractPlayer.ANIMATION_CROUCH);
+            idle = false;
+        }
         if(idle){
             if(player.isOnGround())
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_IDLE);
@@ -274,9 +277,10 @@ public class GameMaster extends Thread {
             if(score > bestScore) {
                 bestScore = score;
                 bestDistance = distance;
+                bestTime = GameActivity.strTimer;
             }
 
-            registerDataBundle = new GameOverDataBundle(GameActivity.strTimer, bestDistance, levelCreator.getLevel().getLength(), bestScore);
+            registerDataBundle = new GameOverDataBundle(bestTime, bestDistance, levelCreator.getLevel().getLength(), bestScore);
 
             reset();
         }

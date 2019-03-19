@@ -10,7 +10,6 @@ import iut.ipi.runnergame.Engine.Graphics.Animation.AnimationManager;
 import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
-import iut.ipi.runnergame.Engine.Graphics.Spritesheet.Spritesheet;
 import iut.ipi.runnergame.Entity.AbstractEntity;
 import iut.ipi.runnergame.Entity.Collision.BaseCollisionBox;
 import iut.ipi.runnergame.Entity.Collision.Collidable;
@@ -37,6 +36,8 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
         this.context = context;
         this.speed = speed;
         this.angle = angle;
+
+        collision = new BaseCollisionBox(context);
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, resourceId, scale, 4, 200, 1, 4);
