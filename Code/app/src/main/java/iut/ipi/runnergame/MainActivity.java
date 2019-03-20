@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         User u=new User("TIB","25","123456789");
         Saver s = new DbSaver();
         s.saveByUser(u);
-        Loader l = new DbLoader();
-        l.load();
+        /*Loader l = new DbLoader();
+        l.load();*/
 
         //loadingText = findViewById(R.id.textview_loading);
         //loadingText.setText("");

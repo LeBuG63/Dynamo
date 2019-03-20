@@ -8,5 +8,5 @@ import java.util.LinkedList;
 public interface Loader {
 
     LinkedList<User> load();
-    DocumentSnapshot loadOne(DocumentReference docRef);
+    void loadOne(DocumentReference docRef);
 }
