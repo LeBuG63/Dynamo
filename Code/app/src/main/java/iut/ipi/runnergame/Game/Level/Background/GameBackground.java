@@ -41,6 +41,12 @@ public class GameBackground extends AbstractEntity implements Background {
         this.offset = offset;
     }
 
+    @Override
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
+    }
+
     private int lastStep = 0;
     @Override
     public void drawOnCanvas(Canvas canvas) {

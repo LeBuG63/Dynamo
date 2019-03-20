@@ -72,6 +72,12 @@ public class StarsBackground implements Background {
     }
 
     @Override
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
+    }
+
+    @Override
     public void update(float dt) {
         AbstractPoint.clearPoolPoints();
 

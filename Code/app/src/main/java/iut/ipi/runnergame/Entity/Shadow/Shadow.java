@@ -19,7 +19,7 @@ public class Shadow extends AbstractEntity {
         super(new PointRelative(50.0f, 50.0f));
 
         defaultRadius = WindowUtil.convertPixelsToDp(context,80) * WindowDefinitions.SCREEN_ADJUST;
-        maxRadius = WindowUtil.convertPixelsToDp(context,1000) * WindowDefinitions.SCREEN_ADJUST;
+        maxRadius = WindowUtil.convertPixelsToDp(context,2000) * WindowDefinitions.SCREEN_ADJUST;
 
         radius = maxRadius;
 

@@ -75,18 +75,18 @@ public class PhysicsManager {
                         cancelRight = true;
 
                         player.setOnGround(true);
-                        player.setPosition(new Point(playerX, (int) (plateformY - playerHeight)));
+                        player.setPosition(playerX, plateformY - playerHeight);
                     }
                     else if(c == CollisionOccuredSide.DOWN) {
                         player.stopY();
                     }
                     if(!cancelRight && c == CollisionOccuredSide.RIGHT) {
                         player.stopX();
-                        player.setPosition(new Point(playerX, playerY));
+                        player.setPosition(playerX, playerY);
                     }
                     else if(!cancelLeft && c == CollisionOccuredSide.LEFT) {
                         player.stopX();
-                        player.setPosition(new Point(playerX, playerY));
+                        player.setPosition(playerX, playerY);
                     }
                 }
             }

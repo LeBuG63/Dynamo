@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import iut.ipi.runnergame.Activity.GameActivity;
+import iut.ipi.runnergame.Activity.LoadingActivity;
 import iut.ipi.runnergame.Activity.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final Intent gameIntent = new Intent(this, GameActivity.class);
 
         //loadingText = findViewById(R.id.textview_loading);
         //loadingText.setText("");
@@ -38,10 +37,13 @@ public class MainActivity extends AppCompatActivity {
         optionsButton.setText(R.string.main_button_options_text);
         exitButton.setText(R.string.main_button_exit_text);
 
+
+        final Intent loadingIntent = new Intent(this, LoadingActivity.class);
+
         gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(gameIntent);
+                startActivity(loadingIntent);
             }
         });
 

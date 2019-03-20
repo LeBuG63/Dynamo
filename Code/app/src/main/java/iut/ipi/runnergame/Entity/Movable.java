@@ -14,4 +14,5 @@ public interface Movable {
 
     AbstractPoint getImpulse();
     void setImpulse(AbstractPoint impulse);
+    void setImpulse(float x, float y);
 }

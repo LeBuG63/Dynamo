@@ -232,7 +232,11 @@ public class GameMaster extends Thread {
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_LEFT);
             }
         }
-        if(hud.getCross().getArrowLeft().getIsClicked()) {
+        if(hud.getCross().getArrowBottom().getIsClicked()) {
+            player.getAnimationManager().start(AbstractPlayer.ANIMATION_CROUCH);
+            idle = false;
+        }
+        else if(hud.getCross().getArrowLeft().getIsClicked()) {
             player.moveLeft(player.getImpulseMovement());
 
             if(player.isOnGround())
@@ -241,7 +245,7 @@ public class GameMaster extends Thread {
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_JUMP_LEFT);
             idle = false;
         }
-        if(hud.getCross().getArrowRight().getIsClicked()) {
+        else if(hud.getCross().getArrowRight().getIsClicked()) {
             player.moveRight(player.getImpulseMovement());
 
             if(player.isOnGround())
@@ -251,10 +255,7 @@ public class GameMaster extends Thread {
 
             idle = false;
         }
-        if(hud.getCross().getArrowBottom().getIsClicked()) {
-            player.getAnimationManager().start(AbstractPlayer.ANIMATION_CROUCH);
-            idle = false;
-        }
+
         if(idle){
             if(player.isOnGround())
                 player.getAnimationManager().start(AbstractPlayer.ANIMATION_IDLE);
@@ -272,7 +273,7 @@ public class GameMaster extends Thread {
 
         if(player.isDead()) {
             int distance = (int)(player.getPosition().x - AbstractPlayer.DEFAULT_POS.x);
-            int score = ((((distance / levelCreator.getLevel().getLength()) * 100) + 1) * player.getScore()) / Float.valueOf(GameActivity.strTimer).intValue();
+            int score = ((((distance / levelCreator.getLevel().getLength()) * 100) + 1) * player.getScore()) / (Float.valueOf(GameActivity.strTimer).intValue() + 1);
 
             if(score > bestScore) {
                 bestScore = score;

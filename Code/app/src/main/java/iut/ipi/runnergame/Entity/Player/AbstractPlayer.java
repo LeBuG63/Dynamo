@@ -47,7 +47,7 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
     private int score = 0;
 
     public AbstractPlayer(Context context, AbstractPoint pos, AnimationManager animationManager) throws IOException {
-        super(pos);
+        super(new Point(pos.x, pos.y));
 
         impulseMovement = WindowUtil.convertPixelsToDp(context,130.0f) * WindowDefinitions.SCREEN_ADJUST;
         impulseJump = WindowUtil.convertPixelsToDp(context, 280.0f) * WindowDefinitions.SCREEN_ADJUST;
@@ -81,17 +81,17 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     @Override
     public void moveUp(float force) {
-        setImpulse(new Point(0.0f, force));
+        setImpulse(0.0f, force);
     }
 
     @Override
     public void moveDown(float force) {
-        setImpulse(new Point(0.0f, -force));
+        setImpulse(0.0f, -force);
     }
 
     @Override
     public void moveLeft(float force) {
-        setImpulse(new Point(-force, 0f));
+        setImpulse(-force, 0f);
     }
 
     @Override
@@ -101,7 +101,7 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     @Override
     public void stopY() {
-        this.impulse = new Point(this.impulse.x, 0);
+        setImpulse(this.impulse.x, 0);
     }
 
     @Override
@@ -120,8 +120,7 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
             timeEllapsedJump = System.currentTimeMillis();
 
-            setImpulse(new Point(0.0f, -force));
-            //setPosition(new Point(getPosition().x, getPosition().y - force));
+            setImpulse(0.0f, -force);
         }
     }
 
@@ -140,10 +139,15 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     @Override
     public void setImpulse(AbstractPoint impulse) {
+        setImpulse(impulse.x, impulse.y);
+    }
+
+    @Override
+    public void setImpulse(float x, float y) {
         Point save = this.impulse;
 
-        this.impulse.x = (impulse.x == 0f) ? save.x : impulse.x;
-        this.impulse.y = (impulse.y == 0f) ? save.y : impulse.y;
+        this.impulse.x = (x == 0f) ? save.x : x;
+        this.impulse.y = (y == 0f) ? save.y : y;
     }
 
     private void setAnimationManager(AnimationManager animationManager) {

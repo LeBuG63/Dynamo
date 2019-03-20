@@ -3,6 +3,7 @@ package iut.ipi.runnergame.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -28,8 +29,6 @@ public class GameActivity extends AppCompatActivity {
     // c est tres utile car l affichage des bitmaps prend un temps FOU, reduire la resolution permet donc de gagner enormement de temps
     // et donc d images par secondes.
     // Les telephones ayant une grosses resolutions par defaut mettent 2 a 3x plus de temps qu un telephone avec une resolution "normale"
-    private final float resolutionFactor = 2f;
-
     private static GameActivity instance = null;
     private static GameMaster gameManager;
 
@@ -53,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
         WindowDefinitions.DEFAULT_HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
         WindowDefinitions.DEFAULT_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
 
-        WindowUtil.changeResolutionFactor(resolutionFactor);
+        WindowUtil.changeResolutionFactor(WindowDefinitions.RESOLUTION_FACTOR);
 
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
@@ -69,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
             fingerPoints[i] = new Point(-1, -1);
         }
 
-        surfaceView.setOnTouchListener(new  View.OnTouchListener() {
+        surfaceView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 surfaceView.getRootView().performClick();

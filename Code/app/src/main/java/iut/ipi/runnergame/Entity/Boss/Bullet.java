@@ -87,4 +87,10 @@ public class Bullet extends AbstractEntity implements Drawable, Updatable, Colli
     public void setOffset(AbstractPoint offset) {
         this.offset = offset;
     }
+
+    @Override
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
+    }
 }

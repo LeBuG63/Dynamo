@@ -75,6 +75,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
         }
     }
 
+    private Paint paint = new Paint();
     public void drawOnCanvas(Canvas canvas) {
         for(Block block : blocks) {
             float x = block.getPosition().x - getOffset().x;
@@ -85,7 +86,7 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
                     break;
                 }
                 else {
-                    canvas.drawBitmap(block.getImage(), x, y, new Paint());
+                    canvas.drawBitmap(block.getImage(), x, y, paint);
                 }
             }
         }
@@ -104,6 +105,17 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     @Override
     public AbstractPoint getOffset() {
         return offset;
+    }
+
+    @Override
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
+
+        pointWithOffset.set(super.getPosition().x - getOffset().x, super.getPosition().y - getOffset().y);
+
+        // il faut recalculer la hitbox a chaque modification de l offset
+        collision.set(getPosition().x, getPosition().y, width, height);
     }
 
     @Override

@@ -130,6 +130,12 @@ public class BossDragon extends AbstractEntity implements Boss {
     }
 
     @Override
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
+    }
+
+    @Override
     public void setAppeared(boolean b) {
         if(false)
             bullets.clear();

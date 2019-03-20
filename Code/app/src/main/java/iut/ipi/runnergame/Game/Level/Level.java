@@ -7,6 +7,7 @@ import android.graphics.Color;
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Gameplay.Piece.Piece;
 import iut.ipi.runnergame.Entity.Gameplay.Piece.PieceManager;
@@ -27,7 +28,7 @@ public class Level {
 
     public Level(Context context, AbstractPlayer player) {
         plateformManager = new PlateformManager(context);
-        shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(context, 80), WindowUtil.convertPixelsToDp(context, 20), Color.WHITE);
+        shadowManager = new ShadowManager(context, player, WindowUtil.convertPixelsToDp(context, 80) * WindowDefinitions.SCREEN_ADJUST, WindowUtil.convertPixelsToDp(context, 20) * WindowDefinitions.SCREEN_ADJUST, Color.WHITE);
         pieceManager = new PieceManager(context);
 
         background = new GameBackground(context);

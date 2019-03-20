@@ -51,6 +51,14 @@ public abstract class AbstractEntity {
             this.rectangle = new RectF(getPosition().x, getPosition().y, getPosition().x + getImage().getWidth(), getPosition().y + getImage().getHeight());
     }
 
+    public void setPosition(float x, float y) {
+        position.x = x;
+        position.y = y;
+
+        if(getImage() != null)
+            this.rectangle = new RectF(getPosition().x, getPosition().y, getPosition().x + getImage().getWidth(), getPosition().y + getImage().getHeight());
+    }
+
     public void setImage(Bitmap image) {
         this.image = image;
         this.rectangle = new RectF(getPosition().x, getPosition().y, getPosition().x + image.getWidth(), getPosition().y + image.getHeight());

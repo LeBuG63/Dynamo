@@ -73,12 +73,18 @@ public class Piece extends AbstractEntity implements Collidable, Animable, Trans
     }
     @Override
     public void setOffset(AbstractPoint offset) {
-        this.offset = offset;
+        setOffset(offset.x, offset.y);
+    }
 
-        float x = getPosition().x;
-        float y = getPosition().y;
+    @Override
+    public void setOffset(float x, float y) {
+        offset.x = x;
+        offset.y = y;
 
-        collision.set(x - offset.x, y - offset.y, getSprite().getWidth(), getSprite().getHeight());
+        float px = getPosition().x;
+        float py = getPosition().y;
+
+        collision.set(px - offset.x, py - offset.y, getSprite().getWidth(), getSprite().getHeight());
     }
 
     @Override
