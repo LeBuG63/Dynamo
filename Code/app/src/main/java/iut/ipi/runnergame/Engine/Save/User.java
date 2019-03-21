@@ -1,6 +1,7 @@
 package iut.ipi.runnergame.Engine.Save;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private String id;
@@ -13,7 +14,16 @@ public class User implements Serializable {
         this.score = score;
         this.id=id;
     }
+    public User(String pseudo) {
+        this.pseudo = pseudo;
+        this.score = "-1";
+        this.id=genererId();
+    }
 
+    private String genererId (){
+        Date d = new Date();
+        return Long.toString(d.getTime());
+    }
 
     public String getId() { return id; }
 

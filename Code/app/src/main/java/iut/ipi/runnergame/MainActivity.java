@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import iut.ipi.runnergame.Activity.EnterPlayerNameActivity;
 import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Activity.SettingsActivity;
 import iut.ipi.runnergame.Engine.Save.DbLoader;
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Intent gameIntent = new Intent(this, GameActivity.class);
         final Intent scoreIntent = new Intent(this, SettingsActivity.class);
+        final Intent enterNameIntent = new Intent(this, EnterPlayerNameActivity.class);
 
         User u=new User("TIB","25","123456789");
         Saver s = new DbSaver();
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(gameIntent);
+                startActivity(enterNameIntent);
             }
         });
 

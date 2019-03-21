@@ -1,10 +1,14 @@
 package iut.ipi.runnergame.Engine.Save;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class DbSaver implements Saver{
@@ -16,17 +20,16 @@ public class DbSaver implements Saver{
         String scoreUser;
         DbLoader l = new DbLoader();
         l.loadOne(docRef);
-        Map<String,Object> scores = l.getScoreMap();
+        Map<String,Object> getScores = l.getScoreMap();
         /*if ( scoreMap != null && scoreMap.exists()) {
             scoreUser = scoreMap.getString("Score");
             Log.scoreMap("titi", "test :" + scoreUser);
         }*/
-        if(scores.isEmpty()){
-            Log.d("titi","Je suis vide "+ scores);
+        if(getScores.isEmpty()){
+            Log.d("titi","Je suis vide "+ getScores);
         }
-        else{
-            Log.d("titi","voici le score "+ scores);
-        }
+        else
+            Log.d("titi","voici la map " +getScores);
         /*else {
             Map<String, String> scores = new HashMap<>();
             scores.put("Nom", u.getPseudo());
@@ -37,13 +40,13 @@ public class DbSaver implements Saver{
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.scoreMap("clem", "DocumentSnapshot successfully written!");
+                            Log.d("titi", "DocumentSnapshot successfully written!");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w("clem", "Error writing document", e);
+                            Log.d("titi", "Error writing document", e);
                         }
                     });
         }*/

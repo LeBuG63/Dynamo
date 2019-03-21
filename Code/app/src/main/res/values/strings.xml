@@ -9,4 +9,7 @@
     <string name="score">Score:</string>
     <string name="mainMenu">Main menu</string>
     <string name="loadingText">Loading...</string>
+    <string name="enterUserName">Enter your Username</string>
+    <string name="go"> Let\'s go</string>
+    <string name="username"> Username</string>
 </resources>
