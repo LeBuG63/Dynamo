@@ -52,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
         WindowDefinitions.DEFAULT_HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
         WindowDefinitions.DEFAULT_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
 
-        WindowUtil.changeResolutionFactor(WindowDefinitions.RESOLUTION_FACTOR);
+        WindowUtil.changeResolutionFactor(2);
 
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);
@@ -188,5 +188,7 @@ public class GameActivity extends AppCompatActivity {
         loseIntent.putExtra("loseDataBundle", data);
 
         instance.startActivity(loseIntent);
+        instance.finish();
+        instance = null;
     }
 }
