@@ -30,10 +30,16 @@ public abstract class AbstractHint extends AbstractEntity implements Hint {
         } catch (IOException ignore) {}
     }
 
+    /**
+     * cache l aide
+     */
     public void hide() {
         show = false;
     }
 
+    /**
+     * affiche l aide
+     */
     public void show() {
         show = true;
     }

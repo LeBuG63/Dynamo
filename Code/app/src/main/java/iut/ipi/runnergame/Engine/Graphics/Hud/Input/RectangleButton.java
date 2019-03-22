@@ -61,6 +61,10 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
         this.bitmap = bitmap;
     }
 
+    /**
+     * verifie si le bouton est touche par une liste de points
+     * @param points une liste de points
+     */
     @Override
     public synchronized void updatePressed(final List<AbstractPoint> points) {
         boolean clicked = false;
@@ -85,6 +89,11 @@ public class RectangleButton extends AbstractEntity implements RectangleClickabl
         }
     }
 
+    /**
+     * verifie si un point est dans le rectangle
+     * @param point un point
+     * @return vrai si il y a collision, faux autrement
+     */
     @Override
     public boolean pointInside(AbstractPoint point) {
         return getCollision().isInCollisionWithPoint(point);

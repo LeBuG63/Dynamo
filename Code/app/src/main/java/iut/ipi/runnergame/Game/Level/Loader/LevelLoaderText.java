@@ -35,6 +35,15 @@ public class LevelLoaderText implements LevelLoader {
         this.fileId = fileId;
     }
 
+    // permet de charger un niveau via un fichier text
+    // le fichier texte se construit ansi:
+    //  PLATEFORMS
+    //  type x y longueur
+    //  .....
+    //  PIECES
+    //  type x y
+    //
+    // un niveau peut etre generer via le generateur de niveau en python disponible dans le dossier python_level_generator à la racine du projet
     @Override
     public Level load() {
         Level level = new Level(context, player);

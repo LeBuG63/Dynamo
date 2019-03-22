@@ -20,6 +20,12 @@ public class PhysicsManager {
 
     private static final float VECTOR_CONSIDERED_NULL = 0.1f;
 
+    /**
+     * gere la gravite entre un point et le monde
+     * @param point le point a gerer
+     * @param dir le vecteur de direction
+     * @param dt delta time
+     */
     public static void mulVecWithGravity(AbstractPoint point, AbstractPoint dir, float dt) {
         AbstractPoint oldPoint = new Point(dir.x, dir.y);
 
@@ -27,6 +33,12 @@ public class PhysicsManager {
         point.y += dir.y * dt + (0.5f * GRAVITY * dt * dt);
     }
 
+    /**
+     * gere la friction entre un point et le monde
+     * @param point le point a gerer
+     * @param dir le vecteur de direction
+     * @param dt delta time
+     */
     public static void mulVecWithFriction(AbstractPoint point, AbstractPoint dir, float dt) {
         dir.x *= FRICTION  * dt;
 
@@ -37,6 +49,13 @@ public class PhysicsManager {
         point.x += dir.x;
     }
 
+    /**
+     * actualise la position du joueur et gere les collisions
+     * @param context le context de l application
+     * @param player le joueuer
+     * @param plateforms la liste des plateformes
+     * @param dt delta time
+     */
     public static void updatePlayerPosition(Context context, AbstractPlayer player, List<AbstractPlateform> plateforms, float dt) {
         player.setOnGround(false);
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 
 import java.util.List;
 
+import iut.ipi.runnergame.Engine.Graphics.Animation.SpriteSheetAnimation.BaseSpriteSheetAnimation;
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
@@ -32,6 +33,10 @@ public class Level {
         pieceManager = new PieceManager(context);
 
         background = new GameBackground(context);
+    }
+
+    public void destroy() {
+        BaseSpriteSheetAnimation.destroyTimer();
     }
 
     public void addPlateform(PlateformType type, AbstractPoint point, int length) {

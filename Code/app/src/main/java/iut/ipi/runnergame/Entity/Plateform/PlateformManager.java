@@ -21,7 +21,7 @@ public class PlateformManager {
 
     public void translate(float offsetx, float offsety) {
         for (AbstractPlateform plateform : plateforms) {
-            plateform.setOffset(new Point(offsetx, offsety));
+            plateform.setOffset(offsetx, offsety);
         }
     }
 

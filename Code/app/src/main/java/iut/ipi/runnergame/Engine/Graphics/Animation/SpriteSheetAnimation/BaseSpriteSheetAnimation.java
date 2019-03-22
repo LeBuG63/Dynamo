@@ -51,6 +51,10 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         }
     }
 
+    /**
+     * lance une animation
+     * @param animationIndex l index de l animation
+     */
     public void start(int animationIndex) {
         if(animationIndex != actualRow || firstTimeLaunched) {
             firstTimeLaunched = false;
@@ -76,6 +80,9 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         }
     }
 
+    /**
+     * detruit le pool de timer pour liberer la memoire
+     */
     public static void destroyTimer() {
         for(Timer t : poolTimers) {
             t.cancel();
@@ -91,6 +98,9 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         return actualFrame;
     }
 
+    /**
+     * met la frame prochaine dans le buffer
+     */
     public void setNextFrameIndex() {
         if(actualFrame + 1 >= col) {
             actualFrame = -1;
@@ -99,6 +109,9 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         actualFrame++;
     }
 
+    /**
+     * met la frame precedente dans le buffer
+     */
     public void setPrevFrameIndex() {
         if(actualFrame - 1 < 0) {
             actualFrame = col;
@@ -107,7 +120,9 @@ public class BaseSpriteSheetAnimation implements AnimationManager {
         actualFrame--;
     }
 
-
+    /**
+     * fini l animation
+     */
     public void end() {
         timer.cancel();
         timer.purge();

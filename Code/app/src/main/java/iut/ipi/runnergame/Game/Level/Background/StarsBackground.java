@@ -12,6 +12,7 @@ import java.util.Random;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.PointRelative;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 import iut.ipi.runnergame.Entity.Player.BasePlayer;
@@ -79,16 +80,17 @@ public class StarsBackground implements Background {
 
     @Override
     public void update(float dt) {
-        AbstractPoint.clearPoolPoints();
-
         for(Star star : stars) {
             star.position.y += Star.SPEED * dt;
 
+            // des qu un point sort de l ecran, on change sa position pour le remettre en bas
+            // comme ca on ne surcharge pas la memoire en instanciant d autres etoiles
             if (star.position.y < -star.length) {
-                float x = random.nextFloat() * 100;
-                float y = 100;
+                float x = random.nextFloat() * WindowDefinitions.WIDTH;
+                float y = WindowDefinitions.HEIGHT;
 
-                star.position = new PointRelative(x, y);
+                star.position.x = x;
+                star.position.y = y;
             }
         }
     }

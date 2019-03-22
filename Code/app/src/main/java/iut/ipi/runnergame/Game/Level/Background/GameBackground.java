@@ -27,6 +27,8 @@ public class GameBackground extends AbstractEntity implements Background {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
 
+        // ici on charge 2x le meme background car ils se completent
+        // mais on peut facilement en mettre 2 ou plus pour creer un effet encore meilleurs
         backgroundBitmaps[0] = BitmapResizer.bitmapResizerNN(BitmapFactory.decodeResource(context.getResources(), R.drawable.background_1, options), (int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
         backgroundBitmaps[1] = BitmapResizer.bitmapResizerNN(BitmapFactory.decodeResource(context.getResources(), R.drawable.background_1, options), (int)WindowDefinitions.WIDTH, (int)WindowDefinitions.HEIGHT);
     }
@@ -53,8 +55,10 @@ public class GameBackground extends AbstractEntity implements Background {
         float x = getPosition().x - getOffset().x;
         float y = getPosition().y - getOffset().y;
 
-        boolean left = false;
 
+        // permet de creer un effet de scrolling infini
+        // il y a 2 backgrounds, des qu'un est completement affiché alors l autre va passer soit sur le coté gauche, soit sur le coté
+        // en fonction de la direction du joueur
         step = (int)(x / -WindowDefinitions.WIDTH);
 
         if(step != lastStep) {

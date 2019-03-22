@@ -30,6 +30,7 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(gameIntent);
+                finish();
             }
         }, 500);
     }

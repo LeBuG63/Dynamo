@@ -12,6 +12,10 @@ public abstract class WindowUtil {
         return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
+    /**
+     * permet de changer la resolution d affichage pour gagner en performance
+     * @param resolutionFactor le facteur de resolution, plus grand = resolution plus petite
+     */
     public static void changeResolutionFactor(float resolutionFactor) {
         WindowDefinitions.RESOLUTION_FACTOR = resolutionFactor;
 

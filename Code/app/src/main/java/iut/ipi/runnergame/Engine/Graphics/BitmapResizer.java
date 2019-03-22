@@ -3,6 +3,14 @@ package iut.ipi.runnergame.Engine.Graphics;
 import android.graphics.Bitmap;
 
 public class BitmapResizer {
+
+    /**
+     * resize l image avec l algorithme du plus proche voisin
+     * @param bitmap la bitmap a resize
+     * @param newWidth la nouvelle largeur
+     * @param newHeight la nouvelle hauteur
+     * @return
+     */
     public static Bitmap bitmapResizerNN(Bitmap bitmap, int newWidth, int newHeight) {
        /* int[] colors = new int[newWidth * newHeight];
 

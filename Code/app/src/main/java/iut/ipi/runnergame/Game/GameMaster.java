@@ -114,6 +114,7 @@ public class GameMaster extends Thread {
 
         player.getAnimationManager().start(0);
 
+        levelCreator.getLevel().destroy();
         levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
         boss.setAppeared(false);
 
@@ -172,7 +173,7 @@ public class GameMaster extends Thread {
     private boolean update = true;
     @Override
     public void run() {
-//        musicPlayer.play("mercury");
+        musicPlayer.play("mercury");
 
         while(isRunning) {
             synchronized (pauseKey) {

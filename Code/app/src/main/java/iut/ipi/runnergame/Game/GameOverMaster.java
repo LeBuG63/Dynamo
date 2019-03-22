@@ -13,6 +13,7 @@ import iut.ipi.runnergame.Game.Level.Background.StarsBackground;
 import iut.ipi.runnergame.R;
 
 public class GameOverMaster extends Thread {
+    private final float FPS = 60.0f;
     private boolean isRunning = true;
 
     private SurfaceHolder holder;
@@ -32,7 +33,7 @@ public class GameOverMaster extends Thread {
     @Override
     public void run() {
         while(isRunning) {
-            update(1.0f/60.0f);
+            update(1.0f/FPS);
             draw();
         }
     }

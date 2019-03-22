@@ -43,6 +43,9 @@ public class Spritesheet {
         this.defaultFrameWidth = frameWidth;
         this.defaultFrameHeight = frameHeight;
 
+        // il y a 2 methodes pour charger les images
+        // 1 avec la taille de l image, pour pouvoir les placer n importes ou sur l ecran
+        // 2 avec une grille, pour les placer de preference dans une grille imaginaire, pour le niveau par exemple
         if(useFrameProp) {
             this.frameWidth = (int) (frameWidth * scale * WindowDefinitions.SCALED_DPI);
             this.frameHeight = (int) (frameHeight * scale * WindowDefinitions.SCALED_DPI);
@@ -65,6 +68,8 @@ public class Spritesheet {
         cutSpritesheet(spritesheet);
     }
 
+    // coupe le spritesheet en sprite unique
+    // la fonction utilise des threads pour grandement diminuer le temps de coupage
     private Object key = new Object();
     private void cutSpritesheet(Bitmap spritesheet) {
         ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -101,13 +106,17 @@ public class Spritesheet {
         } finally {
             exec.shutdown();
         }
+
+        // tant que tout les threads n ont pas fini on attend
         while(!exec.isTerminated()) {}
     }
 
-    public Map<Integer, List<Bitmap>> getSprites() {
-        return bitmapMap;
-    }
-
+    /**
+     * recupere un sprite
+     * @param row la ligne du sprite
+     * @param col la colonne du sprite
+     * @return
+     */
     public Bitmap getSprite(int row, int col) {
         if(bitmapMap.get(row).isEmpty()) return null;
 

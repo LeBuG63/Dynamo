@@ -101,12 +101,12 @@ public abstract class AbstractPlayer extends AbstractEntity implements Collidabl
 
     @Override
     public void stopY() {
-        setImpulse(this.impulse.x, 0);
+        this.impulse.y = 0f;
     }
 
     @Override
     public void stopX() {
-        this.impulse = new Point(0, this.impulse.y);
+        this.impulse.x = 0f;
     }
 
     private long timeEllapsedJump = System.currentTimeMillis();

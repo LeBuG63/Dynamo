@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.Graphics.Point.Point;
 
 public abstract class AbstractEntity {
     public static float DEFAULT_SCALE = 1.0f;
@@ -45,7 +46,7 @@ public abstract class AbstractEntity {
     }
 
     public void setPosition(AbstractPoint position) {
-        this.position = position;
+        this.position = new Point(position);
 
         if(getImage() != null)
             this.rectangle = new RectF(getPosition().x, getPosition().y, getPosition().x + getImage().getWidth(), getPosition().y + getImage().getHeight());

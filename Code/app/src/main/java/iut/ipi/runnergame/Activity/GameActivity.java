@@ -52,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
         WindowDefinitions.DEFAULT_HEIGHT = getWindowManager().getDefaultDisplay().getHeight();
         WindowDefinitions.DEFAULT_WIDTH = getWindowManager().getDefaultDisplay().getWidth();
 
-        WindowUtil.changeResolutionFactor(WindowDefinitions.RESOLUTION_FACTOR);
+        WindowUtil.changeResolutionFactor(2f);
 
         textViewTimer = findViewById(R.id.textview_timer);
         surfaceView = findViewById(R.id.surface_view);

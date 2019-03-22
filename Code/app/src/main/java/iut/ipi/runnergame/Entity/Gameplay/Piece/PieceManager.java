@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
+import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Entity.Player.AbstractPlayer;
 
 public class PieceManager {
@@ -44,19 +45,17 @@ public class PieceManager {
     }
 
     public void update(AbstractPlayer player) {
-        List<Piece> tmp = new ArrayList<>(pieceList);
+        for(int i = 0; i < pieceList.size(); ++i) {
+            Piece piece = pieceList.get(i);
 
-        for(Piece piece : pieceList) {
             if(player.getCollision().isInCollision(piece.getCollision())) {
                 piece.updateBecauseCollision();
 
                 player.addToScore(piece.getValue());
 
-                tmp.remove(piece);
+                pieceList.remove(i);
             }
         }
-
-        pieceList = tmp;
     }
 
     public List<Piece> getPieces() {

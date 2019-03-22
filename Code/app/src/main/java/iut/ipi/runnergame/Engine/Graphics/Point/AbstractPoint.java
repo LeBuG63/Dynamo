@@ -16,6 +16,9 @@ public abstract class AbstractPoint {
     public float x;
     public float y;
 
+    /**
+     * permet de recalculer automatiquement la position en foncion de la taille de l ecran
+     */
     public static synchronized  void resizePointsInPool() {
         if(pointsPool.isEmpty()) return;
 
@@ -34,10 +37,17 @@ public abstract class AbstractPoint {
         this.y = y;
     }
 
+    /**
+     * supprime tous les points du pool
+     */
     public static void clearPoolPoints() {
         pointsPool.clear();
     }
 
+    /**
+     * ajoute un point au pool
+     * @param point
+     */
     protected void addToPool(AbstractPoint point) {
         pointsPool.add(point);
     }

@@ -52,8 +52,16 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
         width = length * spritesheet.getFrameWidth();
         height = spritesheet.getFrameHeight();
 
+        // ca ne sert a rien de tester la collision entre chaque bloc constituant la plateforme
+        // par des soucis de performance, on test alors directement la collision sur la longuer et la largeur de la plateforme
         setCollision(new BaseCollisionBox(context, pos.x, pos.y, width, height));
 
+        // chaque bloc composant la plateforme se doit d avoir une sprite,
+        // chaque plateforme en possede 3 types:
+        //  - debut
+        //  - milieu
+        // - fin
+        // si la taille de la plateforme est superieur a 3 alors les blocs entre le debut et la fin sera des blocs "milieu"
         for(int blockId = 0; blockId < length; blockId++) {
             float x = pos.x + (float) (blockId * spritesheet.getFrameWidth());
             float y = pos.y;
@@ -143,11 +151,12 @@ public abstract class AbstractPlateform extends AbstractEntity implements Collid
     public void setPosition(AbstractPoint position) {
         int blockId = 0;
 
+        // si la position de la plateforme doit bouger alors il faut que tous les blocs la constituant bougent aussi
         for (Block block : blocks) {
             float x = position.x + (float) (blockId * spritesheet.getFrameWidth());
             float y = position.y;
 
-            block.setPosition(new Point(x, y));
+            block.setPosition(x, y);
 
             blockId++;
         }

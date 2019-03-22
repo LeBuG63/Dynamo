@@ -52,6 +52,7 @@ public class StatisticDistanceFlag implements Drawable {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                // pour faire un jolie effet de cosinus
                 offsetY = -(float)Math.cos(System.currentTimeMillis() / 75) * arrowAmplitude;
             }
         }, 0, 5);

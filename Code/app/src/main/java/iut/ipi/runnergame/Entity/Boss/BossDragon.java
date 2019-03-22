@@ -111,6 +111,7 @@ public class BossDragon extends AbstractEntity implements Boss {
                 refPlayer.setDeath(true);
             }
 
+            // si la balle sort de l ecran alors on l enleve
             if(bullet.getPosition().x < 0
             || bullet.getPosition().y < 0
             || bullet.getPosition().y > WindowDefinitions.HEIGHT) {
