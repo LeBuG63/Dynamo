@@ -188,5 +188,7 @@ public class GameActivity extends AppCompatActivity {
         loseIntent.putExtra("loseDataBundle", data);
 
         instance.startActivity(loseIntent);
+        instance.finish();
+        instance = null;
     }
 }

@@ -19,7 +19,7 @@ public abstract class WindowUtil {
     public static void changeResolutionFactor(float resolutionFactor) {
         WindowDefinitions.RESOLUTION_FACTOR = resolutionFactor;
 
-        WindowDefinitions.WIDTH = WindowDefinitions.DEFAULT_WIDTH / resolutionFactor;
-        WindowDefinitions.HEIGHT= WindowDefinitions.DEFAULT_HEIGHT / resolutionFactor;
+        WindowDefinitions.WIDTH = WindowDefinitions.DEFAULT_WIDTH / WindowDefinitions.RESOLUTION_FACTOR ;
+        WindowDefinitions.HEIGHT= WindowDefinitions.DEFAULT_HEIGHT / WindowDefinitions.RESOLUTION_FACTOR ;
     }
 }

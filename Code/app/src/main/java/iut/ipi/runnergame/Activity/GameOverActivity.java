@@ -17,15 +17,13 @@ import iut.ipi.runnergame.Util.Util;
 
 public class GameOverActivity extends AppCompatActivity {
     // ici, on peut se permettre de remettre la resolution de base, car il n y a rien qui puisse ralentir considerablement le telephone
-    private final float resolutionFactor = 1f;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_gameover);
 
-        WindowUtil.changeResolutionFactor(resolutionFactor);
+        WindowUtil.changeResolutionFactor(1);
 
         Intent parentIntent = getIntent();
         GameOverDataBundle dataBundle = parentIntent.getParcelableExtra("loseDataBundle");

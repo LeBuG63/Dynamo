@@ -23,7 +23,6 @@ public class LoadingActivity extends AppCompatActivity {
         super.onResume();
         final Intent gameIntent = new Intent(this, GameActivity.class);
 
-
         Timer timer = new Timer();
 
         timer.schedule(new TimerTask() {
