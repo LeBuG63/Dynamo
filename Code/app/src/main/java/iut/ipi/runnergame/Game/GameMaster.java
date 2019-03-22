@@ -64,7 +64,7 @@ public class GameMaster extends Thread {
     private Context context;
     private int bestScore = 0;
     private int bestDistance = 0;
-    private String bestTime;
+    private String bestTime = "0:00";
 
     public GameMaster(Context context, SurfaceHolder surfaceHolder) {
         AbstractPoint.clearPoolPoints();
