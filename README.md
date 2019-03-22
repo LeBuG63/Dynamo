@@ -16,3 +16,4 @@ Le jeu comprend:
 * un système de sauvegarde de scores
 * Gère correctement la mort du personnage
 * fonctionne sur tous les types de téléphones
+* un editeur de niveau en python
