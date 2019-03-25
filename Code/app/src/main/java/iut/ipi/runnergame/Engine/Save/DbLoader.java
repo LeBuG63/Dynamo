@@ -53,8 +53,7 @@ public class DbLoader implements Loader {
     }
 
     public void loadOne(DocumentReference docRef){
-            /*s = getSharedPreferences("shared_prefs_user",0);
-            SharedPreferences.Editor ed = s.edit();*/
+            /**/
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -64,7 +63,10 @@ public class DbLoader implements Loader {
                     DocumentSnapshot document = task.getResult();
                     if (document != null && document.exists() && document.getData() != null) {
                         scoreMap.putAll(document.getData());
-                        Log.d("clem", "DocumentSnapshot data: " + scoreMap);
+                        Log.d("clem", "DocumentSnapshot data: " + document.getData().toString());
+                        SharedPreferences.Editor ed = s.edit();
+                        ed.putString("Current Score",document.getData().toString());
+                        ed.apply();
 
                     } else {
                         Log.d("clem", "No such document");

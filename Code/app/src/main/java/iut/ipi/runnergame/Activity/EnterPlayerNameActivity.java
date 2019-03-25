@@ -39,7 +39,7 @@ public class EnterPlayerNameActivity extends AppCompatActivity {
                 String username = editText.getText().toString();
                 User u = new User(username);
                 Loader l = new DbLoader();
-                DocumentReference docRef = db.collection("Score").document(u.getId());
+                DocumentReference docRef = db.collection("Score").document(u.getPseudo());
                 l.loadOne(docRef);
                 SharedPreferences s = getSharedPreferences("shared_prefs_user",0);
                 SharedPreferences.Editor ed = s.edit();
