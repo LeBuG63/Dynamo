@@ -41,7 +41,7 @@ public class BaseHud implements Hud {
         buttons.add(new RectangleButton(context, R.drawable.sprite_close, 3, new PointRelative(0,0), 400));
         buttons.add(new RectangleButton(context, R.drawable.sprite_music_on, 3, new PointRelative(90,0), 400));
 
-        shakeHint = new ShakeHint(context, 1, 4, 200, new PointRelative(45, 20));
+        shakeHint = new ShakeHint(context, 0.5f, 4, 200, new PointRelative(45, 20));
         shakeHint.show();
 
         refPlayer = player;
