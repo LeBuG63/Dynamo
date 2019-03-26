@@ -1,6 +1,5 @@
 package iut.ipi.runnergame.Engine.Save;
 
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -27,7 +26,6 @@ public class DbLoader implements Loader {
             .setTimestampsInSnapshotsEnabled(true)
             .build();
     private Map<String,Object> scoreMap = new HashMap<>();
-    private SharedPreferences s;
 
     Map<String, Object> getScoreMap() {
         return scoreMap;
@@ -53,7 +51,6 @@ public class DbLoader implements Loader {
     }
 
     public void loadOne(DocumentReference docRef){
-            /**/
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -64,9 +61,6 @@ public class DbLoader implements Loader {
                     if (document != null && document.exists() && document.getData() != null) {
                         scoreMap.putAll(document.getData());
                         Log.d("clem", "DocumentSnapshot data: " + document.getData().toString());
-                        SharedPreferences.Editor ed = s.edit();
-                        ed.putString("Current Score",document.getData().toString());
-                        ed.apply();
 
                     } else {
                         Log.d("clem", "No such document");

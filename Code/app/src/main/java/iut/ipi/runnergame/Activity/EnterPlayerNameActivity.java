@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import iut.ipi.runnergame.Engine.Save.DbLoader;
+import iut.ipi.runnergame.Engine.Save.DbSaver;
 import iut.ipi.runnergame.Engine.Save.Loader;
 import iut.ipi.runnergame.Engine.Save.User;
 import iut.ipi.runnergame.R;
@@ -38,16 +39,6 @@ public class EnterPlayerNameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = editText.getText().toString();
                 User u = new User(username);
-                Loader l = new DbLoader();
-                DocumentReference docRef = db.collection("Score").document(u.getPseudo());
-                l.loadOne(docRef);
-                SharedPreferences s = getSharedPreferences("shared_prefs_user",0);
-                SharedPreferences.Editor ed = s.edit();
-                Set<String> setUser = new HashSet<>();
-                setUser.add(u.getPseudo());
-                setUser.add(u.getScore());
-                ed.putStringSet(u.getId(),setUser);
-                ed.apply();
                 startActivity(gameIntent);
                 }
 
