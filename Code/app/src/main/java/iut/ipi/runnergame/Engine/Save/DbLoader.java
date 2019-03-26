@@ -50,7 +50,7 @@ public class DbLoader implements Loader {
 
     }
 
-    public void loadOne(DocumentReference docRef){
+    /*public void loadOne(DocumentReference docRef){
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -73,5 +73,5 @@ public class DbLoader implements Loader {
                 }
             }
         });
-    }
+    }*/
 }

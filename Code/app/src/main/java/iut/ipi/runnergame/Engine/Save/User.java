@@ -1,9 +1,12 @@
 package iut.ipi.runnergame.Engine.Save;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
+public class User implements Serializable, Parcelable {
     private String id;
     private String pseudo;
     private String score;
@@ -19,6 +22,24 @@ public class User implements Serializable {
         this.score = "-1";
         this.id=genererId();
     }
+
+    protected User(Parcel in) {
+        id = in.readString();
+        pseudo = in.readString();
+        score = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     private String genererId (){
         Date d = new Date();
@@ -46,4 +67,16 @@ public class User implements Serializable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(pseudo);
+        dest.writeString(score);
+
+    }
 }

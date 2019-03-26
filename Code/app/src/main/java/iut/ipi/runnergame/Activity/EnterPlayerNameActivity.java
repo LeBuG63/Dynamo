@@ -3,6 +3,7 @@ package iut.ipi.runnergame.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,7 @@ public class EnterPlayerNameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = editText.getText().toString();
                 User u = new User(username);
+                gameIntent.putExtra("user", (Parcelable) u);
                 startActivity(gameIntent);
                 }
 

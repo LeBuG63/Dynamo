@@ -1,7 +1,9 @@
 package iut.ipi.runnergame;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +18,8 @@ import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Activity.SettingsActivity;
 import iut.ipi.runnergame.Engine.Save.DbLoader;
 import iut.ipi.runnergame.Engine.Save.DbSaver;
+import iut.ipi.runnergame.Engine.Save.FileLoader;
+import iut.ipi.runnergame.Engine.Save.FileSaver;
 import iut.ipi.runnergame.Engine.Save.Loader;
 import iut.ipi.runnergame.Engine.Save.Saver;
 import iut.ipi.runnergame.Engine.Save.User;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button exitButton;
     private TextView loadingText;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         //loadingText = findViewById(R.id.textview_loading);
         //loadingText.setText("");
+
 
         gameButton = findViewById(R.id.button_game);
         optionsButton = findViewById(R.id.button_options);

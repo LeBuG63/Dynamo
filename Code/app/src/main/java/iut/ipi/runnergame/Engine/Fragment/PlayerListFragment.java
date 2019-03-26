@@ -6,19 +6,31 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.util.LinkedList;
+
 import iut.ipi.runnergame.Activity.PlayerDetailActivity;
+import iut.ipi.runnergame.Engine.Save.FileLoader;
+import iut.ipi.runnergame.Engine.Save.User;
 import iut.ipi.runnergame.R;
 
 public class PlayerListFragment extends ListFragment {
     protected boolean listDetailMode = false;
     protected int currentPlayerIndex = 0;
-    public static String[] TEST = new String[]{"test", "test1"};
+    public static LinkedList<User> scores;
+    public static String[] TEST = new String[]{"test"};
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        FileLoader l = new FileLoader();
+        scores = l.load();
+        for(int i=1;i<scores.size();i++)
+            TEST[i]=scores.get(i).getPseudo();
+
         if (savedInstanceState != null) {
             currentPlayerIndex = savedInstanceState.getInt("currentPlayerIndex", 0);
         }
@@ -26,7 +38,8 @@ public class PlayerListFragment extends ListFragment {
         View PlayerDetailFragment = getActivity().findViewById(R.id.joueurDetail);
         listDetailMode = PlayerDetailFragment != null && PlayerDetailFragment.getVisibility() == View.VISIBLE;
 
-        setListAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, TEST));
+        setListAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_activated_1, TEST) {
+        });
         if (listDetailMode) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             showPlayer(currentPlayerIndex);

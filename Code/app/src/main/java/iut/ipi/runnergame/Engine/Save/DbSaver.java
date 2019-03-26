@@ -18,7 +18,7 @@ public class DbSaver implements Saver{
         DocumentReference docRef = db.collection("Score").document(u.getId());
         String scoreUser;
         DbLoader l = new DbLoader();
-        l.loadOne(docRef);
+        //l.loadOne(docRef);
 
 
         Map<String,Object> getScores = l.getScoreMap();

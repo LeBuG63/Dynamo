@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -17,6 +18,7 @@ import java.util.TimerTask;
 
 import iut.ipi.runnergame.Engine.Graphics.Point.AbstractPoint;
 import iut.ipi.runnergame.Engine.Graphics.Point.Point;
+import iut.ipi.runnergame.Engine.Save.User;
 import iut.ipi.runnergame.Engine.WindowDefinitions;
 import iut.ipi.runnergame.Engine.WindowUtil;
 import iut.ipi.runnergame.Game.GameMaster;
@@ -46,6 +48,8 @@ public class GameActivity extends AppCompatActivity {
     private boolean instanceOnPause = false;
 
     public static long timerStarted = System.currentTimeMillis();
+
+    private static User user;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -136,6 +140,9 @@ public class GameActivity extends AppCompatActivity {
         timerStarted = System.currentTimeMillis();
 
         instance = this;
+
+        user = getIntent().getParcelableExtra("user");
+
     }
 
     @Override
@@ -185,6 +192,7 @@ public class GameActivity extends AppCompatActivity {
 
         loseIntent.putExtra("loseDataBundle", data);
 
+        loseIntent.putExtra("user", (Parcelable) user);
         instance.startActivity(loseIntent);
     }
 }
