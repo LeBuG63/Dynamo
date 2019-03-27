@@ -188,16 +188,20 @@ if (ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.INTERNET
 sharedpreference
 
 #### Je sais gérer la persistance profonde de mon application 
-ton systeme de score
+Nous avons essayé que la persistance des scores des joueurs se fassent en base de données realtime sous firebase, cependant nous n'avons pas abouti.
+Il y a tout de même un systeme de persistance des scores sous la forme de fichier binaire.
 
 En plus du systeme de score, il y'a un niveau qui est inclus de base dans le jeu, dans res/raw/level.txt qui contient toutes les informations du niveau.
 Il est chargé grace au LevelLoader qui se trouve dans Game/Level/Loader
 
-#### Je sais afficher une collection de données 
+#### Je sais afficher une collection de données
+Nous affichons en effet une collection de données dans l'onglet "score"
 
 #### Je sais coder mon propre adaptateur 
-
+Nous n'avons pas codé notre propre adaptateur nous en avons utilisé un existant (arrayAdapter
+)
 #### Je maîtrise l'usage des fragments 
+Nous avons utilisé des fragments afin d'afficher les scores sous la forme d'un master/detail où le master est la liste des pseudos des joueurs et le detail leurs scores.
 
 #### Je maîtrise l'utilisation de GIT
 Nous avons essayés de faire le plus de branches possibles, tout en évitant de push sur le master (sauf de toutes petites modifications testées et retéstées ou pour les fichiers de Documentation)
