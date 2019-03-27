@@ -6,214 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="49c2f5af-26e0-409f-8ba7-6b91e0394f44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/render.experimental.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_collections_28_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_solver_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_gridlayout_v7_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_28_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/androidTest/java/iut/ipi/runnergame/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ic_launcher-web.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Activity/GameActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Activity/GameOverActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Activity/LoadingActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Activity/SettingsActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Animation/Animable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Animation/AnimationManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Animation/SpriteSheetAnimation/BaseSpriteSheetAnimation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/BitmapResizer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/AbstractCross.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/BaseHud.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Hint/AbstractHint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Hint/Hint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Hint/ShakeHint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Hud.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Input/BaseCrossClickable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Input/RectangleButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/RectangleClickable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/StatisticDistanceFlag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Point/AbstractPoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Point/Point.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Point/PointAdjusted.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Point/PointRelative.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Spritesheet/Spritesheet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Physics/CollisionManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Physics/PhysicsManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Sensor/Accelerometer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Sfx/Sound/AbstractAudioPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Sfx/Sound/MusicAudioPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Sfx/Sound/SoundEffectAudioPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/TranslateUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/WindowDefinitions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/WindowUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/AbstractEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Boss/Boss.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Boss/BossDragon.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Boss/Bullet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Collision/BaseCollisionBox.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Collision/Collidable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Collision/Collision.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Collision/CollisionOccuredSide.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Collision/RectCollision.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Drawable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Gameplay/Piece/Piece.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Gameplay/Piece/PieceFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Gameplay/Piece/PieceManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Gameplay/Piece/PieceType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Movable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Plateform/AbstractPlateform.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Plateform/Block.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Plateform/PlateformFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Plateform/PlateformManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Plateform/PlateformType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Plateform/TypesPlateform/SimplePlateform.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Player/AbstractPlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Player/BasePlayer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Shadow/Shadow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Shadow/ShadowManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Translatable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Entity/Updatable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/GameMaster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/GameOverDataBundle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/GameOverMaster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/Background/Background.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/Background/GameBackground.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/Background/StarsBackground.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/Level.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/LevelCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/Loader/LevelLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/Level/Loader/LevelLoaderText.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Util/Constantes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Util/Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-hdpi/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-ldpi/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-mdpi/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xhdpi/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxhdpi/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable-xxxhdpi/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/background_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/background_mainmenu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/boss_dragon_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/rectangle_button.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_bullet_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_close.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_cross_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_cross_ab.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_flags_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_frozen_plateform_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_hint.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_music_on.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_piece_low_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_piece_normal_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_player_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprite_simple_plateform_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sprites/sprite_player_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/font/vt323.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_game.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_gameover.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_loading.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/settings_activity.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/raw/level.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/raw/mercury.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/raw/sfx_jump.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/iut/ipi/runnergame/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Documentation/preuves.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../Documentation/preuves.pdf" afterDir="false" />
-    </list>
+    <list default="true" id="49c2f5af-26e0-409f-8ba7-6b91e0394f44" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/../.gradle/" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <ignored path="$PROJECT_DIR$/build/generated/not_namespaced_r_class_sources/" />
@@ -300,7 +93,7 @@
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.29" value="2" />
           <entry key="project.opened" value="3" />
@@ -309,10 +102,99 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
-  </component>
-  <component name="GenerateSignedApkSettings">
-    <option name="BUILD_TARGET_KEY" value="apk" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Activity/GameOverActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="502">
+              <caret line="48" selection-start-line="48" selection-end-line="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Sensor/Accelerometer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" selection-start-line="6" selection-end-line="8" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11805">
+              <caret line="787" column="10" selection-start-line="787" selection-start-column="10" selection-end-line="787" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/GameMaster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3780">
+              <caret line="284" selection-start-line="284" selection-end-line="285" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/GameOverDataBundle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/BaseHud.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Hint/ShakeHint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Graphics/Hud/Hint/Hint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Game/GameOverMaster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -329,9 +211,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="967" />
-    <option name="width" value="937" />
-    <option name="height" value="1045" />
+    <option name="x" value="-2" />
+    <option name="y" value="-18" />
+    <option name="width" value="1924" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -467,7 +350,6 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="device.picker.selection" value="5200e3e8bc4685f1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../code/Dynamo" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
@@ -566,7 +448,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="967" y="0" width="937" height="1045" extended-state="0" />
+    <frame x="-2" y="-18" width="1924" height="1100" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32996634" />
@@ -895,7 +778,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11790">
+        <state relative-caret-position="11805">
           <caret line="787" column="10" selection-start-line="787" selection-start-column="10" selection-end-line="787" selection-end-column="10" />
         </state>
       </provider>
@@ -951,8 +834,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/iut/ipi/runnergame/Engine/Sensor/Accelerometer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        <state relative-caret-position="60">
+          <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
         </state>
       </provider>
     </entry>
