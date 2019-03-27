@@ -1,6 +1,5 @@
 # Preuves
 
-
 #### Je sais utiliser les Intent pour faire communiquer deux activités.
 
 Le fichier GameOverDataBundle implémente Parcelable pour sauvegarder des données 
