@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import iut.ipi.runnergame.Activity.GameActivity;
 import iut.ipi.runnergame.Activity.LoadingActivity;
-import iut.ipi.runnergame.Activity.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button gameButton;
@@ -26,17 +24,7 @@ public class MainActivity extends AppCompatActivity {
         //loadingText.setText("");
 
         gameButton = findViewById(R.id.button_game);
-        optionsButton = findViewById(R.id.button_options);
         exitButton = findViewById(R.id.button_exit);
-
-        gameButton.setVisibility(View.VISIBLE);
-        optionsButton.setVisibility(View.VISIBLE);
-        exitButton.setVisibility(View.VISIBLE);
-
-        gameButton.setText(R.string.main_button_game_text);
-        optionsButton.setText(R.string.main_button_options_text);
-        exitButton.setText(R.string.main_button_exit_text);
-
 
         final Intent loadingIntent = new Intent(this, LoadingActivity.class);
 
@@ -52,15 +40,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 System.exit(0);
-            }
-        });
-
-        optionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               SettingsActivity settingsActivity = new SettingsActivity();
-
-               setContentView(R.layout.settings_activity);
             }
         });
     }

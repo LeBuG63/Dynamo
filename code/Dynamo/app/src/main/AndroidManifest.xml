@@ -22,9 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity$SettingsActivity"
-            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
