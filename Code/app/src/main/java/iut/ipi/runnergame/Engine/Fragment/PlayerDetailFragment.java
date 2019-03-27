@@ -35,7 +35,7 @@ public class PlayerDetailFragment extends Fragment {
         ScrollView scroller = new ScrollView(getActivity());
         TextView text = new TextView(getActivity());
         scroller.addView(text);
-        text.setText(PlayerListFragment.TEST[getIdCurrentPlayer()]);
+        text.setText(PlayerListFragment.SCORES[getIdCurrentPlayer()]);
         return scroller;
     }
 }

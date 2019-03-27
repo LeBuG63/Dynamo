@@ -47,31 +47,5 @@ public class DbLoader implements Loader {
                     }
                 });
         return null;
-
     }
-
-    /*public void loadOne(DocumentReference docRef){
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists() && document.getData() != null) {
-                        scoreMap.putAll(document.getData());
-                        Log.d("clem", "DocumentSnapshot data: " + document.getData().toString());
-
-                    } else {
-                        Log.d("clem", "No such document");
-                        scoreMap =null;
-                    }
-                }
-                else {
-                    Log.d("clem", "get failed with ", task.getException());
-                    scoreMap =null;
-                }
-            }
-        });
-    }*/
 }

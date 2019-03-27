@@ -20,7 +20,8 @@ public class PlayerListFragment extends ListFragment {
     protected boolean listDetailMode = false;
     protected int currentPlayerIndex = 0;
     public static LinkedList<User> scores;
-    public static String[] TEST = new String[]{"test"};
+    public static String[] PSEUDOS = new String[]{"test"};
+    public static String[] SCORES = new String[] {"25"};
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -28,8 +29,10 @@ public class PlayerListFragment extends ListFragment {
 
         FileLoader l = new FileLoader();
         scores = l.load();
-        for(int i=1;i<scores.size();i++)
-            TEST[i]=scores.get(i).getPseudo();
+        for(int i=1;i<scores.size();i++) {
+            PSEUDOS[i] = scores.get(i).getPseudo();
+            SCORES[i] = scores.get(i).getScore();
+        }
 
         if (savedInstanceState != null) {
             currentPlayerIndex = savedInstanceState.getInt("currentPlayerIndex", 0);
@@ -38,7 +41,7 @@ public class PlayerListFragment extends ListFragment {
         View PlayerDetailFragment = getActivity().findViewById(R.id.joueurDetail);
         listDetailMode = PlayerDetailFragment != null && PlayerDetailFragment.getVisibility() == View.VISIBLE;
 
-        setListAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_activated_1, TEST) {
+        setListAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_activated_1, PSEUDOS) {
         });
         if (listDetailMode) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
