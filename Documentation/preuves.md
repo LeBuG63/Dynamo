@@ -183,7 +183,24 @@ if (ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.INTERNET
 ```
 
 #### Je sais gérer la persistance légère de mon application 
-sharedpreference
+Nous avons utiliser les shared preferences afin de garder en mémoire le nom du joueur. Le nom du joueur se rentrant avant le jeu, il est donc stocké dans les shared preferences et récupéré dans la gameOverActivity afin d'afficher à la fin de la partie le nom du joueur.
+Pour stocker dans les shared preferences : 
+```
+SharedPreferences.Editor editor = getSharedPreferences("shared_pref_user", 0).edit();
+editor.putString("username",u.getPseudo());
+```
+
+Pour récupérer la valeur stockée : 
+```
+SharedPreferences prefs = getSharedPreferences("shared_pref_user", 0);
+String userName = prefs.getString("username", null);
+```
+
+Et pour finir, pour l'afficher sur l'écran lors du Game Over : 
+```
+TextView showUsername = findViewById(R.id.textview_username);
+showUsername.setText(userName);
+```
 
 #### Je sais gérer la persistance profonde de mon application 
 Nous avons essayé que la persistance des scores des joueurs se fassent en base de données realtime sous firebase, cependant nous n'avons pas abouti.
