@@ -26,7 +26,7 @@ public abstract class AbstractHint extends AbstractEntity implements Hint {
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, resourceId, scale, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT, totalFrame, frameDuration, DEFAULT_N_ROW, totalFrame);
-            animationManager.start(0);
+            startAnimation();
         } catch (IOException ignore) {}
     }
 
@@ -49,5 +49,10 @@ public abstract class AbstractHint extends AbstractEntity implements Hint {
         if(show) {
             canvas.drawBitmap(animationManager.getFrame(), getPosition().x, getPosition().y, paint);
         }
+    }
+
+    @Override
+    public void startAnimation() {
+        animationManager.start(0);
     }
 }

@@ -6,4 +6,5 @@ import iut.ipi.runnergame.Entity.Drawable;
 public interface Hint extends Drawable, Animable {
     void show();
     void hide();
+    void startAnimation();
 }

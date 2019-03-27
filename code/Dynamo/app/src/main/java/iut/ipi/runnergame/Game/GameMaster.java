@@ -113,9 +113,11 @@ public class GameMaster extends Thread {
         player.stopY();
 
         player.getAnimationManager().start(0);
+        hud.getHint().startAnimation();
 
         levelCreator.getLevel().destroy();
         levelCreator = new LevelCreator(context, player, new LevelLoaderText(context, player, R.raw.level));
+
         boss.setAppeared(false);
 
         GameActivity.timerStarted = System.currentTimeMillis();

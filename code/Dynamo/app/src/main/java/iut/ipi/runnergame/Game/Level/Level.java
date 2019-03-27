@@ -36,7 +36,6 @@ public class Level {
     }
 
     public void destroy() {
-        BaseSpriteSheetAnimation.destroyTimer();
     }
 
     public void addPlateform(PlateformType type, AbstractPoint point, int length) {

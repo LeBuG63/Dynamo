@@ -50,7 +50,6 @@ public class BossDragon extends AbstractEntity implements Boss {
 
         try {
             animationManager = new BaseSpriteSheetAnimation(context, R.drawable.boss_dragon_1, 1, SIZE_SPRITE_WIDTH, SIZE_SPRITE_HEIGHT, 4, 200, 1, 4);
-            animationManager.start(0);
         } catch (IOException ignore) {
         }
 
@@ -138,8 +137,11 @@ public class BossDragon extends AbstractEntity implements Boss {
 
     @Override
     public void setAppeared(boolean b) {
-        if(false)
+        if (b == false)
             bullets.clear();
-        appeared = b;
+        else {
+            appeared = b;
+            animationManager.start(0);
+        }
     }
 }
