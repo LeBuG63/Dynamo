@@ -105,7 +105,6 @@ Dans le fichier GameActivty, il y a onPause qui permet de mettre en "pause" le j
 @Override
 public void onStop() {
 	super.onStop();
-	// si on change d activite, alors celle ci doit finir et le thread du gamemanager doit etre tue pour eviter de surcharger le cpu
 	gameManager.stopUpdate();
 	gameManager.kill();
 
@@ -206,6 +205,83 @@ text.setText(PlayerListFragment.SCORES[getIdCurrentPlayer()])
 #### Je sais coder mon propre adaptateur 
 Nous n'avons pas codé notre propre adaptateur nous en avons utilisé un existant (arrayAdapter)
 
+Mais pour un faire un, il faut tout d'abord faire un modèle, qui va répertorier les différents attributs que l'on veut afficher.
+Pour ne pas surcharger l'exemple, il n'y aura pas de getter et setter, mais bien évidemment, il en faut si on veut faire un code propre.
+Par exemple:
+
+```
+class Model {
+	public int variable1;
+  public String variable2;
+
+	public Model(int a, String b) {
+		variable1 = a;
+		variable2 = b;
+	}
+}
+```
+
+Puis viens le "view template", c'est à dire ce qu'on veut afficher et comment on va les afficher, que l'on va mettre dans le dossier layout de resources et qu'on va appeler adapter_view
+
+```
+< LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+
+< TextView
+	android:id="@+id/var1"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Variable 1" />
+
+< TextView
+	android:id="@+id/var2"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Variable 2" />
+
+</LinearLayout>
+```
+
+Puis finalement créer la classe qui va hériter de ArrayAdapter
+
+```
+public class ModelAdapter extends ArrayAdapter<User> {
+
+	public UsersAdapter(Context context, ArrayList<Model> models) {
+		super(context, 0, users);
+	}
+
+	@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			Model model = getItem(position);    
+
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_view, parent, false);
+			}
+
+			TextView var1 = (TextView) convertView.findViewById(R.id.var1);
+			TextView var2 = (TextView) convertView.findViewById(R.id.vae2);
+
+
+			var1.setText(String.valueOf(model.variable1);
+			var2.setText(model.variable2);
+
+			return convertView;
+		}
+}
+```
+Maintenant il faut attacher l'adaptateur à une listeview qu'on a définit dans une activity (celle où on veut afficher la liste appelé ici listeview_items)
+
+```
+ArrayList<Model> models = new ArrayList<Model>();
+
+UsersAdapter adapter = new ModelAdapter(this, models);
+
+ListView listView = (ListView) findViewById(R.id.listview_items);
+listView.setAdapter(adapter);
+```
+
 #### Je maîtrise l'usage des fragments 
 Nous avons utilisé des fragments afin d'afficher les scores sous la forme d'un master/detail où le master est la liste des pseudos des joueurs et le detail leurs scores.
 Ces fragments se trouvent dans le package Engine/Fragment. Ce package est composé d'une classe PlayerListFragment représentant la liste des joueurs et d'une classe
@@ -215,3 +291,7 @@ PlayerDetailFragment affichant le score du player courrant.
 Nous avons essayés de faire le plus de branches possibles, tout en évitant de push sur le master (sauf de toutes petites modifications testées et retéstées ou pour les fichiers de Documentation)
 Nous avons aussi commit à chaque fois dans la bonne branche les modifications apportés, et ceux réguliérement pour avoir un bon suivi de projet et pouvoir revenir quand on le souhaitait à une version antérieur.
 
+# Application
+
+#### Je sais utiliser l'accéléromètre
+Le fichier s'occupant de l'accéléromètre se trouve dans Engine/Sensor/Accelerometer.java
