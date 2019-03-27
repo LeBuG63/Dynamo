@@ -41,6 +41,8 @@ public class EnterPlayerNameActivity extends AppCompatActivity {
                 String username = editText.getText().toString();
                 User u = new User(username);
                 gameIntent.putExtra("user", (Parcelable) u);
+                SharedPreferences.Editor editor = getSharedPreferences("shared_pref_user", 0).edit();
+                editor.putString("username",u.getPseudo());
                 startActivity(gameIntent);
                 }
 

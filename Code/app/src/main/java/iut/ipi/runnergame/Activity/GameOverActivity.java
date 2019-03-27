@@ -1,6 +1,7 @@
 package iut.ipi.runnergame.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,13 @@ public class GameOverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gameover);
 
         user = getIntent().getParcelableExtra("user");
+
+        SharedPreferences prefs = getSharedPreferences("shared_pref_user", 0);
+        String userName = prefs.getString("username","?");
+        Log.d("clem",userName);
+
+        TextView showUsername = findViewById(R.id.textview_username);
+        showUsername.setText(userName);
 
         WindowUtil.changeResolutionFactor(resolutionFactor);
 

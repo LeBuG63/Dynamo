@@ -14,8 +14,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView7"
@@ -56,6 +58,28 @@
         app:layout_constraintEnd_toEndOf="@+id/textView7" />
 
     <TextView
+        android:id="@+id/awesome"
+        android:layout_width="166dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="750dp"
+        android:text="@string/awesome"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        app:fontFamily="@font/vt323"
+        app:layout_constraintBottom_toTopOf="@+id/button_gameover_mainmenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/surface_view_gameover"
+        app:layout_constraintVertical_bias="0.381" />
+
+    <TextView
         android:id="@+id/textview_gameover_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,6 +94,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_username"
+        android:layout_width="174dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:text="?"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        app:fontFamily="@font/vt323"
+        app:layout_constraintBottom_toTopOf="@+id/surface_view_gameover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toEndOf="@+id/awesome"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06" />
 
     <TextView
         android:id="@+id/textview_gameover_distance_player"
