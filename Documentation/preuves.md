@@ -54,7 +54,7 @@ Nous utilisons beaucoup le constraint layout, qui permet de mettre nos canvas et
 #### Je sais coder proprement mes activités, en m'assurant qu'elles ne font que relayer les évènements 
 Par exemple dans GameActivity, les evenements du touchers sont envoyer au GameMaster
 
-```
+```java
 @Override
 public boolean onTouch(View v, MotionEvent event) {
 	surfaceView.getRootView().performClick();
@@ -101,7 +101,7 @@ Comme données, il y'a notemment les événements liés aux chagement de positio
 #### Je maîtrise le cycle de vie de mon application 
 Dans le fichier GameActivty, il y a onPause qui permet de mettre en "pause" le jeu, pour ne pas mettre à les éléments à jour et mettre en pause la musique, onResume qui permet de réprendre la mise à jour des éléments du jeu et remettre la musique. Finalement quand onStop est appelée, on gére la libération de la mémorie et la désintaciations des éléments qui ne servent plus.
 
-```
+```java
 @Override
 public void onStop() {
 	super.onStop();
@@ -145,7 +145,7 @@ public void onConfigurationChanged(Configuration newConfig) {
 #### Je sais utiliser le findViewById à bon escient 
 Nous utilisons les findViewById notemment dans GameOverMaster pour mettre à jour les textview permettant d'afficher le temps du joueur, son score et sa distance parcourue 
 
-```
+```java
 TextView timer = findViewById(R.id.textview_gameover_time);
 TextView distance = findViewById(R.id.textview_gameover_distance_player);
 TextView score = findViewById(R.id.textview_gameover_score);
@@ -175,7 +175,7 @@ Pour internet, ce serait:
 ```
 
 Pour vérifier que l'application a bien le droit d'acceder à internet:
-```
+```java
 if (ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
 	// l application n'a pas accés à internet
 }
@@ -197,7 +197,7 @@ Nous affichons en effet une collection de données dans l'onglet "score", nous a
 On affiche notre collection de données dans le detail qui est "SCORES" un array de scores grâce à text.setText dans le fragment
 concerné en récupérant l'index de notre joueur sélectionné dans le master.
 
-```
+```java
 text.setText(PlayerListFragment.SCORES[getIdCurrentPlayer()])
 ```
 
@@ -209,7 +209,7 @@ Mais pour un faire un, il faut tout d'abord faire un modèle, qui va répertorie
 Pour ne pas surcharger l'exemple, il n'y aura pas de getter et setter, mais bien évidemment, il en faut si on veut faire un code propre.
 Par exemple:
 
-```
+```java
 class Model {
 	public int variable1;
   public String variable2;
@@ -245,7 +245,7 @@ android:layout_height="match_parent" >
 
 Puis finalement créer la classe qui va hériter de ArrayAdapter
 
-```
+```java
 public class ModelAdapter extends ArrayAdapter<User> {
 
 	public UsersAdapter(Context context, ArrayList<Model> models) {
@@ -271,9 +271,10 @@ public class ModelAdapter extends ArrayAdapter<User> {
 		}
 }
 ```
+
 Maintenant il faut attacher l'adaptateur à une listeview qu'on a définit dans une activity (celle où on veut afficher la liste appelé ici listeview_items)
 
-```
+```java
 ArrayList<Model> models = new ArrayList<Model>();
 
 UsersAdapter adapter = new ModelAdapter(this, models);
@@ -291,7 +292,7 @@ PlayerDetailFragment affichant le score du player courrant.
 Nous avons essayés de faire le plus de branches possibles, tout en évitant de push sur le master (sauf de toutes petites modifications testées et retéstées ou pour les fichiers de Documentation)
 Nous avons aussi commit à chaque fois dans la bonne branche les modifications apportés, et ceux réguliérement pour avoir un bon suivi de projet et pouvoir revenir quand on le souhaitait à une version antérieur.
 
-# Application
+### Application
 
 #### Je sais utiliser l'accéléromètre
 Le fichier s'occupant de l'accéléromètre se trouve dans Engine/Sensor/Accelerometer.java
