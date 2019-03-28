@@ -203,25 +203,24 @@ showUsername.setText(userName);
 ```
 
 #### Je sais gérer la persistance profonde de mon application 
-Nous avons essayé que la persistance des scores des joueurs se fassent en base de données realtime sous firebase, cependant nous n'avons pas abouti.
-Il y a tout de même un systeme de persistance des scores sous la forme de fichier binaire.
-
-En plus du systeme de score, il y'a un niveau qui est inclus de base dans le jeu, dans res/raw/level.txt qui contient toutes les informations du niveau.
+Un niveau qui est inclus de base dans le jeu, dans res/raw/level.txt qui contient toutes les informations du niveau.
 Il est chargé grace au LevelLoader qui se trouve dans Game/Level/Loader
 
 #### Je sais afficher une collection de données
-Nous affichons en effet une collection de données dans l'onglet "score", nous affichons un tableau de String à l'aide de l'array adapter et les fragments.
-On affiche notre collection de données dans le detail qui est "SCORES" un array de scores grâce à text.setText dans le fragment
-concerné en récupérant l'index de notre joueur sélectionné dans le master.
-
+Nous n'avons pas eu besoin d'afficher une collection de données, néamoins pour un faire un il faut:
 ```java
-text.setText(PlayerListFragment.SCORES[getIdCurrentPlayer()])
+ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 ```
 
+Puis pour mettre l'itemsAdapter dans une liste:
+
+```java
+ListView listView = (ListView) findViewById(R.id.listview);
+listView.setAdapter(itemsAdapter);
+```
 
 #### Je sais coder mon propre adaptateur 
-Nous n'avons pas codé notre propre adaptateur nous en avons utilisé un existant (arrayAdapter)
-
+Nous n'avons pas eu besoin de faire notre propre adapteur
 Mais pour un faire un, il faut tout d'abord faire un modèle, qui va répertorier les différents attributs que l'on veut afficher.
 Pour ne pas surcharger l'exemple, il n'y aura pas de getter et setter, mais bien évidemment, il en faut si on veut faire un code propre.
 Par exemple:
@@ -301,9 +300,27 @@ listView.setAdapter(adapter);
 ```
 
 #### Je maîtrise l'usage des fragments 
-Nous avons utilisé des fragments afin d'afficher les scores sous la forme d'un master/detail où le master est la liste des pseudos des joueurs et le detail leurs scores.
-Ces fragments se trouvent dans le package Engine/Fragment. Ce package est composé d'une classe PlayerListFragment représentant la liste des joueurs et d'une classe
-PlayerDetailFragment affichant le score du player courrant.
+Il n'y a pas eu besoin de l'utilisation de fragments dans le projet, néamoins voici comment en faire:
+Il faut d'abord créer un layout, celui que l'on veut, puis creer une classe qui va etendre de fragment
+
+```java
+public static class UnFragment extends Fragment {
+
+	@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			return inflater.inflate(R.layout.fragment_layout, container, false); // penser au petit interrupteur rouge
+		}
+}
+```
+
+Puis, dans le layout où l'on veut utiliser le fragment:
+```
+< fragment android:name="iut.ipi.runnergame.UnFragment"
+android:id="@+id/unfragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent" />
+```
 
 #### Je maîtrise l'utilisation de GIT
 Nous avons essayés de faire le plus de branches possibles, tout en évitant de push sur le master (sauf de toutes petites modifications testées et retéstées ou pour les fichiers de Documentation)
