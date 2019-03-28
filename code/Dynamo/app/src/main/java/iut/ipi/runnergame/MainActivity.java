@@ -11,17 +11,12 @@ import iut.ipi.runnergame.Activity.LoadingActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button gameButton;
-    private Button optionsButton;
     private Button exitButton;
-    private TextView loadingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //loadingText = findViewById(R.id.textview_loading);
-        //loadingText.setText("");
 
         gameButton = findViewById(R.id.button_game);
         exitButton = findViewById(R.id.button_exit);
